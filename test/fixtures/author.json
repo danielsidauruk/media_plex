@@ -1,0 +1,37 @@
+{
+  "wikipedia": "wikipedia",
+  "personal_name": "personalName",
+  "key": "key",
+  "alternate_names": ["alternateNames"],
+  "remote_ids": {
+    "wikidata": "wikidata",
+    "isni": "isni",
+    "goodreads": "goodreads",
+    "viaf": "viaf",
+    "librarything": "librarything",
+    "amazon": "amazon"
+  },
+  "type": {"key": "key"},
+  "links": {
+    "title": "title",
+    "url": "url",
+    "type": {"key": "key"}
+  },
+  "name": "name",
+  "title": "title",
+  "birth_date": "birthDate",
+  "entity_type": "entityType",
+  "photos": [1, 2, 3],
+  "source_records": ["sourceRecords"],
+  "bio": "bio",
+  "latest_revision": 1,
+  "revision": 1,
+  "created": {
+    "type": "type",
+    "value": 1
+  },
+  "last_modified": {
+    "type": "type",
+    "value": 1
+  }
+}
