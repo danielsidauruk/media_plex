@@ -40,7 +40,7 @@ class BookDetailsModel extends BookDetail {
         authorsModel: List<AuthorModel>.from(
             json["authors"].map((x) => AuthorModel.fromJson(x))),
         latestRevision: json["latest_revision"] ?? "",
-        revision: json["revision"],
+        revision: json["revision"] ?? "",
         createdModel: CreatedModel.fromJson(json["created"] ?? ""),
         lastModifiedModel: CreatedModel.fromJson(json["last_modified"] ?? ""),
       );

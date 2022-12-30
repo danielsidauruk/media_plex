@@ -4,15 +4,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_plex/books/presentation/bloc/search_bloc/search_bloc.dart';
 import 'package:media_plex/books/presentation/pages/detail_page.dart';
 
-class HomePage extends StatefulWidget {
-  static const routeName = '/homePageRoute';
-  const HomePage({Key? key}) : super(key: key);
+class BookHomePage extends StatefulWidget {
+  static const routeName = '/bookHomePageRoute';
+  const BookHomePage({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<BookHomePage> createState() => _BookHomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _BookHomePageState extends State<BookHomePage> {
   @override
   Widget build(BuildContext context) {
 

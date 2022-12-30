@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/date_symbol_data_file.dart';
 import 'package:media_plex/books/presentation/pages/detail_page.dart';
 import 'package:media_plex/core/utils.dart';
 import 'package:media_plex/dependency_injection.dart' as di;
 import 'package:media_plex/books/presentation/bloc/book_detail_bloc/book_detail_bloc.dart';
 import 'package:media_plex/books/presentation/bloc/search_bloc/search_bloc.dart';
-import 'package:media_plex/books/presentation/pages/home_page.dart';
+import 'package:media_plex/books/presentation/pages/book_home_page.dart';
+
+import 'home_page.dart';
 
 void main() async {
   await di.init();
@@ -37,14 +38,15 @@ class MyApp extends StatelessWidget {
             subtitle2: TextStyle(fontSize: 14, color: Colors.black),
             button: TextStyle(fontWeight: FontWeight.normal, fontSize: 14, color: Colors.black),
           ),
-          iconTheme: const IconThemeData(
-            color: Colors.black,
+          appBarTheme: const AppBarTheme(
+            iconTheme: IconThemeData(color: Colors.blueGrey)
           ),
           colorScheme: const ColorScheme.light(
             primary: Colors.blueGrey,
             secondary: Colors.deepOrangeAccent,
           ),
         ),
+        // home: const BookHomePage(),
         home: const HomePage(),
         // home: const DetailPage(bookKey: 'OL17930368W',),
 
@@ -53,6 +55,8 @@ class MyApp extends StatelessWidget {
           switch(settings.name) {
             case HomePage.routeName:
               return MaterialPageRoute(builder: (_) => const HomePage());
+            case BookHomePage.routeName:
+              return MaterialPageRoute(builder: (_) => const BookHomePage());
             case DetailPage.routeName:
               final key = settings.arguments as String;
               return MaterialPageRoute(
