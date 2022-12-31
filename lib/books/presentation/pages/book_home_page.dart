@@ -4,19 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_plex/books/presentation/bloc/search_bloc/search_bloc.dart';
 import 'package:media_plex/books/presentation/pages/detail_page.dart';
 
-class BookHomePage extends StatefulWidget {
+class BookHomePage extends StatelessWidget {
   static const routeName = '/bookHomePageRoute';
   const BookHomePage({Key? key}) : super(key: key);
 
   @override
-  State<BookHomePage> createState() => _BookHomePageState();
-}
-
-class _BookHomePageState extends State<BookHomePage> {
-
-  @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -179,10 +172,5 @@ class _BookHomePageState extends State<BookHomePage> {
         ],
       ),
     );
-  }
-
-  void addBookDetail() {
-    BlocProvider.of<SearchBloc>(context)
-        .add(const SearchForBook('Attack on Titan'));
   }
 }
