@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:media_plex/books/presentation/pages/book_home_page.dart';
 
 class HomePage extends StatelessWidget {
   static const routeName = '/homePageRoute';
@@ -70,7 +71,11 @@ class HomePage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                buildTile((){}, 'Book', 'assets/images/book_icon.png'),
+                buildTile(() =>
+                    Navigator.pushNamed(context, BookHomePage.routeName),
+                  'Book',
+                  'assets/images/book_icon.png',
+                ),
 
                 const SizedBox(width: 8.0),
 

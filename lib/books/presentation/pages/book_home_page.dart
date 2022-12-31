@@ -13,16 +13,54 @@ class BookHomePage extends StatefulWidget {
 }
 
 class _BookHomePageState extends State<BookHomePage> {
+
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Books'),
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
+          onPressed: () => Navigator.pop(context),
+        ),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+
+          Container(
+            alignment: Alignment.center,
+            margin: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0),
+            width: 300,
+            height: 40,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8.0),
+              color: Colors.white,
+              boxShadow: const [
+                BoxShadow(
+                  color: Colors.blueGrey,
+                  blurRadius: 5.0,
+                  spreadRadius: 1.0,
+                ),
+              ],
+            ),
+            child: TextField(
+              onChanged: (query) {
+                BlocProvider.of<SearchBloc>(context, listen: false)
+                    .add(SearchForBook(query));
+              },
+              style: const TextStyle(),
+              decoration: null,
+            ),
+          ),
+
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: BlocBuilder<SearchBloc, SearchState>(
@@ -110,7 +148,7 @@ class _BookHomePageState extends State<BookHomePage> {
                             },
                           ),
                         ),
-                      )
+                      ),
                     ],
                   );
                 } else if (state is SearchError) {
@@ -121,21 +159,23 @@ class _BookHomePageState extends State<BookHomePage> {
             ),
           ),
 
-          const SizedBox(height: 24,),
-
-          InkWell(
-            onTap: addBookDetail,
-            child: Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              decoration: BoxDecoration(
-                color: Colors.indigoAccent,
-                border: Border.all(color: Colors.black),
-                borderRadius: BorderRadius.circular(5),
-              ),
-              child: const Text('Generate more'),
-            ),
-          ),
+          //
+          //
+          // const SizedBox(height: 24,),
+          //
+          // InkWell(
+          //   onTap: addBookDetail,
+          //   child: Container(
+          //     padding:
+          //         const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          //     decoration: BoxDecoration(
+          //       color: Colors.indigoAccent,
+          //       border: Border.all(color: Colors.black),
+          //       borderRadius: BorderRadius.circular(5),
+          //     ),
+          //     child: const Text('Generate more'),
+          //   ),
+          // ),
         ],
       ),
     );
