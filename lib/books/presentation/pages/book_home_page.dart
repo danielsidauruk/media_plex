@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_plex/books/presentation/bloc/search_bloc/search_bloc.dart';
 import 'package:media_plex/books/presentation/pages/detail_page.dart';
+import 'package:media_plex/core/constant.dart';
+import 'package:media_plex/home_page.dart';
 
 class BookHomePage extends StatelessWidget {
   static const routeName = '/bookHomePageRoute';
@@ -10,10 +12,21 @@ class BookHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0.0,
+
+        title: const Text(
+          'MEDIA PLEX',
+          style: TextStyle(
+            fontFamily: 'Fugaz',
+            color: Colors.black,
+            fontSize: 18,
+          ),
+        ),
 
         leading: IconButton(
           icon: const Icon(
@@ -23,66 +36,75 @@ class BookHomePage extends StatelessWidget {
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
 
-          Container(
-            alignment: Alignment.center,
-            margin: const EdgeInsets.all(8.0),
-            padding: const EdgeInsets.all(8.0),
-            width: 300,
-            height: 40,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8.0),
-              color: Colors.white,
-              boxShadow: const [
-                BoxShadow(
-                  color: Colors.blueGrey,
-                  blurRadius: 5.0,
-                  spreadRadius: 1.0,
+              Text(
+                'BOOKS',
+                style: Theme.of(context).textTheme.headline1?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Fugaz',
                 ),
-              ],
-            ),
-            child: TextField(
-              onChanged: (query) {
-                BlocProvider.of<SearchBloc>(context, listen: false)
-                    .add(SearchForBook(query));
-              },
-              style: const TextStyle(),
-              decoration: null,
-            ),
-          ),
+              ),
 
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: BlocBuilder<SearchBloc, SearchState>(
-              builder: (context, state) {
-                if (state is SearchEmpty) {
-                  return const Text('Empty');
-                } else if (state is SearchLoading) {
-                  return const Text('Loading ...');
-                } else if (state is SearchLoaded) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'query : ${state.result.q}',
-                        style: Theme.of(context).textTheme.bodyText1,
-                      ),
+              Container(
+                alignment: Alignment.center,
+                margin: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0),
+                height: 40,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8.0),
+                  color: Colors.white,
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.blueGrey,
+                      blurRadius: 5.0,
+                      spreadRadius: 1.0,
+                    ),
+                  ],
+                ),
+                child: TextField(
+                  onChanged: (query) {
+                    query != "" ?
+                    BlocProvider.of<SearchBloc>(context, listen: false)
+                        .add(SearchForBook(query)) :
+                    BlocProvider.of<SearchBloc>(context, listen: false)
+                        .add(const SearchForBook(""));
+                  },
+                  style: const TextStyle(),
+                  decoration: null,
+                ),
+              ),
 
-                      Text(
-                        'result : ${state.result.numFound.toString()}',
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
+              BlocBuilder<SearchBloc, SearchState>(
+                builder: (context, state) {
+                  if (state is SearchEmpty) {
+                    return const Center();
+                  } else if (state is SearchLoading) {
+                    return const Text('Loading ...');
+                  } else if (state is SearchLoaded) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(
+                              'Result : ${state.result.numFound.toString()}',
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
 
-                      SizedBox(
-                        height: 500,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                        SizedBox(
+                          height : size.height * .75,
                           child: ListView.builder(
                             itemCount: state.result.docs.length,
                             itemBuilder: (context, index) {
@@ -94,20 +116,27 @@ class BookHomePage extends StatelessWidget {
                                     arguments:state.result.docs[index].key,
                                   ),
                                   child: Container(
-                                    margin: const EdgeInsets.symmetric(vertical: 8.0),
+                                    margin: const EdgeInsets.all(8.0),
                                     padding: const EdgeInsets.all(8.0),
                                     decoration: BoxDecoration(
-                                      border: Border.all(),
+                                      color: Colors.white,
                                       borderRadius: BorderRadius.circular(8.0),
+                                      boxShadow: const [
+                                        BoxShadow(
+                                          color: Colors.blueGrey,
+                                          blurRadius: 5.0,
+                                          spreadRadius: 1.0,
+                                        ),
+                                      ],
                                     ),
                                     child: Row(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         CachedNetworkImage(
                                           width: 80,
-                                          imageUrl: 'https://covers.openlibrary.org/b/isbn/${state.result.docs[index].isbn[0]}-M.jpg',
+                                          imageUrl: mediumImage(state.result.docs[index].isbn[0]),
                                           placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                                          errorWidget: (context, url, error) => const Text('Image No Available'),
+                                          errorWidget: (context, url, error) => Image.asset('assets/images/404_not_found.png'),
                                         ),
 
                                         const SizedBox(width: 8.0,),
@@ -115,22 +144,13 @@ class BookHomePage extends StatelessWidget {
                                         Expanded(
                                           child: Text(
                                             state.result.docs[index].title,
-                                            style: Theme.of(context).textTheme.subtitle1,
+                                            style: Theme.of(context).textTheme.subtitle1?.copyWith(fontWeight: FontWeight.bold),
                                             textAlign: TextAlign.start,
                                             softWrap: true,
                                           ),
                                         ),
 
                                         const SizedBox(width: 8.0,),
-
-                                        Expanded(
-                                          child: Text(
-                                            state.result.docs[index].key,
-                                            style: Theme.of(context).textTheme.subtitle1,
-                                            textAlign: TextAlign.start,
-                                            softWrap: true,
-                                          ),
-                                        ),
                                       ],
                                     ),
                                   ),
@@ -141,35 +161,17 @@ class BookHomePage extends StatelessWidget {
                             },
                           ),
                         ),
-                      ),
-                    ],
-                  );
-                } else if (state is SearchError) {
-                  return Text(state.message);
-                }
-                return const SizedBox.shrink();
-              },
-            ),
+                      ],
+                    );
+                  } else if (state is SearchError) {
+                    return Text(state.message);
+                  }
+                  return const SizedBox.shrink();
+                },
+              ),
+            ],
           ),
-
-          //
-          //
-          // const SizedBox(height: 24,),
-          //
-          // InkWell(
-          //   onTap: addBookDetail,
-          //   child: Container(
-          //     padding:
-          //         const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          //     decoration: BoxDecoration(
-          //       color: Colors.indigoAccent,
-          //       border: Border.all(color: Colors.black),
-          //       borderRadius: BorderRadius.circular(5),
-          //     ),
-          //     child: const Text('Generate more'),
-          //   ),
-          // ),
-        ],
+        ),
       ),
     );
   }

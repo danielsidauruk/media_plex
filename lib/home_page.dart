@@ -21,7 +21,10 @@ class HomePage extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: (){},
-            icon: const Icon(Icons.bookmark),
+            icon: const Icon(
+              Icons.bookmark_border,
+              color: Colors.black,
+            ),
           ),
         ],
       ),
