@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:media_plex/books/data/models/book_type_model.dart';
-import 'package:media_plex/books/data/models/create_model.dart';
-import 'package:media_plex/books/data/models/author_model.dart';
-import 'package:media_plex/books/domain/entities/author.dart';
+import 'package:media_plex/media_plex/books/data/models/book_type_model.dart';
+import 'package:media_plex/media_plex/books/data/models/create_model.dart';
+import 'package:media_plex/media_plex/books/data/models/author_model.dart';
+import 'package:media_plex/media_plex/books/domain/entities/author.dart';
 
 import '../../../dummy_object/dummy_object.dart';
 import '../../../fixtures/fixture_reader.dart';

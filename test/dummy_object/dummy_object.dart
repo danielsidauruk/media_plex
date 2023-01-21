@@ -1,7 +1,7 @@
-// import 'package:media_plex/books/domain/entities/_created.dart';
-// import 'package:media_plex/books/domain/entities/author.dart';
-// import 'package:media_plex/books/domain/entities/_book_type.dart';
-// import 'package:media_plex/books/domain/entities/search.dart';
+// import 'package:media_plex/media_plex/books/domain/entities/_created.dart';
+// import 'package:media_plex/media_plex/books/domain/entities/author.dart';
+// import 'package:media_plex/media_plex/books/domain/entities/_book_type.dart';
+// import 'package:media_plex/media_plex/books/domain/entities/search.dart';
 //
 // BookDetails tBookDetails = BookDetails(
 //   location: 'location',

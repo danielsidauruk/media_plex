@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:media_plex/books/domain/use_cases/get_book_details.dart';
+import 'package:media_plex/media_plex/books/domain/use_cases/get_book_details.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 

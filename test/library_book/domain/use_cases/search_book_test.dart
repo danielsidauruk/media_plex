@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:media_plex/books/domain/use_cases/search_book.dart';
+import 'package:media_plex/media_plex/books/domain/use_cases/search_book.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../../dummy_object/dummy_object.dart';

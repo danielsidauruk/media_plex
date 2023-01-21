@@ -7,10 +7,11 @@ import 'dart:async' as _i4;
 
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:media_plex/core/failure.dart' as _i5;
-import 'package:media_plex/books/domain/entities/author.dart' as _i8;
-import 'package:media_plex/books/domain/entities/books_details.dart' as _i6;
-import 'package:media_plex/books/domain/entities/search.dart' as _i7;
-import 'package:media_plex/books/domain/repositories/books_repository.dart'
+import 'package:media_plex/media_plex/books/domain/entities/author.dart' as _i8;
+import 'package:media_plex/media_plex/books/domain/entities/books_details.dart'
+    as _i6;
+import 'package:media_plex/media_plex/books/domain/entities/search.dart' as _i7;
+import 'package:media_plex/media_plex/books/domain/repositories/books_repository.dart'
     as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 

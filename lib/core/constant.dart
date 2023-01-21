@@ -3,6 +3,6 @@ List<String> monthNames = [
   'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember',
 ];
 
-String mediumImage(String isbn) => 'https://covers.openlibrary.org/b/isbn/;$isbn-M.jpg';
+String mediumImage(String isbn) => 'https://covers.openlibrary.org/b/isbn/$isbn-M.jpg';
 
 
