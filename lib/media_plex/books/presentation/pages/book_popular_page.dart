@@ -81,7 +81,7 @@ class _BookPopularPageState extends State<BookPopularPage> {
                     if (state is PopularEmpty) {
                       return const Center();
                     } else if (state is PopularLoading) {
-                      return searchLoadingAnimation();
+                      return popularLoadingAnimation();
                     } else if (state is PopularLoaded) {
                       final books = state.popular.works;
 
@@ -130,102 +130,88 @@ class _BookPopularPageState extends State<BookPopularPage> {
                       return ListView.builder(
                         itemCount: books.length,
                         itemBuilder: (context, index) {
-                          return Container(
-                            padding: const EdgeInsets.all(8.0),
-                            margin: const EdgeInsets.symmetric(vertical: 4.0),
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8.0),
-                              border: Border.all(color: Colors.white),
-                            ),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                CachedNetworkImage(
-                                  width: 60,
-                                  fit: BoxFit.fill,
-                                  imageUrl: mediumImageByCoverI('${books[index].coverI}'),
-                                  placeholder: (context, url) =>
-                                  Center(
-                                    child: Container(
-                                      color: Colors.grey,
-                                      width: 60,
-                                      height: 92,
-                                    ),
-                                  ),
-                                  errorWidget: (context, url, error) =>
-                                      Image.asset(
-                                        'assets/images/404_not_found.png',
-                                      ),
+                          return Column(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(8.0),
+                                margin: const EdgeInsets.symmetric(vertical: 4.0),
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  border: Border.all(color: Colors.white),
                                 ),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    CachedNetworkImage(
+                                      width: 60,
+                                      fit: BoxFit.fill,
+                                      imageUrl: mediumImageByCoverI('${books[index].coverI}'),
+                                      placeholder: (context, url) => const Center(),
+                                      errorWidget: (context, url, error) =>
+                                          Image.asset(
+                                            'assets/images/404_not_found.png',
+                                          ),
+                                    ),
 
-                                const SizedBox(width: 8.0,),
+                                    const SizedBox(width: 8.0,),
 
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        textAlign: TextAlign.start,
-                                        books[index].title,
-                                        style: Theme.of(context).textTheme.subtitle1
-                                            ?.copyWith(fontWeight: FontWeight.bold),
-                                      ),
-
-                                      Row(
+                                    Expanded(
+                                      child: Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          const SizedBox(
-                                            width: 25,
-                                            child: Text('By : '),
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                textAlign: TextAlign.start,
+                                                books[index].title,
+                                                style: Theme.of(context).textTheme.subtitle1
+                                                    ?.copyWith(fontWeight: FontWeight.bold),
+                                              ),
+
+                                              Row(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  const SizedBox(
+                                                    width: 25,
+                                                    child: Text('By : '),
+                                                  ),
+
+                                                  Expanded(
+                                                    child: Wrap(
+                                                      direction: Axis.horizontal,
+                                                      children: [
+                                                        ...books[index].authorName.map((item) =>
+                                                            Text('$item, ')).toList()
+                                                            .sublist(0, books[index].authorName.length-1),
+                                                        Text(books[index].authorName.last),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
                                           ),
 
-                                          Expanded(
-                                            child: Wrap(
-                                              direction: Axis.horizontal,
-                                              children: [
-                                                ...books[index].authorName.map((item) =>
-                                                    Text('$item, ')).toList()
-                                                    .sublist(0, books[index].authorName.length-1),
-                                                Text(books[index].authorName.last),
-                                              ],
-                                            ),
-                                          ),
+                                          Text(
+                                            textAlign: TextAlign.start,
+                                            'First published in ${books[index].firstPublishYear}',
+                                            style: Theme.of(context).textTheme.labelMedium,
 
-                                          // SizedBox(
-                                          //   width: 100,
-                                          //   child: ListView.builder(
-                                          //     shrinkWrap: true,
-                                          //     physics: const ScrollPhysics(),
-                                          //     itemCount: books[index].authorName.length,
-                                          //     itemBuilder: (context, authorIndex) {
-                                          //       return Text(
-                                          //         textAlign: TextAlign.start,
-                                          //         books[index].authorName[authorIndex],
-                                          //         style: Theme.of(context).textTheme.subtitle1,
-                                          //       );
-                                          //     },
-                                          //   ),
-                                          // ),
+                                          ),
                                         ],
                                       ),
+                                    ),
 
-                                      Text(
-                                        textAlign: TextAlign.start,
-                                        'First published in ${books[index].firstPublishYear}',
-                                        style: Theme.of(context).textTheme.labelMedium,
-
-                                      ),
-                                    ],
-                                  ),
+                                    InkWell(
+                                      onTap: (){},
+                                      child: const Icon(Icons.bookmark_border),
+                                    ),
+                                  ],
                                 ),
-
-                                InkWell(
-                                  onTap: (){},
-                                  child: const Icon(Icons.bookmark_border),
-                                ),
-                              ],
-                            ),
+                              ),
+                            ],
                           );
                         },
                       );
@@ -264,25 +250,34 @@ class _BookPopularPageState extends State<BookPopularPage> {
     );
   }
 
-  Column searchLoadingAnimation() {
-    return Column(
-      children: [
-        verticalLoadingTile(),
+  Container popularLoadingAnimation() {
+    return Container(
+      padding: const EdgeInsets.all(8.0),
+      margin: const EdgeInsets.symmetric(vertical: 4.0),
+      child: Column(
+        children: [
+          verticalLoadingTile(),
 
-        const SizedBox(height: 4.0,),
+          const SizedBox(height: 8.0),
 
-        verticalLoadingTile(),
+          verticalLoadingTile(),
 
-        const SizedBox(height: 4.0,),
+          const SizedBox(height: 8.0),
 
-        verticalLoadingTile(),
+          verticalLoadingTile(),
 
-        const SizedBox(height: 4.0,),
+          const SizedBox(height: 8.0),
 
-        verticalLoadingTile(),
-      ],
+          verticalLoadingTile(),
+
+          const SizedBox(height: 8.0),
+
+          verticalLoadingTile(),
+        ],
+      ),
     );
   }
+
 
   Container verticalLoadingTile() {
     return Container(
