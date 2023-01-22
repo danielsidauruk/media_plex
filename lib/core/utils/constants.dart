@@ -9,3 +9,5 @@ List<String> monthNames = [
 ];
 
 String mediumImage(String isbn) => 'https://covers.openlibrary.org/b/isbn/$isbn-M.jpg';
+
+String mediumImageByCoverI(String coverI) => 'https://covers.openlibrary.org/b/id/$coverI-M.jpg';

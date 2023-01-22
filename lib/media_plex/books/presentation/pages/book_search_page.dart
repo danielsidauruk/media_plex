@@ -114,11 +114,9 @@ class BookSearchPage extends StatelessWidget {
                                               state.result.docs[index].isbn[0]),
                                           placeholder: (context, url) =>
                                           const Center(
-                                              child:
-                                              CircularProgressIndicator()),
+                                              child: CircularProgressIndicator()),
                                           errorWidget: (context, url, error) =>
-                                              Image.asset(
-                                                  'assets/images/404_not_found.png'),
+                                              Image.asset('assets/images/404_not_found.png'),
                                         ),
 
                                         const SizedBox(

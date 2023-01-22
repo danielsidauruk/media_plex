@@ -30,7 +30,7 @@ class WatchlistPage extends StatelessWidget {
         body: TabBarView(
           children: [
             WatchlistMoviesPage(),
-            TVSeriesWatchlisPage(),
+            // TVSeriesWatchlisPage(),
           ],
         ),
       )),
