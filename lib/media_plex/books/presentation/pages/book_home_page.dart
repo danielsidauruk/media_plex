@@ -22,7 +22,7 @@ class _BookHomePageState extends State<BookHomePage> {
   void initState() {
     super.initState();
     return BlocProvider.of<PopularBloc>(context, listen: false)
-      .add(const GetForPopular());
+      .add(const GetForPopular('daily'));
   }
 
   @override
@@ -211,10 +211,7 @@ class _BookHomePageState extends State<BookHomePage> {
               if (state is PopularEmpty) {
                 return const Center();
               } else if (state is PopularLoading) {
-                return loadingAnimation(
-                  boxHeight: 150,
-                  imageWidth: 80,
-                );
+                return loadingAnimation();
               } else if (state is PopularLoaded) {
                 final books = state.popular.works;
                 return popularBookResult(books: books);
@@ -256,9 +253,9 @@ class _BookHomePageState extends State<BookHomePage> {
     );
   }
 
-  SizedBox loadingAnimation({required double boxHeight, required double imageWidth}) {
+  SizedBox loadingAnimation() {
     return SizedBox(
-      height: boxHeight,
+      height: 150,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         physics: const NeverScrollableScrollPhysics(),
@@ -267,7 +264,7 @@ class _BookHomePageState extends State<BookHomePage> {
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
-              width: imageWidth,
+              width: 80,
               height: 126,
               color: Colors.grey,
             ),

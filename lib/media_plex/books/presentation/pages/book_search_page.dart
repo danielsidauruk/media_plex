@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_plex/core/utils/constants.dart';
 import 'package:media_plex/media_plex/books/presentation/bloc/popular_bloc/popular_bloc.dart';
 import 'package:media_plex/media_plex/books/presentation/bloc/search_bloc/search_bloc.dart';
-import 'package:media_plex/media_plex/books/presentation/pages/detail_page.dart';
+import 'package:media_plex/media_plex/books/presentation/pages/book_detail_page.dart';
 
 class BookSearchPage extends StatelessWidget {
   const BookSearchPage({Key? key}) : super(key: key);
@@ -157,27 +157,12 @@ class BookSearchPage extends StatelessWidget {
                 },
               ),
 
-              BlocBuilder<PopularBloc, PopularState>(
-                builder: (context, state) {
-                  if (state is PopularEmpty) {
-                    return const Center();
-                  } else if (state is PopularLoading) {
-                    return const Text('Loading ...');
-                  } else if (state is PopularLoaded) {
-                    final result = state.popular.works[4].title;
-                    final totalResult = state.popular.works;
-                    return Text("Nomor 4 : $result\n Total Result ${totalResult.length}");
-                  } else if (state is PopularError) {
-                    return Text(state.message);
-                  }
-                  return const SizedBox.shrink();
-                },
-              ),
 
-              TextButton(
-                  onPressed: () => BlocProvider.of<PopularBloc>(context, listen: false)
-                      .add(const GetForPopular()),
-                  child: const Text('Show popular Books'))
+
+              // TextButton(
+              //     onPressed: () => BlocProvider.of<PopularBloc>(context, listen: false)
+              //         .add(const GetForPopular('daily')),
+              //     child: const Text('Show popular Books'))
             ],
           ),
         ),

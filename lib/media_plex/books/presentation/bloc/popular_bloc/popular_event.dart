@@ -8,7 +8,8 @@ abstract class PopularEvent extends Equatable {
 }
 
 class GetForPopular extends PopularEvent {
-  const GetForPopular();
+  const GetForPopular(this.dataSortQuery);
+  final String dataSortQuery;
 
   @override
   List<Object?> get props => [];

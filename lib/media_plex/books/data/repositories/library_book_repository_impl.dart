@@ -34,9 +34,9 @@ class LibraryBookRepositoryImpl implements LibraryBookRepository {
   }
 
   @override
-  Future<Either<Failure, Popular>> getPopularBooks() async {
+  Future<Either<Failure, Popular>> getPopularBooks(String dataSortQuery) async {
     try {
-      return Right(await remoteDataSource.getPopularBook());
+      return Right(await remoteDataSource.getPopularBook(dataSortQuery));
     } on ServerException {
       return Left(ServerFailure(''));
     }

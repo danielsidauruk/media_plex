@@ -9,5 +9,5 @@ abstract class LibraryBookRepository {
   Future<Either<Failure, BookDetail>> getBookDetail(String key);
   // Future<Either<Failure, Author>> getAuthor(String author);
   Future<Either<Failure, Search>> searchBooks(String query);
-  Future<Either<Failure, Popular>> getPopularBooks();
+  Future<Either<Failure, Popular>> getPopularBooks(String dataSortQuery);
 }
