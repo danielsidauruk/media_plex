@@ -23,8 +23,6 @@ class _BookPopularPageState extends State<BookPopularPage> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -45,7 +43,7 @@ class _BookPopularPageState extends State<BookPopularPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   'Trending on : ',
@@ -57,17 +55,23 @@ class _BookPopularPageState extends State<BookPopularPage> {
                 Container(
                   alignment: Alignment.center,
                   width: 100,
-                  padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
-                  child: Text('Daily'),
+                  padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 8.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8.0),
                     border: Border.all(color: Colors.white)
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: const [
+                      Text('Daily'),
+                      Icon(Icons.arrow_drop_down),
+                    ],
                   ),
                 )
               ],
             ),
 
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
 
             Expanded(
               child: Container(
@@ -138,7 +142,7 @@ class _BookPopularPageState extends State<BookPopularPage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 CachedNetworkImage(
-                                  width: 80,
+                                  width: 60,
                                   fit: BoxFit.fill,
                                   imageUrl: mediumImageByCoverI('${books[index].coverI}'),
                                   placeholder: (context, url) =>
@@ -146,7 +150,7 @@ class _BookPopularPageState extends State<BookPopularPage> {
                                     child: Container(
                                       color: Colors.grey,
                                       width: 60,
-                                      height: 80,
+                                      height: 92,
                                     ),
                                   ),
                                   errorWidget: (context, url, error) =>
@@ -155,7 +159,7 @@ class _BookPopularPageState extends State<BookPopularPage> {
                                       ),
                                 ),
 
-                                SizedBox(width: 8.0,),
+                                const SizedBox(width: 8.0,),
 
                                 Expanded(
                                   child: Column(
@@ -167,24 +171,59 @@ class _BookPopularPageState extends State<BookPopularPage> {
                                         style: Theme.of(context).textTheme.subtitle1
                                             ?.copyWith(fontWeight: FontWeight.bold),
                                       ),
-                                      SizedBox(
-                                        width: double.infinity,
-                                        child: ListView.builder(
-                                          shrinkWrap: true,
-                                          physics: const ScrollPhysics(),
-                                          itemCount: books[index].authorName.length,
-                                          itemBuilder: (context, authorIndex) {
-                                            return Text(
-                                              textAlign: TextAlign.start,
-                                              books[index].authorName[authorIndex],
-                                              style: Theme.of(context).textTheme.subtitle2,
-                                            );
-                                          },
-                                        ),
+
+                                      Row(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          const SizedBox(
+                                            width: 25,
+                                            child: Text('By : '),
+                                          ),
+
+                                          Expanded(
+                                            child: Wrap(
+                                              direction: Axis.horizontal,
+                                              children: [
+                                                ...books[index].authorName.map((item) =>
+                                                    Text('$item, ')).toList()
+                                                    .sublist(0, books[index].authorName.length-1),
+                                                Text(books[index].authorName.last),
+                                              ],
+                                            ),
+                                          ),
+
+                                          // SizedBox(
+                                          //   width: 100,
+                                          //   child: ListView.builder(
+                                          //     shrinkWrap: true,
+                                          //     physics: const ScrollPhysics(),
+                                          //     itemCount: books[index].authorName.length,
+                                          //     itemBuilder: (context, authorIndex) {
+                                          //       return Text(
+                                          //         textAlign: TextAlign.start,
+                                          //         books[index].authorName[authorIndex],
+                                          //         style: Theme.of(context).textTheme.subtitle1,
+                                          //       );
+                                          //     },
+                                          //   ),
+                                          // ),
+                                        ],
+                                      ),
+
+                                      Text(
+                                        textAlign: TextAlign.start,
+                                        'First published in ${books[index].firstPublishYear}',
+                                        style: Theme.of(context).textTheme.labelMedium,
+
                                       ),
                                     ],
                                   ),
-                                )
+                                ),
+
+                                InkWell(
+                                  onTap: (){},
+                                  child: const Icon(Icons.bookmark_border),
+                                ),
                               ],
                             ),
                           );
@@ -200,25 +239,25 @@ class _BookPopularPageState extends State<BookPopularPage> {
               ),
             ),
 
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-
-                Text('Now'),
-                Container(
-                  padding: EdgeInsets.all(4.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5.0),
-                    border: Border.all(color: Colors.white)
-                  ),
-                  child: Text('Today', style: TextStyle(fontWeight: FontWeight.bold),),
-                ),
-                Text('This Week'),
-                Text('This Month'),
-                Text('This Year'),
-                Text('All Time'),
-              ],
-            ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //   children: [
+            //
+            //     Text('Now'),
+            //     Container(
+            //       padding: EdgeInsets.all(4.0),
+            //       decoration: BoxDecoration(
+            //         borderRadius: BorderRadius.circular(5.0),
+            //         border: Border.all(color: Colors.white)
+            //       ),
+            //       child: Text('Today', style: TextStyle(fontWeight: FontWeight.bold),),
+            //     ),
+            //     Text('This Week'),
+            //     Text('This Month'),
+            //     Text('This Year'),
+            //     Text('All Time'),
+            //   ],
+            // ),
           ],
         ),
       )

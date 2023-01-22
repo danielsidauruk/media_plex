@@ -241,7 +241,11 @@ class _BookHomePageState extends State<BookHomePage> {
               fit: BoxFit.fill,
               imageUrl: mediumImageByCoverI('${books[index].coverI}'),
               placeholder: (context, url) =>
-              const Center(child: CircularProgressIndicator()),
+                  Container(
+                    width: 80,
+                    height: 126,
+                    color: Colors.grey,
+                  ),
               errorWidget: (context, url, error) =>
                   Image.asset(
                     'assets/images/404_not_found.png',
