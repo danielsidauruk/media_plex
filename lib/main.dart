@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_plex/media_plex/books/presentation/bloc/popular_bloc/popular_bloc.dart';
+import 'package:media_plex/media_plex/books/presentation/pages/book_popular_page.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_search_page.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/detail_page.dart';
 import 'package:media_plex/dependency_injection.dart' as di;
@@ -111,6 +112,8 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(builder: (_) => const BookHomePage());
             case BookSearchPage.routeName:
               return MaterialPageRoute(builder: (_) => const BookSearchPage());
+            case BookPopularPage.routeName:
+              return MaterialPageRoute(builder: (_) => const BookPopularPage());
             case DetailPage.routeName:
               final key = settings.arguments as String;
               return MaterialPageRoute(

@@ -5,11 +5,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_plex/core/utils/constants.dart';
 import 'package:media_plex/media_plex/books/domain/entities/book_popular.dart';
 import 'package:media_plex/media_plex/books/presentation/bloc/popular_bloc/popular_bloc.dart';
+import 'package:media_plex/media_plex/books/presentation/pages/book_popular_page.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_search_page.dart';
 
 class BookHomePage extends StatefulWidget {
   static const routeName = '/bookHomePageRoute';
-  const BookHomePage({Key? key}) : super(key: key);
+  const BookHomePage({super.key});
 
   @override
   State<BookHomePage> createState() => _BookHomePageState();
@@ -49,6 +50,7 @@ class _BookHomePageState extends State<BookHomePage> {
           children: [
             searchTile(size, context),
             popularTile(size, context),
+
             Container(
               margin: const EdgeInsets.all(4.0),
               padding: const EdgeInsets.all(8.0),
@@ -68,7 +70,7 @@ class _BookHomePageState extends State<BookHomePage> {
                         ?.copyWith(fontWeight: FontWeight.bold),
                   ),
 
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 14),
                   
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -79,7 +81,7 @@ class _BookHomePageState extends State<BookHomePage> {
                     ],
                   ),
 
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 14),
 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -90,7 +92,7 @@ class _BookHomePageState extends State<BookHomePage> {
                     ],
                   ),
 
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 14),
 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -101,7 +103,7 @@ class _BookHomePageState extends State<BookHomePage> {
                     ],
                   ),
 
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 14),
 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -198,7 +200,7 @@ class _BookHomePageState extends State<BookHomePage> {
               ),
 
               InkWell(
-                onTap: () => Navigator.pushNamed(context, BookSearchPage.routeName),
+                onTap: () => Navigator.pushNamed(context, BookPopularPage.routeName),
                 child: const Icon(Icons.arrow_forward),
               ),
             ],
