@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
+import 'package:media_plex/core/utils/constants.dart';
 import 'package:media_plex/media_plex/books/presentation/bloc/book_detail_bloc/book_detail_bloc.dart';
-import 'package:media_plex/core/constant.dart';
 
 class DetailPage extends StatefulWidget {
   final String bookKey;

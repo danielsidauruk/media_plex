@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_plex/media_plex/books/presentation/bloc/popular_bloc/popular_bloc.dart';
+import 'package:media_plex/media_plex/books/presentation/pages/book_search_page.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/detail_page.dart';
 import 'package:media_plex/dependency_injection.dart' as di;
 import 'package:media_plex/media_plex/books/presentation/bloc/book_detail_bloc/book_detail_bloc.dart';
@@ -54,29 +55,33 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Media Flex',
         theme: ThemeData(
+
           fontFamily: 'Roboto',
-          scaffoldBackgroundColor: Colors.white,
+          scaffoldBackgroundColor: Colors.black,
           textTheme: const TextTheme(
-            headline1: TextStyle(fontSize: 56, color: Colors.black),
-            headline2: TextStyle(fontSize: 45, color: Colors.grey),
-            bodyText1: TextStyle(fontSize: 28, color: Colors.black),
-            subtitle1: TextStyle(fontSize: 16, color: Colors.black),
-            subtitle2: TextStyle(fontSize: 14, color: Colors.black),
+            headline1: TextStyle(fontSize: 56),
+            headline2: TextStyle(fontSize: 45),
+            bodyText1: TextStyle(fontSize: 28),
+            subtitle1: TextStyle(fontSize: 16),
+            subtitle2: TextStyle(fontSize: 14),
             button: TextStyle(
-                fontWeight: FontWeight.normal,
-                fontSize: 14,
-                color: Colors.black),
+              fontWeight: FontWeight.normal,
+              fontSize: 14,
+            ),
           ),
-          appBarTheme: const AppBarTheme(
-              iconTheme: IconThemeData(color: Colors.blueGrey)),
-          colorScheme: const ColorScheme.light(
-            primary: Colors.blueGrey,
-            secondary: Colors.deepOrangeAccent,
+
+          brightness: Brightness.dark,
+          primaryColor: Colors.black,
+          accentColor: Colors.white,
+          backgroundColor: Colors.black,
+          iconTheme: const IconThemeData(color: Colors.white),
+          inputDecorationTheme: const InputDecorationTheme(
+            border: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.white),
+            ),
           ),
         ),
-        // home: const BookHomePage(),
         home: const HomePage(),
-        // home: const WatchlistMoviesPage(),
 
         navigatorObservers: [routeObserver],
         onGenerateRoute: (RouteSettings settings) {
@@ -104,6 +109,8 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(builder: (_) => const HomePage());
             case BookHomePage.routeName:
               return MaterialPageRoute(builder: (_) => const BookHomePage());
+            case BookSearchPage.routeName:
+              return MaterialPageRoute(builder: (_) => const BookSearchPage());
             case DetailPage.routeName:
               final key = settings.arguments as String;
               return MaterialPageRoute(

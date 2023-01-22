@@ -1,0 +1,11 @@
+{
+  "brightness": "dark",
+  "primaryColor": "#000000",
+  "accentColor": "#ffffff",
+  "backgroundColor": "#000000",
+  "textTheme": {
+    "body1": {
+      "color": "#ffffff"
+    }
+  }
+}
