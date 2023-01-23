@@ -76,6 +76,7 @@ class BookSearchPage extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
+                            Text(state.result.q),
                             Text(
                               'Result : ${state.result.numFound.toString()}',
                               style: const TextStyle(
