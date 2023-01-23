@@ -17,12 +17,11 @@ class BookHomePage extends StatefulWidget {
 }
 
 class _BookHomePageState extends State<BookHomePage> {
-
   @override
   void initState() {
     super.initState();
     return BlocProvider.of<PopularBloc>(context, listen: false)
-      .add(const GetForPopular('daily'));
+        .add(const GetForPopular('daily'));
   }
 
   @override
@@ -36,12 +35,10 @@ class _BookHomePageState extends State<BookHomePage> {
         elevation: 0.0,
         title: Text(
           'Books',
-          style: Theme.of(context)
-              .textTheme.bodyText1
-              ?.copyWith(
-            fontWeight: FontWeight.bold,
-            fontSize: 22,
-          ),
+          style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                fontWeight: FontWeight.bold,
+                fontSize: 22,
+              ),
         ),
       ),
       body: Padding(
@@ -50,12 +47,10 @@ class _BookHomePageState extends State<BookHomePage> {
           children: [
             searchTile(size, context),
             popularTile(size, context),
-
             Container(
               margin: const EdgeInsets.all(4.0),
               padding: const EdgeInsets.all(8.0),
               width: size.width,
-
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8.0),
                 border: Border.all(color: Colors.white),
@@ -66,12 +61,11 @@ class _BookHomePageState extends State<BookHomePage> {
                   Text(
                     'Browse by Subject',
                     style: Theme.of(context)
-                        .textTheme.subtitle1
+                        .textTheme
+                        .subtitle1
                         ?.copyWith(fontWeight: FontWeight.bold),
                   ),
-
                   const SizedBox(height: 14),
-                  
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -80,20 +74,17 @@ class _BookHomePageState extends State<BookHomePage> {
                       subjectIcon(context, 'Fiction', 'fiction_icon.png'),
                     ],
                   ),
-
                   const SizedBox(height: 14),
-
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      subjectIcon(context, "Social", 'social_n_science_icon.png'),
+                      subjectIcon(
+                          context, "Social", 'social_n_science_icon.png'),
                       subjectIcon(context, "Children's", 'children_icon.png'),
                       subjectIcon(context, 'History', 'history_icon.png'),
                     ],
                   ),
-
                   const SizedBox(height: 14),
-
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -102,15 +93,16 @@ class _BookHomePageState extends State<BookHomePage> {
                       subjectIcon(context, 'Textbooks', 'text_book_icon.png')
                     ],
                   ),
-
                   const SizedBox(height: 14),
-
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      subjectIcon(context, 'Business & Finance', 'business_n_finance_icon.png'),
-                      subjectIcon(context, 'Health & Wellness', 'health_n_wellness_icon.png'),
-                      subjectIcon(context, 'Science &\nMathematics', 'math_icon.png'),
+                      subjectIcon(context, 'Business & Finance',
+                          'business_n_finance_icon.png'),
+                      subjectIcon(context, 'Health & Wellness',
+                          'health_n_wellness_icon.png'),
+                      subjectIcon(
+                          context, 'Science &\nMathematics', 'math_icon.png'),
                     ],
                   ),
                 ],
@@ -124,7 +116,7 @@ class _BookHomePageState extends State<BookHomePage> {
 
   InkWell subjectIcon(context, String subjectName, String iconAssets) {
     return InkWell(
-      onTap: (){},
+      onTap: () {},
       child: SizedBox(
         width: 85,
         child: Column(
@@ -133,11 +125,14 @@ class _BookHomePageState extends State<BookHomePage> {
               subjectName,
               textAlign: TextAlign.center,
               style: Theme.of(context)
-                  .textTheme.subtitle2
+                  .textTheme
+                  .subtitle2
                   ?.copyWith(fontWeight: FontWeight.bold),
             ),
-
-            Image.asset('assets/icons/$iconAssets', width: 46,),
+            Image.asset(
+              'assets/icons/$iconAssets',
+              width: 46,
+            ),
           ],
         ),
       ),
@@ -149,7 +144,6 @@ class _BookHomePageState extends State<BookHomePage> {
       margin: const EdgeInsets.all(4.0),
       padding: const EdgeInsets.all(8.0),
       width: size.width,
-
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8.0),
         border: Border.all(color: Colors.white),
@@ -162,13 +156,17 @@ class _BookHomePageState extends State<BookHomePage> {
               Text(
                 'Search your Book',
                 style: Theme.of(context)
-                    .textTheme.subtitle1
+                    .textTheme
+                    .subtitle1
                     ?.copyWith(fontWeight: FontWeight.bold),
               ),
-
               InkWell(
-                onTap: () => Navigator.pushNamed(context, BookSearchPage.routeName),
-                child: const Icon(Icons.search, color: Colors.white,),
+                onTap: () =>
+                    Navigator.pushNamed(context, BookSearchPage.routeName),
+                child: const Icon(
+                  Icons.search,
+                  color: Colors.white,
+                ),
               ),
             ],
           ),
@@ -182,7 +180,6 @@ class _BookHomePageState extends State<BookHomePage> {
       margin: const EdgeInsets.all(4.0),
       padding: const EdgeInsets.all(8.0),
       width: size.width,
-
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8.0),
         border: Border.all(color: Colors.white),
@@ -195,17 +192,17 @@ class _BookHomePageState extends State<BookHomePage> {
               Text(
                 'Popular Books - Daily',
                 style: Theme.of(context)
-                    .textTheme.subtitle1
+                    .textTheme
+                    .subtitle1
                     ?.copyWith(fontWeight: FontWeight.bold),
               ),
-
               InkWell(
-                onTap: () => Navigator.pushNamed(context, BookPopularPage.routeName),
+                onTap: () =>
+                    Navigator.pushNamed(context, BookPopularPage.routeName),
                 child: const Icon(Icons.arrow_forward),
               ),
             ],
           ),
-
           BlocBuilder<PopularBloc, PopularState>(
             builder: (context, state) {
               if (state is PopularEmpty) {
@@ -240,16 +237,14 @@ class _BookHomePageState extends State<BookHomePage> {
               width: 80,
               fit: BoxFit.fill,
               imageUrl: mediumImageByCoverI('${books[index].coverI}'),
-              placeholder: (context, url) =>
-                  Container(
-                    width: 80,
-                    height: 126,
-                    color: Colors.grey,
-                  ),
-              errorWidget: (context, url, error) =>
-                  Image.asset(
-                    'assets/images/404_not_found.png',
-                  ),
+              placeholder: (context, url) => Container(
+                width: 80,
+                height: 126,
+                color: Colors.grey,
+              ),
+              errorWidget: (context, url, error) => Image.asset(
+                'assets/images/not_applicable_icon.png',
+              ),
             ),
           );
         },
