@@ -8,6 +8,10 @@ List<String> monthNames = [
   'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember',
 ];
 
+const List<String> queryList = ['now', 'daily', 'weekly', 'yearly'];
+
 String mediumImage(String isbn) => 'https://covers.openlibrary.org/b/isbn/$isbn-M.jpg';
 
 String mediumImageByCoverI(String coverI) => 'https://covers.openlibrary.org/b/id/$coverI-M.jpg';
+
+String largeImage(String isbn) => 'https://covers.openlibrary.org/b/id/7972614-L.jpg';

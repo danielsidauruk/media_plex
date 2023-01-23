@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_plex/core/utils/constants.dart';
 import 'package:media_plex/media_plex/books/domain/entities/book_popular.dart';
 import 'package:media_plex/media_plex/books/presentation/bloc/popular_bloc/popular_bloc.dart';
+import 'package:media_plex/media_plex/books/presentation/pages/book_detail_page.dart';
 import 'package:media_plex/media_plex/books/presentation/widgets/loading_animation.dart';
 
 class BookPopularPage extends StatefulWidget {
@@ -15,14 +16,6 @@ class BookPopularPage extends StatefulWidget {
 }
 
 class _BookPopularPageState extends State<BookPopularPage> {
-  static const List<String> queryList = [
-    'now',
-    'daily',
-    'weekly',
-    'monthly',
-    'yearly'
-  ];
-
   String dropdownValue = queryList[1];
 
   @override
@@ -61,71 +54,91 @@ class _BookPopularPageState extends State<BookPopularPage> {
                         .subtitle1
                         ?.copyWith(fontWeight: FontWeight.bold),
                   ),
-                  Container(
-                    alignment: Alignment.center,
-                    width: 100,
-                    height: 30,
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 2.0, horizontal: 8.0),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8.0),
-                        border: Border.all(color: Colors.white)),
-                    child: DropdownButton(
-                      value: dropdownValue,
-                      icon: const Icon(
-                        Icons.arrow_drop_down,
-                        color: Colors.white,
-                      ),
-                      underline: const Center(),
-                      onChanged: (String? value) {
-                        setState(() {
-                          dropdownValue = value!;
-                          BlocProvider.of<PopularBloc>(context, listen: false)
-                              .add(GetForPopular(dropdownValue));
-                        });
-                      },
-                      items: queryList
-                          .map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                    ),
-                  ),
+
+                  dropDownButton(context),
                 ],
               ),
+
               const SizedBox(height: 8),
-              Expanded(
-                child: Container(
-                  margin: const EdgeInsets.all(4.0),
-                  child: BlocBuilder<PopularBloc, PopularState>(
-                    builder: (context, state) {
-                      if (state is PopularEmpty) {
-                        return const Center();
-                      } else if (state is PopularLoading) {
-                        return const LoadingAnimation(tileHeight: 100, totalTile: 5);
-                      } else if (state is PopularLoaded) {
-                        final books = state.popular.works;
-                        return bookListView(books);
-                      } else if (state is PopularError) {
-                        return Text(state.message);
-                      }
-                      return const SizedBox.shrink();
-                    },
-                  ),
-                ),
-              ),
+
+              buildPopularBloc(),
             ],
           ),
         ));
   }
 
-  ListView bookListView(List<Work> books) {
-    return ListView.builder(
-      itemCount: books.length,
-      itemBuilder: (context, index) {
-        return Container(
+  Expanded buildPopularBloc() {
+    return Expanded(
+      child: Container(
+        margin: const EdgeInsets.all(4.0),
+        child: BlocBuilder<PopularBloc, PopularState>(
+          builder: (context, state) {
+            if (state is PopularEmpty) {
+              return const Center();
+            } else if (state is PopularLoading) {
+              return const LoadingAnimation(tileHeight: 100, totalTile: 5);
+            } else if (state is PopularLoaded) {
+              final books = state.popular.works;
+              return ListView.builder(
+                itemCount: books.length,
+                itemBuilder: (context, index) {
+                  return bookTile(books, index, context);
+                },
+              );
+            } else if (state is PopularError) {
+              return Text(state.message);
+            }
+            return const SizedBox.shrink();
+          },
+        ),
+      ),
+    );
+  }
+
+  Container dropDownButton(BuildContext context) {
+    return Container(
+      alignment: Alignment.center,
+      width: 100,
+      height: 30,
+      padding: const EdgeInsets.symmetric(
+          vertical: 2.0, horizontal: 8.0),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8.0),
+          border: Border.all(color: Colors.white)),
+      child: DropdownButton(
+        value: dropdownValue,
+        icon: const Icon(
+          Icons.arrow_drop_down,
+          color: Colors.white,
+        ),
+        underline: const Center(),
+        onChanged: (String? value) {
+          setState(() {
+            dropdownValue = value!;
+            BlocProvider.of<PopularBloc>(context, listen: false)
+                .add(GetForPopular(dropdownValue));
+          });
+        },
+        items: queryList
+            .map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(value),
+          );
+        }).toList(),
+      ),
+    );
+  }
+
+
+  InkWell bookTile(List<Work> books, int index, BuildContext context) {
+    return InkWell(
+      onTap: () => Navigator.pushNamed(
+        context,
+        DetailPage.routeName,
+        arguments: books[index].key,
+      ),
+      child: Container(
           padding: const EdgeInsets.all(8.0),
           margin: const EdgeInsets.symmetric(vertical: 4.0),
           width: double.infinity,
@@ -169,41 +182,10 @@ class _BookPopularPageState extends State<BookPopularPage> {
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('By '),
+                            const Text('By '),
+
                             books[index].authorName.isNotEmpty
-                                ? Expanded(
-                                    child: Wrap(
-                                      direction: Axis.horizontal,
-                                      children: [
-                                        ...books[index]
-                                            .authorName
-                                            .map(
-                                              (item) => Text(
-                                                '$item, ',
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .subtitle2
-                                                    ?.copyWith(
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                              ),
-                                            )
-                                            .toList()
-                                            .sublist(
-                                                0,
-                                                books[index].authorName.length -
-                                                    1),
-                                        Text(
-                                          books[index].authorName.last,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .subtitle2
-                                              ?.copyWith(
-                                                  fontWeight: FontWeight.bold),
-                                        ),
-                                      ],
-                                    ),
-                                  )
+                                ? wrapText(books[index].authorName, context)
                                 : const Center(),
                           ],
                         ),
@@ -215,39 +197,7 @@ class _BookPopularPageState extends State<BookPopularPage> {
                           children: [
                             const Text('Lng : '),
                             books[index].language.isNotEmpty
-                                ? Expanded(
-                              child: Wrap(
-                                direction: Axis.horizontal,
-                                children: [
-                                  ...books[index]
-                                      .language
-                                      .map(
-                                        (item) => Text(
-                                      '$item, ',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .subtitle2
-                                          ?.copyWith(
-                                          fontWeight:
-                                          FontWeight.bold),
-                                    ),
-                                  )
-                                      .toList()
-                                      .sublist(
-                                      0,
-                                      books[index].language.length -
-                                          1),
-                                  Text(
-                                    books[index].language.last,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .subtitle2
-                                        ?.copyWith(
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                            )
+                                ? wrapText(books[index].language, context)
                                 : const Center(),
                           ],
                         )
@@ -258,15 +208,36 @@ class _BookPopularPageState extends State<BookPopularPage> {
               ),
               InkWell(
                 onTap: () {
-                  print(books[index].title);
-                  print(books[index].key);
                 },
                 child: const Icon(Icons.bookmark_border),
               ),
             ],
           ),
-        );
-      },
+        ),
+    );
+  }
+
+  Expanded wrapText(List<String> bookDetail, context) {
+    return Expanded(
+      child: Wrap(
+        direction: Axis.horizontal,
+        children: [
+          ...bookDetail.map((item) => Text(
+            '$item, ',
+            style: Theme.of(context).textTheme.subtitle2?.
+            copyWith(fontWeight: FontWeight.bold)
+          )).toList().sublist(0, bookDetail.length - 1),
+
+          Text(
+            bookDetail.last,
+            style: Theme.of(context)
+                .textTheme
+                .subtitle2
+                ?.copyWith(
+                fontWeight: FontWeight.bold),
+          ),
+        ],
+      ),
     );
   }
 }

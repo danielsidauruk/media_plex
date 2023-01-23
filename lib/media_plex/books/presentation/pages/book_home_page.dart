@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_plex/core/utils/constants.dart';
 import 'package:media_plex/media_plex/books/domain/entities/book_popular.dart';
 import 'package:media_plex/media_plex/books/presentation/bloc/popular_bloc/popular_bloc.dart';
+import 'package:media_plex/media_plex/books/presentation/pages/book_detail_page.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_popular_page.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_search_page.dart';
 
@@ -46,70 +46,76 @@ class _BookHomePageState extends State<BookHomePage> {
         child: Column(
           children: [
             searchTile(size, context),
+
             popularTile(size, context),
-            Container(
-              margin: const EdgeInsets.all(4.0),
-              padding: const EdgeInsets.all(8.0),
-              width: size.width,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8.0),
-                border: Border.all(color: Colors.white),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Browse by Subject',
-                    style: Theme.of(context)
-                        .textTheme
-                        .subtitle1
-                        ?.copyWith(fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 14),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      subjectIcon(context, 'Arts', 'art_icon.png'),
-                      subjectIcon(context, 'Animals', 'animals_icon.png'),
-                      subjectIcon(context, 'Fiction', 'fiction_icon.png'),
-                    ],
-                  ),
-                  const SizedBox(height: 14),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      subjectIcon(
-                          context, "Social", 'social_n_science_icon.png'),
-                      subjectIcon(context, "Children's", 'children_icon.png'),
-                      subjectIcon(context, 'History', 'history_icon.png'),
-                    ],
-                  ),
-                  const SizedBox(height: 14),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      subjectIcon(context, 'Biography', 'biography_icon.png'),
-                      subjectIcon(context, 'Places', 'Places_icon.png'),
-                      subjectIcon(context, 'Textbooks', 'text_book_icon.png')
-                    ],
-                  ),
-                  const SizedBox(height: 14),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      subjectIcon(context, 'Business & Finance',
-                          'business_n_finance_icon.png'),
-                      subjectIcon(context, 'Health & Wellness',
-                          'health_n_wellness_icon.png'),
-                      subjectIcon(
-                          context, 'Science &\nMathematics', 'math_icon.png'),
-                    ],
-                  ),
-                ],
-              ),
-            ),
+
+            subjectTile(size, context),
           ],
         ),
+      ),
+    );
+  }
+
+  Container subjectTile(Size size, context) {
+    return Container(
+      margin: const EdgeInsets.all(4.0),
+      padding: const EdgeInsets.all(8.0),
+      width: size.width,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8.0),
+        border: Border.all(color: Colors.white),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Browse by Subject',
+            style: Theme.of(context)
+                .textTheme
+                .subtitle1
+                ?.copyWith(fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 14),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              subjectIcon(context, 'Arts', 'art_icon.png'),
+              subjectIcon(context, 'Animals', 'animals_icon.png'),
+              subjectIcon(context, 'Fiction', 'fiction_icon.png'),
+            ],
+          ),
+          const SizedBox(height: 14),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              subjectIcon(
+                  context, "Social", 'social_n_science_icon.png'),
+              subjectIcon(context, "Children's", 'children_icon.png'),
+              subjectIcon(context, 'History', 'history_icon.png'),
+            ],
+          ),
+          const SizedBox(height: 14),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              subjectIcon(context, 'Biography', 'biography_icon.png'),
+              subjectIcon(context, 'Places', 'Places_icon.png'),
+              subjectIcon(context, 'Textbooks', 'text_book_icon.png')
+            ],
+          ),
+          const SizedBox(height: 14),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              subjectIcon(context, 'Business & Finance',
+                  'business_n_finance_icon.png'),
+              subjectIcon(context, 'Health & Wellness',
+                  'health_n_wellness_icon.png'),
+              subjectIcon(
+                  context, 'Science &\nMathematics', 'math_icon.png'),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -228,22 +234,28 @@ class _BookHomePageState extends State<BookHomePage> {
       height: 150,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        // itemCount: books.length,
-        itemCount: 6,
+        itemCount: 5,
         itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: CachedNetworkImage(
-              width: 80,
-              fit: BoxFit.fill,
-              imageUrl: mediumImageByCoverI('${books[index].coverI}'),
-              placeholder: (context, url) => Container(
+          return InkWell(
+            onTap: () => Navigator.pushNamed(
+              context,
+              DetailPage.routeName,
+              arguments: books[index].key,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: CachedNetworkImage(
                 width: 80,
-                height: 126,
-                color: Colors.grey,
-              ),
-              errorWidget: (context, url, error) => Image.asset(
-                'assets/images/not_applicable_icon.png',
+                fit: BoxFit.fill,
+                imageUrl: mediumImageByCoverI('${books[index].coverI}'),
+                placeholder: (context, url) => Container(
+                  width: 80,
+                  height: 126,
+                  color: Colors.grey,
+                ),
+                errorWidget: (context, url, error) => Image.asset(
+                  'assets/images/not_applicable_icon.png',
+                ),
               ),
             ),
           );
