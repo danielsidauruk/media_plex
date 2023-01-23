@@ -42,6 +42,7 @@ class _DetailPageState extends State<DetailPage> {
               child: Column(
                 children: [
                   Text(detail.title),
+                  Text(detail.key),
                   Text(
                       '${detail.created.value.day} ${monthNames[(detail.created.value.month) - 1]} ${detail.created.value.year}')
                 ],

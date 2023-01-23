@@ -70,7 +70,7 @@ class _BookPopularPageState extends State<BookPopularPage> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8.0),
                         border: Border.all(color: Colors.white)),
-                    child: DropdownButton<String>(
+                    child: DropdownButton(
                       value: dropdownValue,
                       icon: const Icon(
                         Icons.arrow_drop_down,
@@ -104,7 +104,7 @@ class _BookPopularPageState extends State<BookPopularPage> {
                       if (state is PopularEmpty) {
                         return const Center();
                       } else if (state is PopularLoading) {
-                        return const LoadingAnimation();
+                        return const LoadingAnimation(tileHeight: 100, totalTile: 5);
                       } else if (state is PopularLoaded) {
                         final books = state.popular.works;
                         return bookListView(books);
@@ -157,19 +157,19 @@ class _BookPopularPageState extends State<BookPopularPage> {
                       children: [
                         Text(
                           textAlign: TextAlign.start,
-                          books[index].title,
+                          '${books[index].title} (${books[index].firstPublishYear})',
                           style: Theme.of(context)
                               .textTheme
                               .subtitle1
                               ?.copyWith(fontWeight: FontWeight.bold),
                         ),
+
+                        const SizedBox(height: 8.0,),
+
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const SizedBox(
-                              width: 25,
-                              child: Text('By : '),
-                            ),
+                            Text('By '),
                             books[index].authorName.isNotEmpty
                                 ? Expanded(
                                     child: Wrap(
@@ -207,18 +207,60 @@ class _BookPopularPageState extends State<BookPopularPage> {
                                 : const Center(),
                           ],
                         ),
+
+                        const SizedBox(height: 2.0,),
+
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text('Lng : '),
+                            books[index].language.isNotEmpty
+                                ? Expanded(
+                              child: Wrap(
+                                direction: Axis.horizontal,
+                                children: [
+                                  ...books[index]
+                                      .language
+                                      .map(
+                                        (item) => Text(
+                                      '$item, ',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .subtitle2
+                                          ?.copyWith(
+                                          fontWeight:
+                                          FontWeight.bold),
+                                    ),
+                                  )
+                                      .toList()
+                                      .sublist(
+                                      0,
+                                      books[index].language.length -
+                                          1),
+                                  Text(
+                                    books[index].language.last,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .subtitle2
+                                        ?.copyWith(
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                            )
+                                : const Center(),
+                          ],
+                        )
                       ],
-                    ),
-                    Text(
-                      textAlign: TextAlign.start,
-                      'First published in ${books[index].firstPublishYear}',
-                      style: Theme.of(context).textTheme.labelMedium,
                     ),
                   ],
                 ),
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  print(books[index].title);
+                  print(books[index].key);
+                },
                 child: const Icon(Icons.bookmark_border),
               ),
             ],
