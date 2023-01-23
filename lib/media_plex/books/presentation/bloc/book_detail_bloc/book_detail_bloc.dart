@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:media_plex/media_plex/books/domain/entities/books_details.dart';
+import 'package:media_plex/media_plex/books/domain/entities/book_detail.dart';
 import 'package:media_plex/media_plex/books/domain/use_cases/get_book_details.dart';
 
 part 'book_detail_event.dart';

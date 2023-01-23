@@ -31,13 +31,13 @@ class _DetailPageState extends State<DetailPage> {
           backgroundColor: Colors.transparent,
           elevation: 0.0,
         ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Expanded(
-              child: BlocBuilder<BookDetailBloc, BookDetailState>(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              BlocBuilder<BookDetailBloc, BookDetailState>(
                 builder: (context, state) {
                   if (state is BookDetailLoading) {
                     return const Center(
@@ -57,23 +57,15 @@ class _DetailPageState extends State<DetailPage> {
                                 ?.copyWith(fontWeight: FontWeight.bold),
                           ),
 
-                          Text(bookDetail.authors[0].author.key),
-
-                          Text(bookDetail.authors[0].type.key),
-
                           Text(bookDetail.type.key),
 
-                          Text(bookDetail.covers[0].toString()),
+                          bookDetail.covers.isNotEmpty ?
+                          Text(bookDetail.covers[0].toString()) :
+                          const Center(),
 
-                          Text(bookDetail.description.type),
-
-                          Text(bookDetail.subjects[0]),
+                          Text('Description : ${bookDetail.description}'),
 
                           Text(state.bookDetail.revision.toString()),
-                          Text('Description Value : ${state.bookDetail.description.value}'),
-
-
-                          Text('${bookDetail.description.value.day} ${monthNames[(bookDetail.description.value.month) - 1]} ${bookDetail.description.value.year}'),
 
                           Wrap(
                             direction: Axis.horizontal,
@@ -83,15 +75,6 @@ class _DetailPageState extends State<DetailPage> {
                                   style: Theme.of(context).textTheme.subtitle2?.
                                   copyWith(fontWeight: FontWeight.bold)
                               )).toList().sublist(0, bookDetail.authors.length - 1),
-
-                              // Text(
-                              //   bookDetail.authors.last,
-                              //   style: Theme.of(context)
-                              //       .textTheme
-                              //       .subtitle2
-                              //       ?.copyWith(
-                              //       fontWeight: FontWeight.bold),
-                              // ),
                             ],
                           ),
 
@@ -100,7 +83,7 @@ class _DetailPageState extends State<DetailPage> {
                           CachedNetworkImage(
                             width: 60,
                             fit: BoxFit.fill,
-                            imageUrl: largeImage(bookDetail.covers[0].toString()),
+                            imageUrl: bookDetail.covers.isNotEmpty ? largeImage(bookDetail.covers[0].toString()) : "",
                             placeholder: (context, url) => const Center(),
                             errorWidget: (context, url, error) => Image.asset(
                               'assets/images/not_applicable_icon.png',
@@ -119,8 +102,8 @@ class _DetailPageState extends State<DetailPage> {
                   }
                 },
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
