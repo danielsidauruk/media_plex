@@ -2,7 +2,7 @@ import 'package:media_plex/media_plex/books/domain/entities/book_detail.dart';
 
 class BookDetailModel extends BookDetail {
   const BookDetailModel({
-    required super.description,
+    required this.descriptionModel,
     required this.linksModel,
     required super.title,
     required super.covers,
@@ -19,6 +19,7 @@ class BookDetailModel extends BookDetail {
     required this.createdModel,
     required this.lastModifiedModel,
   }) : super(
+    description: descriptionModel,
     links: linksModel,
     authors: authorsModel,
     type: typeModel,
@@ -26,33 +27,37 @@ class BookDetailModel extends BookDetail {
     lastModified: lastModifiedModel,
   );
 
+  final dynamic descriptionModel;
   final List<LinkModel> linksModel;
   final List<AuthorModel> authorsModel;
   final TypeModel typeModel;
   final CreatedModel createdModel;
   final CreatedModel lastModifiedModel;
 
-  factory BookDetailModel.fromJson(Map<String, dynamic> json) => BookDetailModel(
-    description: json["description"].toString(),
-    linksModel: List<LinkModel>.from(json["links"]?.map((x) => LinkModel.fromJson(x)) ?? []),
-    title: json["title"],
-    covers: List<int>.from(json["covers"]?.map((x) => x) ?? []),
-    subjectPlaces: List<String>.from(json["subject_places"]?.map((x) => x) ?? []),
-    firstPublishDate: json["first_publish_date"] ?? "",
-    subjectPeople: List<String>.from(json["subject_people"]?.map((x) => x) ?? []),
-    key: json["key"],
-    authorsModel: List<AuthorModel>.from(json["authors"]?.map((x) => AuthorModel.fromJson(x)) ?? []),
-    subjectTimes: List<String>.from(json["subject_times"]?.map((x) => x) ?? []),
-    typeModel: TypeModel.fromJson(json["type"] ?? ""),
-    subjects: List<String>.from(json["subjects"]?.map((x) => x) ?? []),
-    latestRevision: json["latest_revision"] ?? 0,
-    revision: json["revision"] ?? 0,
-    createdModel: CreatedModel.fromJson(json["created"] ?? ""),
-    lastModifiedModel: CreatedModel.fromJson(json["last_modified"] ?? ""),
-  );
+  factory BookDetailModel.fromJson(Map<String, dynamic> json) {
+    return BookDetailModel(
+      descriptionModel: DescriptionModel.fromJson(json['description'] ?? {}),
+
+      linksModel: List<LinkModel>.from(json["links"]?.map((x) => LinkModel.fromJson(x)) ?? []),
+      title: json["title"],
+      covers: List<int>.from(json["covers"]?.map((x) => x) ?? []),
+      subjectPlaces: List<String>.from(json["subject_places"]?.map((x) => x) ?? []),
+      firstPublishDate: json["first_publish_date"] ?? "",
+      subjectPeople: List<String>.from(json["subject_people"]?.map((x) => x) ?? []),
+      key: json["key"],
+      authorsModel: List<AuthorModel>.from(json["authors"]?.map((x) => AuthorModel.fromJson(x)) ?? []),
+      subjectTimes: List<String>.from(json["subject_times"]?.map((x) => x) ?? []),
+      typeModel: TypeModel.fromJson(json["type"] ?? ""),
+      subjects: List<String>.from(json["subjects"]?.map((x) => x) ?? []),
+      latestRevision: json["latest_revision"] ?? 0,
+      revision: json["revision"] ?? 0,
+      createdModel: CreatedModel.fromJson(json["created"] ?? ""),
+      lastModifiedModel: CreatedModel.fromJson(json["last_modified"] ?? ""),
+    );
+  }
 
   Map<String, dynamic> toJson() => {
-    "description": description,
+    "description": descriptionModel.toJson(),
     "links": List<dynamic>.from(linksModel.map((x) => x.toJson())),
     "title": title,
     "covers": List<dynamic>.from(covers.map((x) => x)),
@@ -68,6 +73,31 @@ class BookDetailModel extends BookDetail {
     "revision": revision,
     "created": createdModel.toJson(),
     "last_modified": lastModifiedModel.toJson(),
+  };
+}
+
+class DescriptionModel extends Description {
+  const DescriptionModel({
+    required super.type,
+    required super.value,
+  });
+
+  factory DescriptionModel.fromJson(Map<String, dynamic> json) {
+    if (json is String) {
+      json = {
+        'type': '',
+        'value': json,
+      };
+    }
+    return DescriptionModel(
+      type: json["type"] ?? "-",
+      value: json["value"] ?? "-",
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+    "type": type,
+    "value": value,
   };
 }
 

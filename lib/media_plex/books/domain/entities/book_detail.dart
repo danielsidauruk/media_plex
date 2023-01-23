@@ -20,7 +20,7 @@ class BookDetail extends Equatable{
     required this.lastModified,
   });
 
-  final String description;
+  final Description description;
   final List<Link> links;
   final String title;
   final List<int> covers;
@@ -56,6 +56,19 @@ class BookDetail extends Equatable{
     created,
     lastModified,
   ];
+}
+
+class Description extends Equatable {
+  final String type;
+  final String value;
+
+  const Description({
+    required this.type,
+    required this.value,
+  });
+
+  @override
+  List<Object?> get props => [type, value];
 }
 
 class Author extends Equatable{
