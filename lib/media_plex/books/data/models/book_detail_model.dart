@@ -36,8 +36,7 @@ class BookDetailModel extends BookDetail {
 
   factory BookDetailModel.fromJson(Map<String, dynamic> json) {
     return BookDetailModel(
-      descriptionModel: DescriptionModel.fromJson(json['description']),
-
+      descriptionModel: DescriptionModel.fromJson(json['description'] ?? ""),
       linksModel: List<LinkModel>.from(json["links"]?.map((x) => LinkModel.fromJson(x)) ?? []),
       title: json["title"],
       covers: List<int>.from(json["covers"]?.map((x) => x) ?? []),
@@ -76,25 +75,25 @@ class BookDetailModel extends BookDetail {
   };
 }
 
+
 class DescriptionModel extends Description {
   const DescriptionModel({
     required super.type,
     required super.value,
   });
 
-  factory DescriptionModel.fromJson(dynamic json) {
+  factory DescriptionModel.fromJson(Map<String, dynamic> json) {
     if (json is String) {
-      return DescriptionModel(
-        type: "",
-        value: json,
-      );
+      json = {
+        'type': '',
+        'value': json,
+      };
     }
     return DescriptionModel(
       type: json["type"] ?? "-",
       value: json["value"] ?? "No description available",
     );
   }
-
 
   Map<String, dynamic> toJson() => {
     "type": type,
