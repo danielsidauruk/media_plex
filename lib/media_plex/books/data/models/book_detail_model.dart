@@ -36,7 +36,7 @@ class BookDetailModel extends BookDetail {
 
   factory BookDetailModel.fromJson(Map<String, dynamic> json) {
     return BookDetailModel(
-      descriptionModel: DescriptionModel.fromJson(json['description'] ?? {}),
+      descriptionModel: DescriptionModel.fromJson(json['description']),
 
       linksModel: List<LinkModel>.from(json["links"]?.map((x) => LinkModel.fromJson(x)) ?? []),
       title: json["title"],
@@ -82,18 +82,19 @@ class DescriptionModel extends Description {
     required super.value,
   });
 
-  factory DescriptionModel.fromJson(Map<String, dynamic> json) {
+  factory DescriptionModel.fromJson(dynamic json) {
     if (json is String) {
-      json = {
-        'type': '',
-        'value': json,
-      };
+      return DescriptionModel(
+        type: "",
+        value: json,
+      );
     }
     return DescriptionModel(
       type: json["type"] ?? "-",
       value: json["value"] ?? "No description available",
     );
   }
+
 
   Map<String, dynamic> toJson() => {
     "type": type,

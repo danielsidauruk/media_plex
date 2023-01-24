@@ -104,8 +104,9 @@ class _BookPopularPageState extends State<BookPopularPage> {
       padding: const EdgeInsets.symmetric(
           vertical: 2.0, horizontal: 8.0),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8.0),
-          border: Border.all(color: Colors.white)),
+        borderRadius: BorderRadius.circular(8.0),
+        border: Border.all(color: Colors.white),
+      ),
       child: DropdownButton(
         value: dropdownValue,
         icon: const Icon(

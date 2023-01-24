@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_plex/core/utils/constants.dart';
@@ -206,7 +207,9 @@ class _BookSearchPageState extends State<BookSearchPage> {
                       ],
                     );
                   } else if (state is SearchError) {
-                    print(state.message);
+                    if (kDebugMode) {
+                      print(state.message);
+                    }
                     return const Center();
                   } else {
                     // return const SizedBox.shrink();
