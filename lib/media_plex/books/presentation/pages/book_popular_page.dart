@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_plex/core/utils/constants.dart';
 import 'package:media_plex/media_plex/books/domain/entities/book_popular.dart';
-import 'package:media_plex/media_plex/books/presentation/bloc/popular_bloc/popular_bloc.dart';
+import 'package:media_plex/media_plex/books/presentation/bloc/popular_bloc/book_popular_bloc.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_detail_page.dart';
 import 'package:media_plex/media_plex/books/presentation/widgets/loading_animation.dart';
 
@@ -71,7 +71,7 @@ class _BookPopularPageState extends State<BookPopularPage> {
   Expanded buildPopularBloc() {
     return Expanded(
       child: Container(
-        margin: const EdgeInsets.all(4.0),
+        margin: const EdgeInsets.symmetric(vertical: 4.0),
         child: BlocBuilder<PopularBloc, PopularState>(
           builder: (context, state) {
             if (state is PopularEmpty) {
@@ -80,11 +80,28 @@ class _BookPopularPageState extends State<BookPopularPage> {
               return const LoadingAnimation(tileHeight: 100, totalTile: 5);
             } else if (state is PopularLoaded) {
               final books = state.popular.works;
-              return ListView.builder(
-                itemCount: books.length,
-                itemBuilder: (context, index) {
-                  return bookTile(books, index, context);
-                },
+              return Column(
+                children: [
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: books.length,
+                      itemBuilder: (context, index) {
+                        return bookTile(books, index, context);
+                      },
+                    ),
+                  ),
+
+                  const SizedBox(height: 8),
+
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      'Total result : ${books.length}',
+                      style: Theme.of(context).textTheme.subtitle1?.
+                      copyWith(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
               );
             } else if (state is PopularError) {
               return Text(state.message);
@@ -207,11 +224,6 @@ class _BookPopularPageState extends State<BookPopularPage> {
                     ),
                   ],
                 ),
-              ),
-              InkWell(
-                onTap: () {
-                },
-                child: const Icon(Icons.bookmark_border),
               ),
             ],
           ),

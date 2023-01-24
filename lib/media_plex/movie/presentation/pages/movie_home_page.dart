@@ -8,6 +8,7 @@ import 'package:media_plex/media_plex/movie/domain/entities/movie.dart';
 import 'package:media_plex/media_plex/movie/presentation/bloc/movie_now_playing_bloc/movie_now_playing_bloc.dart';
 import 'package:media_plex/media_plex/movie/presentation/bloc/movie_popular_bloc/movie_popular_bloc.dart';
 import 'package:media_plex/media_plex/movie/presentation/bloc/movie_top_rated_bloc/movie_top_rated_bloc.dart';
+import 'package:media_plex/media_plex/movie/presentation/pages/now_playing_movie_page.dart';
 
 class MovieHomePage extends StatefulWidget {
   static const routeName = '/movieHomePageRoute';
@@ -51,148 +52,195 @@ class _MovieHomePageState extends State<MovieHomePage> {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            searchTile(context, 'Search your Movie', searchMovieRoute),
 
-            Container(
-              margin: const EdgeInsets.all(4.0),
-              padding: const EdgeInsets.all(8.0),
-              width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8.0),
-                border: Border.all(color: Colors.white),
-              ),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Now Playing Movies',
-                        style: Theme.of(context)
-                            .textTheme
-                            .subtitle1
-                            ?.copyWith(fontWeight: FontWeight.bold),
-                      ),
-                      InkWell(
-                        onTap: () =>
-                            Navigator.pushNamed(context, popularMovieRoute),
-                        child: const Icon(Icons.arrow_forward),
-                      ),
-                    ],
-                  ),
-                  BlocBuilder<MovieNowPlayingBloc, MovieNowPlayingState>(
-                      builder: (context, state) {
-                        if (state is MovieNowPlayingLoading) {
-                          return const HorizontalLoadingAnimation();
-                        } else if (state is MovieNowPlayingHasData) {
-                          final movieResult = state.result;
-                          return buildMovieResult(movieResult);
-                        } else if (state is MovieNowPlayingError) {
-                          return Text(state.message);
-                        } else {
-                          return const Center();
-                        }
-                      },
-                  ),
-                ],
-              ),
-            ),
+            searchTile(context),
 
-            Container(
-              margin: const EdgeInsets.all(4.0),
-              padding: const EdgeInsets.all(8.0),
-              width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8.0),
-                border: Border.all(color: Colors.white),
-              ),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Popular Movies',
-                        style: Theme.of(context)
-                            .textTheme
-                            .subtitle1
-                            ?.copyWith(fontWeight: FontWeight.bold),
-                      ),
-                      InkWell(
-                        onTap: () =>
-                            Navigator.pushNamed(context, popularMovieRoute),
-                        child: const Icon(Icons.arrow_forward),
-                      ),
-                    ],
-                  ),
+            nowPlayingTile(context),
 
-                  BlocBuilder<MoviePopularBloc, MoviePopularState>(
-                      builder: (context, state) {
-                        if (state is MovieNowPlayingLoading) {
-                          return const HorizontalLoadingAnimation();
-                        } else if (state is MoviePopularHasData) {
-                          final movieResult = state.result;
-                          return buildMovieResult(movieResult);
-                        } else if (state is MoviePopularError) {
-                          return Text(state.message);
-                        } else {
-                          return const Center();
-                        }
-                      }),
+            popularTile(context),
 
-                ],
-              ),
-            ),
+            topRatedTile(context),
 
-            Container(
-              margin: const EdgeInsets.all(4.0),
-              padding: const EdgeInsets.all(8.0),
-              width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8.0),
-                border: Border.all(color: Colors.white),
-              ),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Top Rated Movies',
-                        style: Theme.of(context)
-                            .textTheme
-                            .subtitle1
-                            ?.copyWith(fontWeight: FontWeight.bold),
-                      ),
-                      InkWell(
-                        onTap: () =>
-                            Navigator.pushNamed(context, popularMovieRoute),
-                        child: const Icon(Icons.arrow_forward),
-                      ),
-                    ],
-                  ),
-
-                  BlocBuilder<MovieTopRatedBloc, MovieTopRatedState>(
-                      builder: (context, state) {
-                        if (state is MovieTopRatedLoading) {
-                          return const HorizontalLoadingAnimation();
-                        } else if (state is MovieTopRatedHasData) {
-                          final movieResult = state.result;
-                          return buildMovieResult(movieResult);
-                        } else if (state is MovieTopRatedError) {
-                          return Text(state.message);
-                        } else {
-                          return const Center();
-                        }
-                      },
-                  ),
-                ],
-              ),
-            ),
-
-            // subjectTile(size, context),
           ],
         ),
+      ),
+    );
+  }
+
+  Container searchTile(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.all(4.0),
+      padding: const EdgeInsets.all(8.0),
+      width: double.infinity,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8.0),
+        border: Border.all(color: Colors.white),
+      ),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Search your Movie',
+                style: Theme.of(context)
+                    .textTheme
+                    .subtitle1
+                    ?.copyWith(fontWeight: FontWeight.bold),
+              ),
+              InkWell(
+                onTap: () => Navigator.pushNamed(context, searchMovieRoute),
+                child: const Icon(
+                  Icons.search,
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container nowPlayingTile(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.all(4.0),
+      padding: const EdgeInsets.all(8.0),
+      width: double.infinity,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8.0),
+        border: Border.all(color: Colors.white),
+      ),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Now Playing Movies',
+                style: Theme.of(context)
+                    .textTheme
+                    .subtitle1
+                    ?.copyWith(fontWeight: FontWeight.bold),
+              ),
+              InkWell(
+                onTap: () =>
+                    Navigator.pushNamed(context, NowPlayingMoviePage.routeName),
+                child: const Icon(Icons.arrow_forward),
+              ),
+            ],
+          ),
+          BlocBuilder<MovieNowPlayingBloc, MovieNowPlayingState>(
+            builder: (context, state) {
+              if (state is MovieNowPlayingLoading) {
+                return const HorizontalLoadingAnimation();
+              } else if (state is MovieNowPlayingHasData) {
+                final movieResult = state.result;
+                return buildMovieResult(movieResult);
+              } else if (state is MovieNowPlayingError) {
+                return Text(state.message);
+              } else {
+                return const Center();
+              }
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container popularTile(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.all(4.0),
+      padding: const EdgeInsets.all(8.0),
+      width: double.infinity,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8.0),
+        border: Border.all(color: Colors.white),
+      ),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Popular Movies',
+                style: Theme.of(context)
+                    .textTheme
+                    .subtitle1
+                    ?.copyWith(fontWeight: FontWeight.bold),
+              ),
+              InkWell(
+                onTap: () =>
+                    Navigator.pushNamed(context, popularMovieRoute),
+                child: const Icon(Icons.arrow_forward),
+              ),
+            ],
+          ),
+
+          BlocBuilder<MoviePopularBloc, MoviePopularState>(
+              builder: (context, state) {
+                if (state is MovieNowPlayingLoading) {
+                  return const HorizontalLoadingAnimation();
+                } else if (state is MoviePopularHasData) {
+                  final movieResult = state.result;
+                  return buildMovieResult(movieResult);
+                } else if (state is MoviePopularError) {
+                  return Text(state.message);
+                } else {
+                  return const Center();
+                }
+              }),
+
+        ],
+      ),
+    );
+  }
+
+  Container topRatedTile(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.all(4.0),
+      padding: const EdgeInsets.all(8.0),
+      width: double.infinity,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8.0),
+        border: Border.all(color: Colors.white),
+      ),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Top Rated Movies',
+                style: Theme.of(context)
+                    .textTheme
+                    .subtitle1
+                    ?.copyWith(fontWeight: FontWeight.bold),
+              ),
+              InkWell(
+                onTap: () =>
+                    Navigator.pushNamed(context, topRatedMovieRoute),
+                child: const Icon(Icons.arrow_forward),
+              ),
+            ],
+          ),
+
+          BlocBuilder<MovieTopRatedBloc, MovieTopRatedState>(
+            builder: (context, state) {
+              if (state is MovieTopRatedLoading) {
+                return const HorizontalLoadingAnimation();
+              } else if (state is MovieTopRatedHasData) {
+                final movieResult = state.result;
+                return buildMovieResult(movieResult);
+              } else if (state is MovieTopRatedError) {
+                return Text(state.message);
+              } else {
+                return const Center();
+              }
+            },
+          ),
+        ],
       ),
     );
   }
@@ -227,41 +275,6 @@ class _MovieHomePageState extends State<MovieHomePage> {
             ),
           );
         },
-      ),
-    );
-  }
-
-  Container searchTile(context, String title, String routeName) {
-    return Container(
-      margin: const EdgeInsets.all(4.0),
-      padding: const EdgeInsets.all(8.0),
-      width: double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8.0),
-        border: Border.all(color: Colors.white),
-      ),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                title,
-                style: Theme.of(context)
-                    .textTheme
-                    .subtitle1
-                    ?.copyWith(fontWeight: FontWeight.bold),
-              ),
-              InkWell(
-                onTap: () => Navigator.pushNamed(context, routeName),
-                child: const Icon(
-                  Icons.search,
-                  color: Colors.white,
-                ),
-              ),
-            ],
-          ),
-        ],
       ),
     );
   }

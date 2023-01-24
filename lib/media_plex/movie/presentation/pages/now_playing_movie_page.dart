@@ -1,23 +1,26 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_plex/core/utils/routes.dart';
 import 'package:media_plex/media_plex/books/presentation/widgets/loading_animation.dart';
-import 'package:media_plex/media_plex/movie/presentation/bloc/movie_top_rated_bloc/movie_top_rated_bloc.dart';
+import 'package:media_plex/media_plex/movie/presentation/bloc/movie_now_playing_bloc/movie_now_playing_bloc.dart';
+import 'package:media_plex/media_plex/movie/presentation/bloc/movie_popular_bloc/movie_popular_bloc.dart';
 import 'package:media_plex/media_plex/movie/presentation/widgets/movie_list.dart';
 
-class MovieTopRatedPage extends StatefulWidget {
-  const MovieTopRatedPage({super.key});
+class NowPlayingMoviePage extends StatefulWidget {
+  static const routeName = '/nowPlayingMovieRoute';
+  const NowPlayingMoviePage({super.key});
 
   @override
-  State<MovieTopRatedPage> createState() => _MovieTopRatedPageState();
+  State<NowPlayingMoviePage> createState() => _NowPlayingMoviePageState();
 }
 
-class _MovieTopRatedPageState extends State<MovieTopRatedPage> {
+class _NowPlayingMoviePageState extends State<NowPlayingMoviePage> {
+
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<MovieTopRatedBloc>(context, listen: false)
-        .add(FetchMovieTopRated());
+    BlocProvider.of<MoviePopularBloc>(context, listen: false)
+        .add(FetchMoviePopular());
   }
 
   @override
@@ -43,17 +46,17 @@ class _MovieTopRatedPageState extends State<MovieTopRatedPage> {
   Padding buildBody() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: BlocBuilder<MovieTopRatedBloc, MovieTopRatedState>(
+      child: BlocBuilder<MovieNowPlayingBloc, MovieNowPlayingState>(
         builder: (context, state) {
-          if (state is MovieTopRatedLoading) {
-            return const LoadingAnimation(tileHeight: 100, totalTile: 5);
-          } else if (state is MovieTopRatedHasData) {
+          if (state is MovieNowPlayingLoading) {
+            return const LoadingAnimation(tileHeight: 100, totalTile: 6);
+          } else if (state is MovieNowPlayingHasData) {
             final movieResult = state.result;
             return MovieList(
               movieResult: movieResult,
               detailMovieRoute: detailMovieRoute,
             );
-          } else if (state is MovieTopRatedError) {
+          } else if (state is MovieNowPlayingError) {
             return Center(
               key: const Key('error_message'),
               child: Text(state.message),

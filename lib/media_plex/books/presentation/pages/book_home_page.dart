@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_plex/core/utils/constants.dart';
 import 'package:media_plex/media_plex/books/domain/entities/book_popular.dart';
-import 'package:media_plex/media_plex/books/presentation/bloc/popular_bloc/popular_bloc.dart';
+import 'package:media_plex/media_plex/books/presentation/bloc/popular_bloc/book_popular_bloc.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_detail_page.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_popular_page.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_search_page.dart';
@@ -27,8 +27,6 @@ class _BookHomePageState extends State<BookHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -46,22 +44,141 @@ class _BookHomePageState extends State<BookHomePage> {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            searchTile(size, context),
+            searchTile(context),
 
-            popularTile(size, context),
+            popularTile(context),
 
-            subjectTile(size, context),
+            subjectTile(context),
           ],
         ),
       ),
     );
   }
 
-  Container subjectTile(Size size, context) {
+  Container searchTile(context) {
     return Container(
       margin: const EdgeInsets.all(4.0),
       padding: const EdgeInsets.all(8.0),
-      width: size.width,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8.0),
+        border: Border.all(color: Colors.white),
+      ),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Search your Book',
+                style: Theme.of(context)
+                    .textTheme
+                    .subtitle1
+                    ?.copyWith(fontWeight: FontWeight.bold),
+              ),
+              InkWell(
+                onTap: () =>
+                    Navigator.pushNamed(context, BookSearchPage.routeName),
+                child: const Icon(
+                  Icons.search,
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container popularTile(context) {
+    return Container(
+      margin: const EdgeInsets.all(4.0),
+      padding: const EdgeInsets.all(8.0),
+      width: double.infinity,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8.0),
+        border: Border.all(color: Colors.white),
+      ),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Popular Books - Daily',
+                style: Theme.of(context)
+                    .textTheme
+                    .subtitle1
+                    ?.copyWith(fontWeight: FontWeight.bold),
+              ),
+              InkWell(
+                onTap: () =>
+                    Navigator.pushNamed(context, BookPopularPage.routeName),
+                child: const Icon(Icons.arrow_forward),
+              ),
+            ],
+          ),
+          BlocBuilder<PopularBloc, PopularState>(
+            builder: (context, state) {
+              if (state is PopularEmpty) {
+                return const Center();
+              } else if (state is PopularLoading) {
+                return const HorizontalLoadingAnimation();
+              } else if (state is PopularLoaded) {
+                final books = state.popular.works;
+                return popularBookResult(books: books);
+              } else if (state is PopularError) {
+                return Text(state.message);
+              }
+              return const SizedBox.shrink();
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  SizedBox popularBookResult({required List<Work> books}) {
+    return SizedBox(
+      height: 150,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: 5,
+        itemBuilder: (context, index) {
+          return InkWell(
+            onTap: () => Navigator.pushNamed(
+              context,
+              DetailPage.routeName,
+              arguments: books[index].key,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: CachedNetworkImage(
+                width: 80,
+                fit: BoxFit.fill,
+                imageUrl: mediumImageByCoverI('${books[index].coverI}'),
+                placeholder: (context, url) => Container(
+                  width: 80,
+                  height: 126,
+                  color: Colors.grey,
+                ),
+                errorWidget: (context, url, error) => Image.asset(
+                  'assets/images/not_applicable_icon.png',
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  Container subjectTile(context) {
+    return Container(
+      margin: const EdgeInsets.all(4.0),
+      padding: const EdgeInsets.all(8.0),
+      width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8.0),
         border: Border.all(color: Colors.white),
@@ -142,125 +259,6 @@ class _BookHomePageState extends State<BookHomePage> {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Container searchTile(Size size, BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(4.0),
-      padding: const EdgeInsets.all(8.0),
-      width: size.width,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8.0),
-        border: Border.all(color: Colors.white),
-      ),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Search your Book',
-                style: Theme.of(context)
-                    .textTheme
-                    .subtitle1
-                    ?.copyWith(fontWeight: FontWeight.bold),
-              ),
-              InkWell(
-                onTap: () =>
-                    Navigator.pushNamed(context, BookSearchPage.routeName),
-                child: const Icon(
-                  Icons.search,
-                  color: Colors.white,
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Container popularTile(Size size, BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(4.0),
-      padding: const EdgeInsets.all(8.0),
-      width: double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8.0),
-        border: Border.all(color: Colors.white),
-      ),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Popular Books - Daily',
-                style: Theme.of(context)
-                    .textTheme
-                    .subtitle1
-                    ?.copyWith(fontWeight: FontWeight.bold),
-              ),
-              InkWell(
-                onTap: () =>
-                    Navigator.pushNamed(context, BookPopularPage.routeName),
-                child: const Icon(Icons.arrow_forward),
-              ),
-            ],
-          ),
-          BlocBuilder<PopularBloc, PopularState>(
-            builder: (context, state) {
-              if (state is PopularEmpty) {
-                return const Center();
-              } else if (state is PopularLoading) {
-                return const HorizontalLoadingAnimation();
-              } else if (state is PopularLoaded) {
-                final books = state.popular.works;
-                return popularBookResult(books: books);
-              } else if (state is PopularError) {
-                return Text(state.message);
-              }
-              return const SizedBox.shrink();
-            },
-          ),
-        ],
-      ),
-    );
-  }
-
-  SizedBox popularBookResult({required List<Work> books}) {
-    return SizedBox(
-      height: 150,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: 5,
-        itemBuilder: (context, index) {
-          return InkWell(
-            onTap: () => Navigator.pushNamed(
-              context,
-              DetailPage.routeName,
-              arguments: books[index].key,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: CachedNetworkImage(
-                width: 80,
-                fit: BoxFit.fill,
-                imageUrl: mediumImageByCoverI('${books[index].coverI}'),
-                placeholder: (context, url) => Container(
-                  width: 80,
-                  height: 126,
-                  color: Colors.grey,
-                ),
-                errorWidget: (context, url, error) => Image.asset(
-                  'assets/images/not_applicable_icon.png',
-                ),
-              ),
-            ),
-          );
-        },
       ),
     );
   }

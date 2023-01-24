@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:media_plex/media_plex/books/presentation/bloc/popular_bloc/popular_bloc.dart';
+import 'package:media_plex/media_plex/books/presentation/bloc/popular_bloc/book_popular_bloc.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_popular_page.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_search_page.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_detail_page.dart';
 import 'package:media_plex/dependency_injection.dart' as di;
 import 'package:media_plex/media_plex/books/presentation/bloc/book_detail_bloc/book_detail_bloc.dart';
-import 'package:media_plex/media_plex/books/presentation/bloc/search_bloc/search_bloc.dart';
+import 'package:media_plex/media_plex/books/presentation/bloc/search_bloc/book_search_bloc.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_home_page.dart';
 import 'package:media_plex/media_plex/movie/presentation/pages/movie_home_page.dart';
+import 'package:media_plex/media_plex/movie/presentation/pages/now_playing_movie_page.dart';
 
 import 'core/common/utils.dart';
 import 'core/utils/routes.dart';
@@ -40,7 +41,7 @@ class MyApp extends StatelessWidget {
       providers: [
         // book
         BlocProvider(create: (_) => di.locator<BookDetailBloc>()),
-        BlocProvider(create: (_) => di.locator<SearchBloc>()),
+        BlocProvider(create: (_) => di.locator<BookSearchBloc>()),
         BlocProvider(create: (_) => di.locator<PopularBloc>()),
 
         // movie
@@ -49,6 +50,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => di.locator<MovieNowPlayingBloc>()),
         BlocProvider(create: (_) => di.locator<MoviePopularBloc>()),
         BlocProvider(create: (_) => di.locator<MovieTopRatedBloc>()),
+
         BlocProvider(create: (_) => di.locator<MovieWatchlistBloc>()),
         BlocProvider(create: (_) => di.locator<MovieRecommendationBloc>()),
       ],
@@ -101,9 +103,11 @@ class MyApp extends StatelessWidget {
             case searchMovieRoute:
               return MaterialPageRoute(builder: (_) => const SearchPage());
             case topRatedMovieRoute:
-              return MaterialPageRoute(builder: (_) => const TopRatedMoviesPage());
+              return MaterialPageRoute(builder: (_) => const MovieTopRatedPage());
             case WatchlistMoviesPage.routeName:
               return MaterialPageRoute(builder: (_) => const WatchlistMoviesPage());
+            case NowPlayingMoviePage.routeName:
+              return MaterialPageRoute(builder: (_) => const NowPlayingMoviePage());
 
 
             case HomePage.routeName:

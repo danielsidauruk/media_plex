@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_plex/core/utils/constants.dart';
-import 'package:media_plex/media_plex/books/presentation/bloc/search_bloc/search_bloc.dart';
+import 'package:media_plex/media_plex/books/presentation/bloc/search_bloc/book_search_bloc.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_detail_page.dart';
 import 'package:media_plex/media_plex/books/presentation/widgets/loading_animation.dart';
 
@@ -50,9 +50,9 @@ class BookSearchPage extends StatelessWidget {
               child: TextField(
                 onChanged: (query) =>
                 query != "" ?
-                BlocProvider.of<SearchBloc>(context, listen: false)
+                BlocProvider.of<BookSearchBloc>(context, listen: false)
                     .add(SearchForBook(query)) :
-                BlocProvider.of<SearchBloc>(context, listen: false)
+                BlocProvider.of<BookSearchBloc>(context, listen: false)
                     .add(const SearchForBook("")),
                 style: const TextStyle(),
                 decoration: null,
@@ -61,32 +61,17 @@ class BookSearchPage extends StatelessWidget {
 
 
             Expanded(
-              child: BlocBuilder<SearchBloc, SearchState>(
+              child: BlocBuilder<BookSearchBloc, BookSearchState>(
                 builder: (context, state) {
-                  if (state is SearchEmpty) {
+                  if (state is BookSearchEmpty) {
                     return const Center();
-                  } else if (state is SearchLoading) {
+                  } else if (state is BookSearchLoading) {
                     return const LoadingAnimation(tileHeight: 80, totalTile: 5);
-                  } else if (state is SearchLoaded) {
+                  } else if (state is BookSearchLoaded) {
                     final books = state.result.docs;
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text(
-                              'Result : ${state.result.numFound.toString()}',
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-
-                        const SizedBox(height: 4.0),
-
                         Expanded(
                           child: ListView.builder(
                             itemCount: books.length,
@@ -197,9 +182,20 @@ class BookSearchPage extends StatelessWidget {
                             },
                           ),
                         ),
+
+                        const SizedBox(height: 8),
+
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                            'Total result : ${state.result.numFound}',
+                            style: Theme.of(context).textTheme.subtitle1?.
+                            copyWith(fontWeight: FontWeight.bold),
+                          ),
+                        ),
                       ],
                     );
-                  } else if (state is SearchError) {
+                  } else if (state is BookSearchError) {
                     if (kDebugMode) {
                       print(state.message);
                     }

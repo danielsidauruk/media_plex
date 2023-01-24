@@ -1,4 +1,3 @@
-import 'package:http/http.dart' as http;
 import 'package:get_it/get_it.dart';
 import 'package:media_plex/media_plex/books/data/data_sources/book_remote_data_sources.dart';
 import 'package:media_plex/media_plex/books/data/repositories/library_book_repository_impl.dart';
@@ -7,8 +6,8 @@ import 'package:media_plex/media_plex/books/domain/use_cases/get_book_details.da
 import 'package:media_plex/media_plex/books/domain/use_cases/get_popular_book.dart';
 import 'package:media_plex/media_plex/books/domain/use_cases/search_book.dart';
 import 'package:media_plex/media_plex/books/presentation/bloc/book_detail_bloc/book_detail_bloc.dart';
-import 'package:media_plex/media_plex/books/presentation/bloc/popular_bloc/popular_bloc.dart';
-import 'package:media_plex/media_plex/books/presentation/bloc/search_bloc/search_bloc.dart';
+import 'package:media_plex/media_plex/books/presentation/bloc/popular_bloc/book_popular_bloc.dart';
+import 'package:media_plex/media_plex/books/presentation/bloc/search_bloc/book_search_bloc.dart';
 import 'package:media_plex/media_plex/movie/domain/usecases/get_now_playing_movies.dart';
 import 'package:media_plex/media_plex/movie/presentation/bloc/movie_detail_bloc/movie_detail_bloc.dart';
 import 'package:media_plex/media_plex/movie/presentation/bloc/movie_recommendations_bloc/movie_recommendations_bloc.dart';
@@ -44,7 +43,7 @@ Future<void> init() async {
 
   // bloc
   locator.registerFactory(() => BookDetailBloc(locator()));
-  locator.registerFactory(() => SearchBloc(locator()));
+  locator.registerFactory(() => BookSearchBloc(locator()));
   locator.registerFactory(() => PopularBloc(locator()));
 
   // use cases

@@ -1,4 +1,4 @@
-part of 'popular_bloc.dart';
+part of 'book_popular_bloc.dart';
 
 abstract class PopularEvent extends Equatable {
   const PopularEvent();
