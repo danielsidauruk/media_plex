@@ -9,7 +9,7 @@ import 'package:media_plex/media_plex/books/presentation/bloc/book_detail_bloc/b
 import 'package:media_plex/media_plex/books/presentation/bloc/search_bloc/book_search_bloc.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_home_page.dart';
 import 'package:media_plex/media_plex/movie/presentation/pages/movie_home_page.dart';
-import 'package:media_plex/media_plex/movie/presentation/pages/now_playing_movie_page.dart';
+import 'package:media_plex/media_plex/movie/presentation/pages/movie_now_playing_page.dart';
 
 import 'core/common/utils.dart';
 import 'core/utils/routes.dart';
@@ -106,8 +106,8 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(builder: (_) => const MovieTopRatedPage());
             case WatchlistMoviesPage.routeName:
               return MaterialPageRoute(builder: (_) => const WatchlistMoviesPage());
-            case NowPlayingMoviePage.routeName:
-              return MaterialPageRoute(builder: (_) => const NowPlayingMoviePage());
+            case MovieNowPlayingPage.routeName:
+              return MaterialPageRoute(builder: (_) => const MovieNowPlayingPage());
 
 
             case HomePage.routeName:

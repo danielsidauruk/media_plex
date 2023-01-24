@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:media_plex/core/utils/constants.dart';
 import 'package:media_plex/media_plex/books/presentation/bloc/book_detail_bloc/book_detail_bloc.dart';
+import 'package:media_plex/media_plex/movie/presentation/pages/movie_detail_page.dart';
 
 class DetailPage extends StatefulWidget {
   final String bookKey;
@@ -27,216 +28,208 @@ class _DetailPageState extends State<DetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0.0,
-          title: Text(
-            'Detail Book',
-            style: Theme.of(context).textTheme.bodyText1
-                ?.copyWith(
-              fontWeight: FontWeight.bold,
-              fontSize: 22,
-            ),
-          ),
-        ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              margin: const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0),
-              padding: const EdgeInsets.all(8.0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8.0),
-                border: Border.all(color: Colors.white),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+      body: BlocBuilder<BookDetailBloc, BookDetailState>(
+        builder: (context, state) {
+          if (state is BookDetailLoading) {
+            return const DetailLoadingAnimation();
+          } else if (state is BookDetailLoaded) {
+            var bookDetail = state.bookDetail;
+            return SafeArea(
+              child: Stack(
                 children: [
-                  SizedBox(
-                    height: 1000,
-                    child: BlocBuilder<BookDetailBloc, BookDetailState>(
-                      builder: (context, state) {
-                        if (state is BookDetailLoading) {
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        } else if (state is BookDetailLoaded) {
-                          var bookDetail = state.bookDetail;
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                  CachedNetworkImage(
+                    width: double.infinity,
+                    imageUrl: largeImage(bookDetail.covers[0].toString()),
+                    placeholder: (context, url) => Container(
+                      width: double.infinity,
+                      height: double.infinity,
+                      color: Colors.grey,
+                    ),
+                    errorWidget: (context, url, error) => Image.asset(
+                      'assets/images/not_applicable_icon.png',
+                    ),
+                  ),
+
+                  Container(
+                    margin: const EdgeInsets.only(top: 48 + 8),
+                    child: DraggableScrollableSheet(
+                      builder: (context, scrollController) {
+                        return Container(
+                          decoration: const BoxDecoration(
+                            color: Colors.black,
+                            borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(16),
+                            ),
+                          ),
+                          padding: const EdgeInsets.only(
+                            left: 16,
+                            top: 16,
+                            right: 16,
+                          ),
+                          child: Stack(
                             children: [
-                              Expanded(
-                                child: Text(
-                                  '${bookDetail.title} (${bookDetail.created.value.year.toString()})',
-                                  style: Theme.of(context).textTheme.bodyLarge
-                                      ?.copyWith(fontWeight: FontWeight.bold),
-                                  textAlign: TextAlign.left,
-                                ),
-                              ),
-
-                              const SizedBox(height: 2.0),
-
-                              Align(
-                                alignment: bookDetail.covers.isNotEmpty
-                                    ? Alignment.topRight
-                                    : Alignment.topLeft,
-                                child: Text(
-                                  'First published in ${DateFormat.yMMMd().format(bookDetail.created.value)}',
-                                  style: Theme.of(context).textTheme.bodyMedium
-                                      ?.copyWith(color: Colors.grey, fontWeight: FontWeight.bold),
-                                ),
-                              ),
-
-                              const SizedBox(height: 4.0),
-
-                              Align(
-                                alignment: Alignment.topCenter,
-                                child: bookDetail.covers.isNotEmpty ?
-                                CachedNetworkImage(
-                                  height: size.height * .46,
-                                  fit: BoxFit.fill,
-                                  imageUrl: largeImage(bookDetail.covers[0].toString()),
-                                  placeholder: (context, url) => Container(
-                                    width: 250,
-                                    height: size.height * .46,
-                                    color: Colors.grey,
-                                  ),
-                                  errorWidget: (context, url, error) => Image.asset(
-                                    'assets/images/not_applicable_icon.png',
-                                  ),
-                                ) :
-                                Column(
-                                  children: [
-                                    Image.asset(
-                                      'assets/images/image_not_available.png',
-                                    ),
-
-                                    const Align(
-                                      alignment: Alignment.topCenter,
-                                      child: Text('No Images Available'),
-                                    ),
-                                  ],
-                                ),
-                              ),
-
-                              const SizedBox(height: 4.0),
-
-                              Text(
-                                'Last Modified in ${DateFormat.yMMMd().format(bookDetail.lastModified.value)}',
-                                style: Theme.of(context).textTheme.bodyMedium
-                                    ?.copyWith(
-                                  color: Colors.grey,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-
-                              const SizedBox(height: 4.0),
-
-                              Text(
-                                'Subjects',
-                                style: Theme.of(context).textTheme.subtitle1?.
-                                copyWith(fontWeight: FontWeight.bold),
-                              ),
-
-                              bookDetail.subjects.isNotEmpty ?
-                              wrapText(bookDetail.subjects, context) :
-                              const Text('No subjects available'),
-
-                              Text(
-                                'Description',
-                                style: Theme.of(context).textTheme.subtitle1?.
-                                copyWith(fontWeight: FontWeight.bold),
-                              ),
-
-                              Text(bookDetail.description.value),
-
-                              const SizedBox(height: 4.0),
-
-                              bookDetail.covers.isNotEmpty ?
                               Container(
-                                padding: const EdgeInsets.all(8.0),
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  border: Border.all(color: Colors.white),
-                                ),
-                                child: Column(
-                                  children: [
-                                    Align(
-                                      alignment: Alignment.topLeft,
-                                      child: Text(
-                                        'Covers',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .subtitle1
+                                margin: const EdgeInsets.only(top: 16),
+                                child: SingleChildScrollView(
+                                  controller: scrollController,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                        bookDetail.title,
+                                        style: Theme.of(context).textTheme.bodyLarge
                                             ?.copyWith(fontWeight: FontWeight.bold),
                                       ),
-                                    ),
 
-                                    SizedBox(
-                                      height: 150,
-                                      child: ListView.builder(
-                                        scrollDirection: Axis.horizontal,
-                                        itemCount: bookDetail.covers.length - 1,
-                                        itemBuilder: (context, index) {
-                                          return Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: CachedNetworkImage(
-                                              width: 80,
-                                              fit: BoxFit.fill,
-                                              imageUrl: largeImage(bookDetail.covers[index].toString()),
-                                              placeholder: (context, url) => Container(
-                                                width: 80,
-                                                height: 126,
-                                                color: Colors.grey,
-                                              ),
-                                              errorWidget: (context, url, error) => Image.asset(
-                                                'assets/images/not_applicable_icon.png',
+                                      Text(
+                                        'First published in ${DateFormat.yMMMd().format(bookDetail.created.value)}',
+                                        style: Theme.of(context).textTheme.bodyMedium
+                                            ?.copyWith(color: Colors.grey, fontWeight: FontWeight.bold),
+                                      ),
+
+                                      const SizedBox(height: 8.0),
+
+                                      // Bloc Consumer for Bookmark
+                                      Container(
+                                        width: 110,
+                                        alignment: Alignment.center,
+                                        padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 8.0),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(8.0),
+                                          border: Border.all(color: Colors.white),
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                          children: const [
+                                            Icon(Icons.add),
+                                            Text(
+                                              'Watchlist',
+                                              style: TextStyle(fontWeight: FontWeight.bold),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+
+                                      const SizedBox(height: 8.0),
+
+                                      Text(
+                                        'Subjects',
+                                        style: Theme.of(context).textTheme.subtitle1?.
+                                        copyWith(fontWeight: FontWeight.bold),
+                                      ),
+
+                                      bookDetail.subjects.isNotEmpty ?
+                                      Wrap(
+                                        direction: Axis.horizontal,
+                                        children: [
+                                          ...bookDetail.subjects.map((item) => Text('$item, '))
+                                              .toList().sublist(0, bookDetail.subjects.length - 1),
+
+                                          Text(bookDetail.subjects.last),
+                                        ],
+                                      ) :
+                                      const Center(),
+
+
+                                      const SizedBox(height: 8),
+
+                                      Text(
+                                        'Description',
+                                        style: Theme.of(context).textTheme.subtitle1?.
+                                        copyWith(fontWeight: FontWeight.bold),
+                                      ),
+
+                                      Text(bookDetail.description.value),
+
+                                      const SizedBox(height: 8),
+
+                                      bookDetail.covers.isNotEmpty ?
+                                      Container(
+                                        padding: const EdgeInsets.all(8.0),
+                                        width: double.infinity,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(8.0),
+                                          border: Border.all(color: Colors.white),
+                                        ),
+                                        child: Column(
+                                          children: [
+                                            Align(
+                                              alignment: Alignment.topLeft,
+                                              child: Text(
+                                                'Covers',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .subtitle1
+                                                    ?.copyWith(fontWeight: FontWeight.bold),
                                               ),
                                             ),
-                                          );
-                                        },
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ) : const Center(),
 
+                                            SizedBox(
+                                              height: 150,
+                                              child: ListView.builder(
+                                                scrollDirection: Axis.horizontal,
+                                                itemCount: bookDetail.covers.length - 1,
+                                                itemBuilder: (context, index) {
+                                                  return Padding(
+                                                    padding: const EdgeInsets.all(8.0),
+                                                    child: CachedNetworkImage(
+                                                      width: 80,
+                                                      fit: BoxFit.fill,
+                                                      imageUrl: largeImage(bookDetail.covers[index].toString()),
+                                                      placeholder: (context, url) => Container(
+                                                        width: 80,
+                                                        height: 126,
+                                                        color: Colors.grey,
+                                                      ),
+                                                      errorWidget: (context, url, error) => Image.asset(
+                                                        'assets/images/not_applicable_icon.png',
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ) : const Center(),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Align(
+                                alignment: Alignment.topCenter,
+                                child: Container(
+                                  color: Colors.white,
+                                  height: 4,
+                                  width: 48,
+                                ),
+                              ),
                             ],
-                          );
-                        } else if (state is BookDetailError) {
-                          return Text(state.message);
-                        } else {
-                          return const Center();
-                        }
+                          ),
+                        );
                       },
+                      // initialChildSize: 0.5,
+                      minChildSize: 0.25,
+                      // maxChildSize: 1.0,
                     ),
+                  ),
+
+                  IconButton(
+                    icon: const Icon(Icons.arrow_back),
+                    onPressed: () => Navigator.pop(context),
                   ),
                 ],
               ),
-            ),
-          ],
-        ),
+            );
+          } else if (state is BookDetailError) {
+            return Text(state.message);
+          } else {
+            return const Center();
+          }
+        },
       ),
-    );
-  }
-
-  Expanded wrapText(List<String> bookDetail, context) {
-    return Expanded(
-      child: bookDetail.isNotEmpty ?
-      Wrap(
-        direction: Axis.horizontal,
-        children: [
-          ...bookDetail.map((item) => Text('$item, '))
-              .toList().sublist(0, bookDetail.length - 1),
-
-          Text(bookDetail.last),
-        ],
-      ) :
-      const Center(),
     );
   }
 }

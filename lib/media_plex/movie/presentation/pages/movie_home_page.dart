@@ -8,7 +8,7 @@ import 'package:media_plex/media_plex/movie/domain/entities/movie.dart';
 import 'package:media_plex/media_plex/movie/presentation/bloc/movie_now_playing_bloc/movie_now_playing_bloc.dart';
 import 'package:media_plex/media_plex/movie/presentation/bloc/movie_popular_bloc/movie_popular_bloc.dart';
 import 'package:media_plex/media_plex/movie/presentation/bloc/movie_top_rated_bloc/movie_top_rated_bloc.dart';
-import 'package:media_plex/media_plex/movie/presentation/pages/now_playing_movie_page.dart';
+import 'package:media_plex/media_plex/movie/presentation/pages/movie_now_playing_page.dart';
 
 class MovieHomePage extends StatefulWidget {
   static const routeName = '/movieHomePageRoute';
@@ -125,7 +125,7 @@ class _MovieHomePageState extends State<MovieHomePage> {
               ),
               InkWell(
                 onTap: () =>
-                    Navigator.pushNamed(context, NowPlayingMoviePage.routeName),
+                    Navigator.pushNamed(context, MovieNowPlayingPage.routeName),
                 child: const Icon(Icons.arrow_forward),
               ),
             ],
