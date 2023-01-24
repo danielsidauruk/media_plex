@@ -33,10 +33,11 @@ class _BookPopularPageState extends State<BookPopularPage> {
           elevation: 0.0,
           title: Text(
             'Popular Books',
-            style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 22,
-                ),
+            style: Theme.of(context).textTheme.bodyText1
+                ?.copyWith(
+              fontWeight: FontWeight.bold,
+              fontSize: 22,
+            ),
           ),
         ),
         body: Padding(

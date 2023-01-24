@@ -91,7 +91,7 @@ class DescriptionModel extends Description {
     }
     return DescriptionModel(
       type: json["type"] ?? "-",
-      value: json["value"] ?? "-",
+      value: json["value"] ?? "No description available",
     );
   }
 

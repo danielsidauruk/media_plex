@@ -14,4 +14,4 @@ String mediumImage(String isbn) => 'https://covers.openlibrary.org/b/isbn/$isbn-
 
 String mediumImageByCoverI(String coverI) => 'https://covers.openlibrary.org/b/id/$coverI-M.jpg';
 
-String largeImage(String isbn) => 'https://covers.openlibrary.org/b/id/7972614-L.jpg';
+String largeImage(String cover) => 'https://covers.openlibrary.org/b/id/$cover-L.jpg';

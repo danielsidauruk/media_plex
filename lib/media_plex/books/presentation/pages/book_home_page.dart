@@ -185,7 +185,7 @@ class _BookHomePageState extends State<BookHomePage> {
     return Container(
       margin: const EdgeInsets.all(4.0),
       padding: const EdgeInsets.all(8.0),
-      width: size.width,
+      width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8.0),
         border: Border.all(color: Colors.white),
