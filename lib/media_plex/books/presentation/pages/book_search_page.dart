@@ -7,20 +7,13 @@ import 'package:media_plex/media_plex/books/presentation/bloc/search_bloc/search
 import 'package:media_plex/media_plex/books/presentation/pages/book_detail_page.dart';
 import 'package:media_plex/media_plex/books/presentation/widgets/loading_animation.dart';
 
-class BookSearchPage extends StatefulWidget {
+class BookSearchPage extends StatelessWidget {
   const BookSearchPage({Key? key}) : super(key: key);
 
   static const routeName = '/bookSearchPageRoute';
 
   @override
-  State<BookSearchPage> createState() => _BookSearchPageState();
-}
-
-class _BookSearchPageState extends State<BookSearchPage> {
-  @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,

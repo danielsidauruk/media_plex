@@ -65,7 +65,7 @@ class HomePage extends StatelessWidget {
 
             homeTile(
               context,
-                  (){},
+                  () => Navigator.pushNamed(context, MovieHomePage.routeName),
               'Movies',
               const Icon(Icons.arrow_forward),
               'assets/images/movie_icon.png',

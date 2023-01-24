@@ -7,6 +7,7 @@ import 'package:media_plex/media_plex/books/presentation/bloc/popular_bloc/popul
 import 'package:media_plex/media_plex/books/presentation/pages/book_detail_page.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_popular_page.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_search_page.dart';
+import 'package:media_plex/media_plex/books/presentation/widgets/horizontal_loading_animation.dart';
 
 class BookHomePage extends StatefulWidget {
   static const routeName = '/bookHomePageRoute';
@@ -214,7 +215,7 @@ class _BookHomePageState extends State<BookHomePage> {
               if (state is PopularEmpty) {
                 return const Center();
               } else if (state is PopularLoading) {
-                return loadingAnimation();
+                return const HorizontalLoadingAnimation();
               } else if (state is PopularLoaded) {
                 final books = state.popular.works;
                 return popularBookResult(books: books);
@@ -257,27 +258,6 @@ class _BookHomePageState extends State<BookHomePage> {
                   'assets/images/not_applicable_icon.png',
                 ),
               ),
-            ),
-          );
-        },
-      ),
-    );
-  }
-
-  SizedBox loadingAnimation() {
-    return SizedBox(
-      height: 150,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        physics: const NeverScrollableScrollPhysics(),
-        itemCount: 4,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              width: 80,
-              height: 126,
-              color: Colors.grey,
             ),
           );
         },

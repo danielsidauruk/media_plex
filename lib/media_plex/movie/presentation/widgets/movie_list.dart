@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-
-import '../../../../core/presentation/widgets/horizontal_card_list.dart';
-import '../../../../core/utils/routes.dart';
-import '../../domain/entities/movie.dart';
+import 'package:media_plex/core/presentation/widgets/horizontal_card_list.dart';
+import 'package:media_plex/core/utils/routes.dart';
+import 'package:media_plex/media_plex/movie/domain/entities/movie.dart';
 
 class MovieList extends StatelessWidget {
   final List<Movie> list;
