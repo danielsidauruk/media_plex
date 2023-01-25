@@ -8,7 +8,7 @@ import 'package:media_plex/media_plex/tv_series/presentation/bloc/tv_series_reco
 import 'package:media_plex/media_plex/tv_series/presentation/bloc/tv_series_watchlist_bloc/tv_series_watchlist_bloc.dart';
 
 import '../../../../core/domain/entities/genre.dart';
-import '../../../../core/presentation/widgets/season_card_list.dart';
+import '../widgets/season_card_list.dart';
 import '../../../../core/styles/colors.dart';
 import '../../../../core/styles/text_styles.dart';
 import '../../../../core/utils/routes.dart';

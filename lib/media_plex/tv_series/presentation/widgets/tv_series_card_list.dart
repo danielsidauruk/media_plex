@@ -1,10 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:media_plex/core/styles/text_styles.dart';
 import 'package:media_plex/core/utils/constants.dart';
 import 'package:media_plex/core/utils/routes.dart';
 import 'package:media_plex/media_plex/tv_series/domain/entities/tv_series.dart';
-
-import '../../../../core/styles/text_styles.dart';
 
 class TVSeriesCard extends StatelessWidget {
   final TVSeries item;

@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:media_plex/core/domain/entities/season.dart';
 import 'package:media_plex/core/styles/text_styles.dart';
+import 'package:media_plex/media_plex/tv_series/domain/entities/season.dart';
 
 class SeasonCard extends StatelessWidget {
   final Season item;
