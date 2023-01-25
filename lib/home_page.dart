@@ -5,7 +5,7 @@ import 'package:media_plex/media_plex/movie/presentation/pages/movie_home_page.d
 
 class HomePage extends StatelessWidget {
   static const routeName = '/homePageRoute';
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
