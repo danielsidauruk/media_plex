@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:media_plex/core/utils/constants.dart';
 import 'package:media_plex/core/utils/routes.dart';
+import 'package:media_plex/core/widget/searchTile.dart';
 import 'package:media_plex/media_plex/books/presentation/widgets/horizontal_loading_animation.dart';
 import 'package:media_plex/media_plex/movie/domain/entities/movie.dart';
 import 'package:media_plex/media_plex/movie/presentation/bloc/movie_now_playing_bloc/movie_now_playing_bloc.dart';
@@ -53,7 +54,11 @@ class _MovieHomePageState extends State<MovieHomePage> {
         child: Column(
           children: [
 
-            searchTile(context),
+            SearchTile(
+              context: context,
+              title: 'Search your Movie',
+              routeName: searchMovieRoute,
+            ),
 
             nowPlayingTile(context),
 
@@ -63,41 +68,6 @@ class _MovieHomePageState extends State<MovieHomePage> {
 
           ],
         ),
-      ),
-    );
-  }
-
-  Container searchTile(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(4.0),
-      padding: const EdgeInsets.all(8.0),
-      width: double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8.0),
-        border: Border.all(color: Colors.white),
-      ),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Search your Movie',
-                style: Theme.of(context)
-                    .textTheme
-                    .subtitle1
-                    ?.copyWith(fontWeight: FontWeight.bold),
-              ),
-              InkWell(
-                onTap: () => Navigator.pushNamed(context, searchMovieRoute),
-                child: const Icon(
-                  Icons.search,
-                  color: Colors.white,
-                ),
-              ),
-            ],
-          ),
-        ],
       ),
     );
   }

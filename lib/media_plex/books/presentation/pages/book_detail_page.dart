@@ -77,40 +77,58 @@ class _DetailPageState extends State<DetailPage> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
 
-                                      Text(
-                                        bookDetail.title,
-                                        style: Theme.of(context).textTheme.bodyLarge
-                                            ?.copyWith(fontWeight: FontWeight.bold),
-                                      ),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Expanded(
+                                            flex: 5,
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  bookDetail.title,
+                                                  style: Theme.of(context).textTheme.bodyLarge
+                                                      ?.copyWith(fontWeight: FontWeight.bold),
+                                                ),
 
-                                      Text(
-                                        'First published in ${DateFormat.yMMMd().format(bookDetail.created.value)}',
-                                        style: Theme.of(context).textTheme.bodyMedium
-                                            ?.copyWith(color: Colors.grey, fontWeight: FontWeight.bold),
+                                                Text(
+                                                  'First published in ${DateFormat.yMMMd().format(bookDetail.created.value)}',
+                                                  style: Theme.of(context).textTheme.bodyMedium
+                                                      ?.copyWith(color: Colors.grey, fontWeight: FontWeight.bold),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+
+                                          InkWell(
+                                            onTap: (){},
+                                            child: Icon(Icons.bookmark_border),
+                                          )
+                                        ],
                                       ),
 
                                       const SizedBox(height: 8.0),
 
-                                      // Bloc Consumer for Bookmark
-                                      Container(
-                                        width: 110,
-                                        alignment: Alignment.center,
-                                        padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 8.0),
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(8.0),
-                                          border: Border.all(color: Colors.white),
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                          children: const [
-                                            Icon(Icons.add),
-                                            Text(
-                                              'Watchlist',
-                                              style: TextStyle(fontWeight: FontWeight.bold),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
+                                      // // Bloc Consumer for Bookmark
+                                      // Container(
+                                      //   width: 110,
+                                      //   alignment: Alignment.center,
+                                      //   padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 8.0),
+                                      //   decoration: BoxDecoration(
+                                      //     borderRadius: BorderRadius.circular(8.0),
+                                      //     border: Border.all(color: Colors.white),
+                                      //   ),
+                                      //   child: Row(
+                                      //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      //     children: const [
+                                      //       Icon(Icons.add),
+                                      //       Text(
+                                      //         'Watchlist',
+                                      //         style: TextStyle(fontWeight: FontWeight.bold),
+                                      //       ),
+                                      //     ],
+                                      //   ),
+                                      // ),
 
                                       const SizedBox(height: 8.0),
 
@@ -146,53 +164,45 @@ class _DetailPageState extends State<DetailPage> {
                                       const SizedBox(height: 8),
 
                                       bookDetail.covers.isNotEmpty ?
-                                      Container(
-                                        padding: const EdgeInsets.all(8.0),
-                                        width: double.infinity,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(8.0),
-                                          border: Border.all(color: Colors.white),
-                                        ),
-                                        child: Column(
-                                          children: [
-                                            Align(
-                                              alignment: Alignment.topLeft,
-                                              child: Text(
-                                                'Covers',
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .subtitle1
-                                                    ?.copyWith(fontWeight: FontWeight.bold),
-                                              ),
+                                      Column(
+                                        children: [
+                                          Align(
+                                            alignment: Alignment.topLeft,
+                                            child: Text(
+                                              'Covers',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .subtitle1
+                                                  ?.copyWith(fontWeight: FontWeight.bold),
                                             ),
+                                          ),
 
-                                            SizedBox(
-                                              height: 150,
-                                              child: ListView.builder(
-                                                scrollDirection: Axis.horizontal,
-                                                itemCount: bookDetail.covers.length - 1,
-                                                itemBuilder: (context, index) {
-                                                  return Padding(
-                                                    padding: const EdgeInsets.all(8.0),
-                                                    child: CachedNetworkImage(
+                                          SizedBox(
+                                            height: 150,
+                                            child: ListView.builder(
+                                              scrollDirection: Axis.horizontal,
+                                              itemCount: bookDetail.covers.length - 1,
+                                              itemBuilder: (context, index) {
+                                                return Padding(
+                                                  padding: const EdgeInsets.all(8.0),
+                                                  child: CachedNetworkImage(
+                                                    width: 80,
+                                                    fit: BoxFit.fill,
+                                                    imageUrl: largeImage(bookDetail.covers[index].toString()),
+                                                    placeholder: (context, url) => Container(
                                                       width: 80,
-                                                      fit: BoxFit.fill,
-                                                      imageUrl: largeImage(bookDetail.covers[index].toString()),
-                                                      placeholder: (context, url) => Container(
-                                                        width: 80,
-                                                        height: 126,
-                                                        color: Colors.grey,
-                                                      ),
-                                                      errorWidget: (context, url, error) => Image.asset(
-                                                        'assets/images/not_applicable_icon.png',
-                                                      ),
+                                                      height: 126,
+                                                      color: Colors.grey,
                                                     ),
-                                                  );
-                                                },
-                                              ),
+                                                    errorWidget: (context, url, error) => Image.asset(
+                                                      'assets/images/not_applicable_icon.png',
+                                                    ),
+                                                  ),
+                                                );
+                                              },
                                             ),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ) : const Center(),
                                     ],
                                   ),

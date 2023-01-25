@@ -233,14 +233,14 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                                                           child: CachedNetworkImage(
                                                             imageUrl:
                                                             'https://image.tmdb.org/t/p/w500${movie.posterPath}',
-                                                            placeholder: (context, url) =>
-                                                            const Center(
-                                                              child:
-                                                              CircularProgressIndicator(),
+                                                            placeholder: (context, url) => Container(
+                                                              width: 80,
+                                                              height: 126,
+                                                              color: Colors.grey,
                                                             ),
-                                                            errorWidget:
-                                                                (context, url, error) =>
-                                                            const Icon(Icons.error),
+                                                            errorWidget: (context, url, error) => Image.asset(
+                                                              'assets/images/not_applicable_icon.png',
+                                                            ),
                                                           ),
                                                         ),
                                                       ),

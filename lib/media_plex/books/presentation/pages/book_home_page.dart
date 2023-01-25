@@ -9,6 +9,8 @@ import 'package:media_plex/media_plex/books/presentation/pages/book_popular_page
 import 'package:media_plex/media_plex/books/presentation/pages/book_search_page.dart';
 import 'package:media_plex/media_plex/books/presentation/widgets/horizontal_loading_animation.dart';
 
+import '../../../../core/widget/searchTile.dart';
+
 class BookHomePage extends StatefulWidget {
   static const routeName = '/bookHomePageRoute';
   const BookHomePage({super.key});
@@ -40,16 +42,24 @@ class _BookHomePageState extends State<BookHomePage> {
               ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            searchTile(context),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
 
-            popularTile(context),
+              SearchTile(
+                context: context,
+                title: 'Search your Book',
+                routeName: BookSearchPage.routeName,
+              ),
 
-            subjectTile(context),
-          ],
+              popularTile(context),
+
+              subjectTile(context),
+            ],
+          ),
         ),
       ),
     );

@@ -12,6 +12,28 @@ import 'package:media_plex/media_plex/movie/domain/usecases/get_now_playing_movi
 import 'package:media_plex/media_plex/movie/presentation/bloc/movie_detail_bloc/movie_detail_bloc.dart';
 import 'package:media_plex/media_plex/movie/presentation/bloc/movie_recommendations_bloc/movie_recommendations_bloc.dart';
 import 'package:media_plex/media_plex/movie/presentation/bloc/movie_search_bloc/search_bloc.dart';
+import 'package:media_plex/media_plex/tv_series/data/datasources/database/database_helper_tv_series.dart';
+import 'package:media_plex/media_plex/tv_series/data/datasources/tv_series_local_data_source.dart';
+import 'package:media_plex/media_plex/tv_series/data/datasources/tv_series_remote_data_source.dart';
+import 'package:media_plex/media_plex/tv_series/data/repositories/tv_series_repository_impl.dart';
+import 'package:media_plex/media_plex/tv_series/domain/repositories/tv_series_repository.dart';
+import 'package:media_plex/media_plex/tv_series/domain/usecases/get_on_air_tv_series.dart';
+import 'package:media_plex/media_plex/tv_series/domain/usecases/get_popular_tv_series.dart';
+import 'package:media_plex/media_plex/tv_series/domain/usecases/get_top_rated_tv_series.dart';
+import 'package:media_plex/media_plex/tv_series/domain/usecases/get_tv_series_detail.dart';
+import 'package:media_plex/media_plex/tv_series/domain/usecases/get_tv_series_recommendations.dart';
+import 'package:media_plex/media_plex/tv_series/domain/usecases/get_watchlist_tv_series.dart';
+import 'package:media_plex/media_plex/tv_series/domain/usecases/get_watchlist_tv_series_status.dart';
+import 'package:media_plex/media_plex/tv_series/domain/usecases/remove_watchlist_tv_series.dart';
+import 'package:media_plex/media_plex/tv_series/domain/usecases/save_watchlist_tv_series.dart';
+import 'package:media_plex/media_plex/tv_series/domain/usecases/search_tv_series.dart';
+import 'package:media_plex/media_plex/tv_series/presentation/bloc/tv_series_detail_bloc/tv_series_detail_bloc.dart';
+import 'package:media_plex/media_plex/tv_series/presentation/bloc/tv_series_on_air_bloc/tv_series_on_air_bloc.dart';
+import 'package:media_plex/media_plex/tv_series/presentation/bloc/tv_series_popular_bloc/tv_series_popular_bloc.dart';
+import 'package:media_plex/media_plex/tv_series/presentation/bloc/tv_series_recommendation_bloc/tv_series_recommendation_bloc.dart';
+import 'package:media_plex/media_plex/tv_series/presentation/bloc/tv_series_search_bloc/tv_series_search_bloc.dart';
+import 'package:media_plex/media_plex/tv_series/presentation/bloc/tv_series_top_rated_bloc/tv_series_top_rated_bloc.dart';
+import 'package:media_plex/media_plex/tv_series/presentation/bloc/tv_series_watchlist_bloc/tv_series_watchlist_bloc.dart';
 
 import 'core/utils/ssl_pinning.dart';
 import 'media_plex/movie/data/datasources/database/database_helper.dart';
@@ -105,5 +127,67 @@ Future<void> init() async {
   // database helper
   locator.registerLazySingleton<DatabaseHelper>(() => DatabaseHelper());
 
+  // => TV Series
+  // BLoC
+  locator.registerFactory(() => SearchTVSeriesBloc(locator()));
+  locator.registerFactory(() => TVSeriesDetailBloc(locator()));
+  locator.registerFactory(() => TVSeriesRecommendationBloc(locator()));
+  locator.registerFactory(() => TVSeriesWatchlistBloc(
+    locator(),
+    locator(),
+    locator(),
+    locator(),
+  ));
+  locator.registerFactory(() => TVSeriesOnAirBloc(locator()));
+  locator.registerFactory(() => TVSeriesPopularBloc(locator()));
+  locator.registerFactory(() => TVSeriesTopRatedBloc(locator()));
 
+  // Use Case
+  locator.registerLazySingleton(() => GetOnAirTVSeries(locator()));
+  locator.registerLazySingleton(() => GetPopularTVSeries(locator()));
+  locator.registerLazySingleton(() => GetTopRatedTVSeries(locator()));
+  locator.registerLazySingleton(() => GetTVSeriesDetail(locator()));
+  locator.registerLazySingleton(() => GetTVSeriesRecommendations(locator()));
+  locator.registerLazySingleton(() => SearchTVSeries(locator()));
+  locator.registerLazySingleton(() => GetWatchlistTVSeriesStatus(locator()));
+  locator.registerLazySingleton(() => SaveWatchlistTVSeries(locator()));
+  locator.registerLazySingleton(() => RemoveWatchlistTVSeries(locator()));
+  locator.registerLazySingleton(() => GetWatchlistTVSeries(locator()));
+
+  // Repository
+  locator.registerLazySingleton<TVSeriesRepository>(
+        () => TVSeriesRepositoryImpl(
+          tvSeriesRemoteDataSource: locator(),
+          tvSeriesLocalDataSource: locator(),
+        ),
+  );
+
+  // Data Sources
+  locator.registerLazySingleton<TVSeriesRemoteDataSource>(
+        () => TVSeriesRemoteDataSourceImpl(client: locator()),
+  );
+  locator.registerLazySingleton<TVSeriesLocalDataSource>(
+        () => TVSeriesLocalDataSourceImpl(databaseHelper: locator()),
+  );
+
+  // Helper
+  locator.registerLazySingleton<DatabaseHelperTVSeries>(
+        () => DatabaseHelperTVSeries(),
+  );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
