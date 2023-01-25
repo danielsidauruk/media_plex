@@ -144,7 +144,7 @@ class MyApp extends StatelessWidget {
             case popularMovieRoute:
               return MaterialPageRoute(builder: (_) => const PopularMoviesPage());
             case searchMovieRoute:
-              return MaterialPageRoute(builder: (_) => const SearchPage());
+              return MaterialPageRoute(builder: (_) => const MovieSearchPage());
             case topRatedMovieRoute:
               return MaterialPageRoute(builder: (_) => const MovieTopRatedPage());
             case WatchlistMoviesPage.routeName:

@@ -2,13 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:media_plex/core/utils/constants.dart';
-import 'package:media_plex/media_plex/movie/domain/entities/movie.dart';
+import 'package:media_plex/media_plex/tv_series/domain/entities/tv_series.dart';
 
-class MovieList extends StatelessWidget {
-  final List<Movie> list;
+class TVSeriesList extends StatelessWidget {
+  final List<TVSeries> list;
   final String route;
 
-  const MovieList({
+  const TVSeriesList({
     super.key,
     required this.list,
     required this.route,
@@ -59,16 +59,16 @@ class MovieList extends StatelessWidget {
                               children: [
                                 Text(
                                   textAlign: TextAlign.start,
-                                  '${list[index].title}',
+                                  '${list[index].name}',
                                   style: Theme.of(context)
                                       .textTheme
                                       .subtitle1
                                       ?.copyWith(fontWeight: FontWeight.bold),
                                 ),
 
-                                list[index].releaseDate != "" ?
+                                list[index].firstAirDate != "" ?
                                 Text(
-                                  'Release in ${DateFormat("MMM d, yyyy").format(DateTime.parse(list[index].releaseDate!))}',
+                                  'Release in ${DateFormat("MMM d, yyyy").format(DateTime.parse(list[index].firstAirDate!))}',
                                   style: Theme.of(context).textTheme.subtitle2?.
                                   copyWith(fontWeight: FontWeight.bold, color: Colors.grey),
                                 ) :

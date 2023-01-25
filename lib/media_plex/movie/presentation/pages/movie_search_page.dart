@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:media_plex/core/utils/routes.dart';
@@ -6,8 +5,8 @@ import 'package:media_plex/media_plex/books/presentation/widgets/loading_animati
 import 'package:media_plex/media_plex/movie/presentation/bloc/movie_search_bloc/search_bloc.dart';
 import 'package:media_plex/media_plex/movie/presentation/widgets/movie_list.dart';
 
-class SearchPage extends StatelessWidget {
-  const SearchPage({super.key});
+class MovieSearchPage extends StatelessWidget {
+  const MovieSearchPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,15 +32,14 @@ class SearchPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+
           Text(
             'Search movies by title :',
-            style: Theme.of(context)
-                .textTheme
-                .subtitle1
+            style: Theme.of(context).textTheme.subtitle1
                 ?.copyWith(fontWeight: FontWeight.bold),
           ),
 
-          buildSearchBar(context),
+          searchTile(context),
 
           buildBloc(),
         ],
@@ -57,21 +55,13 @@ class SearchPage extends StatelessWidget {
             return const LoadingAnimation(tileHeight: 80, totalTile: 5);
           } else if (state is SearchHasData) {
             final movieResult = state.result;
-            try {
-              return MovieList(
-                movieResult: movieResult,
-                detailMovieRoute: detailMovieRoute,
-              );
-            } catch(e) {
-              return const Center();
-            }
+            return MovieList(
+              list: movieResult,
+              route: detailMovieRoute,
+            );
           } else if (state is SearchError) {
-            if (kDebugMode) {
-              print(state.message);
-            }
             return const Center();
           } else {
-            // return const SizedBox.shrink();
             return const Center();
           }
         },
@@ -79,7 +69,7 @@ class SearchPage extends StatelessWidget {
     );
   }
 
-  Container buildSearchBar(BuildContext context) {
+  Container searchTile(BuildContext context) {
     return Container(
       alignment: Alignment.center,
       margin: const EdgeInsets.symmetric(vertical: 8.0),

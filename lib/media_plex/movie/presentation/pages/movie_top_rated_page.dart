@@ -50,8 +50,8 @@ class _MovieTopRatedPageState extends State<MovieTopRatedPage> {
           } else if (state is MovieTopRatedHasData) {
             final movieResult = state.result;
             return MovieList(
-              movieResult: movieResult,
-              detailMovieRoute: detailMovieRoute,
+              list: movieResult,
+              route: detailMovieRoute,
             );
           } else if (state is MovieTopRatedError) {
             return Center(

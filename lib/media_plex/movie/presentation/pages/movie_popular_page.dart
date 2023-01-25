@@ -50,8 +50,8 @@ class _PopularMoviesPageState extends State<PopularMoviesPage> {
           } else if (state is MoviePopularHasData) {
             final movieResult = state.result;
             return MovieList(
-              movieResult: movieResult,
-              detailMovieRoute: detailMovieRoute,
+              list: movieResult,
+              route: detailMovieRoute,
             );
           } else if (state is MoviePopularError) {
             return Center(

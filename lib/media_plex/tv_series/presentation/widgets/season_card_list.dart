@@ -32,18 +32,20 @@ class SeasonCard extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
+
           const SizedBox(width: 12.0),
+
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 item.name,
-                style: kSubtitle,
+                style: Theme.of(context).textTheme.subtitle1?.
+                copyWith(fontWeight: FontWeight.bold),
               ),
+
               Text('${item.episodeCount} episodes'),
-              const SizedBox(
-                height: 4.0,
-              ),
+
               Text(year),
             ],
           )

@@ -53,8 +53,8 @@ class _MovieNowPlayingPageState extends State<MovieNowPlayingPage> {
           } else if (state is MovieNowPlayingHasData) {
             final movieResult = state.result;
             return MovieList(
-              movieResult: movieResult,
-              detailMovieRoute: detailMovieRoute,
+              list: movieResult,
+              route: detailMovieRoute,
             );
           } else if (state is MovieNowPlayingError) {
             return Center(

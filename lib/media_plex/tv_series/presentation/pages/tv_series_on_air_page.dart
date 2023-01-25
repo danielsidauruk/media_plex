@@ -1,10 +1,12 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:media_plex/core/utils/routes.dart';
+import 'package:media_plex/media_plex/books/presentation/widgets/loading_animation.dart';
 import 'package:media_plex/media_plex/tv_series/presentation/bloc/tv_series_on_air_bloc/tv_series_on_air_bloc.dart';
-import 'package:media_plex/media_plex/tv_series/presentation/widgets/tv_series_card_list.dart';
+import '../widgets/tv_series_list.dart';
 
 class TVSeriesOnAirPage extends StatefulWidget {
-  const TVSeriesOnAirPage({Key? key}) : super(key: key);
+  const TVSeriesOnAirPage({super.key});
 
   @override
   State<TVSeriesOnAirPage> createState() => _TVSeriesOnAirPageState();
@@ -14,32 +16,42 @@ class _TVSeriesOnAirPageState extends State<TVSeriesOnAirPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() =>
-        BlocProvider.of<TVSeriesOnAirBloc>(context, listen: false)
-            .add(FetchTVSeriesOnAir()));
+    BlocProvider.of<TVSeriesOnAirBloc>(context, listen: false)
+        .add(FetchTVSeriesOnAir());
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('On Air TV Series'),
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+        title: Text(
+          'On Air TV Series',
+          style: Theme.of(context).textTheme.bodyText1
+              ?.copyWith(
+            fontWeight: FontWeight.bold,
+            fontSize: 22,
+          ),
+        ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: BlocBuilder<TVSeriesOnAirBloc, TVSeriesOnAirState>(
-            builder: (context, state) {
+
+      body: buildBody(),
+    );
+  }
+
+  Padding buildBody() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: BlocBuilder<TVSeriesOnAirBloc, TVSeriesOnAirState>(
+        builder: (context, state) {
           if (state is TVSeriesOnAirLoading) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return const LoadingAnimation(tileHeight: 100, totalTile: 6);
           } else if (state is TVSeriesOnAirHasData) {
-            return ListView.builder(
-              itemBuilder: (context, index) {
-                final onAirTVSeries = state.result[index];
-                return TVSeriesCard(item: onAirTVSeries);
-              },
-              itemCount: state.result.length,
+            final tvSeriesResult = state.result;
+            return TVSeriesList(
+              list: tvSeriesResult,
+              route: detailTVSeriesRoute,
             );
           } else if (state is TVSeriesOnAirError) {
             return Center(
@@ -49,7 +61,7 @@ class _TVSeriesOnAirPageState extends State<TVSeriesOnAirPage> {
           } else {
             return const Text('Failed');
           }
-        }),
+        },
       ),
     );
   }
