@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_plex/core/utils/constants.dart';
+import 'package:media_plex/core/widget/sub_heading_tile.dart';
 import 'package:media_plex/media_plex/books/domain/entities/book_popular.dart';
 import 'package:media_plex/media_plex/books/presentation/bloc/popular_bloc/book_popular_bloc.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_detail_page.dart';
@@ -9,7 +10,7 @@ import 'package:media_plex/media_plex/books/presentation/pages/book_popular_page
 import 'package:media_plex/media_plex/books/presentation/pages/book_search_page.dart';
 import 'package:media_plex/media_plex/books/presentation/widgets/horizontal_loading_animation.dart';
 
-import '../../../../core/widget/searchTile.dart';
+import '../../../../core/widget/search_tile.dart';
 
 class BookHomePage extends StatefulWidget {
   static const routeName = '/bookHomePageRoute';
@@ -112,23 +113,9 @@ class _BookHomePageState extends State<BookHomePage> {
       ),
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Popular Books - Daily',
-                style: Theme.of(context)
-                    .textTheme
-                    .subtitle1
-                    ?.copyWith(fontWeight: FontWeight.bold),
-              ),
-              InkWell(
-                onTap: () =>
-                    Navigator.pushNamed(context, BookPopularPage.routeName),
-                child: const Icon(Icons.arrow_forward),
-              ),
-            ],
-          ),
+
+          SubHeadingTile(context: context, title: 'Popular Books - Daily', routeName: BookPopularPage.routeName),
+
           BlocBuilder<PopularBloc, PopularState>(
             builder: (context, state) {
               if (state is PopularEmpty) {
@@ -137,7 +124,7 @@ class _BookHomePageState extends State<BookHomePage> {
                 return const HorizontalLoadingAnimation();
               } else if (state is PopularLoaded) {
                 final books = state.popular.works;
-                return popularBookResult(books: books);
+                return popularBookResult(books);
               } else if (state is PopularError) {
                 return Text(state.message);
               }
@@ -149,7 +136,7 @@ class _BookHomePageState extends State<BookHomePage> {
     );
   }
 
-  SizedBox popularBookResult({required List<Work> books}) {
+  SizedBox popularBookResult(List<Work> books) {
     return SizedBox(
       height: 150,
       child: ListView.builder(

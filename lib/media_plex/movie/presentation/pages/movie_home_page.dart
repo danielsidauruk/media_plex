@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:media_plex/core/utils/constants.dart';
 import 'package:media_plex/core/utils/routes.dart';
-import 'package:media_plex/core/widget/searchTile.dart';
+import 'package:media_plex/core/widget/search_tile.dart';
+import 'package:media_plex/core/widget/sub_heading_tile.dart';
 import 'package:media_plex/media_plex/books/presentation/widgets/horizontal_loading_animation.dart';
 import 'package:media_plex/media_plex/movie/domain/entities/movie.dart';
 import 'package:media_plex/media_plex/movie/presentation/bloc/movie_now_playing_bloc/movie_now_playing_bloc.dart';
@@ -49,24 +50,27 @@ class _MovieHomePageState extends State<MovieHomePage> {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
 
-            SearchTile(
-              context: context,
-              title: 'Search your Movie',
-              routeName: searchMovieRoute,
-            ),
+              SearchTile(
+                context: context,
+                title: 'Search your Movie',
+                routeName: searchMovieRoute,
+              ),
 
-            nowPlayingTile(context),
+              nowPlayingTile(context),
 
-            popularTile(context),
+              popularTile(context),
 
-            topRatedTile(context),
+              topRatedTile(context),
 
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -83,23 +87,9 @@ class _MovieHomePageState extends State<MovieHomePage> {
       ),
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Now Playing Movies',
-                style: Theme.of(context)
-                    .textTheme
-                    .subtitle1
-                    ?.copyWith(fontWeight: FontWeight.bold),
-              ),
-              InkWell(
-                onTap: () =>
-                    Navigator.pushNamed(context, MovieNowPlayingPage.routeName),
-                child: const Icon(Icons.arrow_forward),
-              ),
-            ],
-          ),
+
+          SubHeadingTile(context: context, title: 'Now Playing Movies', routeName: MovieNowPlayingPage.routeName),
+
           BlocBuilder<MovieNowPlayingBloc, MovieNowPlayingState>(
             builder: (context, state) {
               if (state is MovieNowPlayingLoading) {
@@ -130,23 +120,8 @@ class _MovieHomePageState extends State<MovieHomePage> {
       ),
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Popular Movies',
-                style: Theme.of(context)
-                    .textTheme
-                    .subtitle1
-                    ?.copyWith(fontWeight: FontWeight.bold),
-              ),
-              InkWell(
-                onTap: () =>
-                    Navigator.pushNamed(context, popularMovieRoute),
-                child: const Icon(Icons.arrow_forward),
-              ),
-            ],
-          ),
+
+          SubHeadingTile(context: context, title: 'Popular Movies', routeName: popularMovieRoute),
 
           BlocBuilder<MoviePopularBloc, MoviePopularState>(
               builder: (context, state) {
@@ -178,23 +153,8 @@ class _MovieHomePageState extends State<MovieHomePage> {
       ),
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Top Rated Movies',
-                style: Theme.of(context)
-                    .textTheme
-                    .subtitle1
-                    ?.copyWith(fontWeight: FontWeight.bold),
-              ),
-              InkWell(
-                onTap: () =>
-                    Navigator.pushNamed(context, topRatedMovieRoute),
-                child: const Icon(Icons.arrow_forward),
-              ),
-            ],
-          ),
+
+          SubHeadingTile(context: context, title: 'Top Rated Movies', routeName: topRatedMovieRoute),
 
           BlocBuilder<MovieTopRatedBloc, MovieTopRatedState>(
             builder: (context, state) {
