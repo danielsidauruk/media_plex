@@ -3,11 +3,6 @@ const baseURL = 'https://api.themoviedb.org/3';
 
 const String baseImageURL = 'https://image.tmdb.org/t/p/w500';
 
-List<String> monthNames = [
-  'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
-  'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember',
-];
-
 const String serverFailureMessage = 'Server Failure';
 
 const List<String> queryList = ['now', 'daily', 'weekly', 'monthly', 'yearly'];

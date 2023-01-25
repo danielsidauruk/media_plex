@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:media_plex/core/styles/colors.dart';
 import 'package:media_plex/media_plex/movie/presentation/pages/movie_watchlist_page.dart';
 
 class WatchlistPage extends StatelessWidget {
@@ -18,7 +17,7 @@ class WatchlistPage extends StatelessWidget {
               pinned: true,
               floating: true,
               bottom: TabBar(
-                indicatorColor: kMikadoYellow,
+                indicatorColor: Colors.yellow,
                 tabs: [
                   _tabBarItem('Movies', Icons.movie_creation_outlined),
                   _tabBarItem('TV Series', Icons.live_tv_rounded),
