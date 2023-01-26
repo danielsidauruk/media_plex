@@ -12,7 +12,7 @@ import 'package:media_plex/media_plex/movie/domain/usecases/get_now_playing_movi
 import 'package:media_plex/media_plex/movie/presentation/bloc/movie_detail_bloc/movie_detail_bloc.dart';
 import 'package:media_plex/media_plex/movie/presentation/bloc/movie_recommendations_bloc/movie_recommendations_bloc.dart';
 import 'package:media_plex/media_plex/movie/presentation/bloc/movie_search_bloc/search_bloc.dart';
-import 'package:media_plex/media_plex/tv_series/data/datasources/database/database_helper_tv_series.dart';
+import 'package:media_plex/media_plex/tv_series/data/datasources/database/tv_series_database_helper.dart';
 import 'package:media_plex/media_plex/tv_series/data/datasources/tv_series_local_data_source.dart';
 import 'package:media_plex/media_plex/tv_series/data/datasources/tv_series_remote_data_source.dart';
 import 'package:media_plex/media_plex/tv_series/data/repositories/tv_series_repository_impl.dart';
@@ -36,7 +36,7 @@ import 'package:media_plex/media_plex/tv_series/presentation/bloc/tv_series_top_
 import 'package:media_plex/media_plex/tv_series/presentation/bloc/tv_series_watchlist_bloc/tv_series_watchlist_bloc.dart';
 import 'package:media_plex/media_plex/movie/data/repositories/movie_repository_impl.dart';
 import 'core/utils/ssl_pinning.dart';
-import 'media_plex/movie/data/datasources/database/database_helper.dart';
+import 'media_plex/movie/data/datasources/database/movie_database_helper.dart';
 import 'media_plex/movie/data/datasources/movie_local_data_source.dart';
 import 'media_plex/movie/data/datasources/movie_remote_data_source.dart';
 import 'media_plex/movie/domain/repositories/movie_repository.dart';
@@ -73,8 +73,11 @@ Future<void> init() async {
   locator.registerLazySingleton(() => GetPopularBook(repository: locator()));
 
   // repository
-  locator.registerLazySingleton<LibraryBookRepository>(
-    () => LibraryBookRepositoryImpl(remoteDataSource: locator()),
+  locator.registerLazySingleton<BookRepository>(
+    () => BookRepositoryImpl(
+      remoteDataSource: locator(),
+      localDataSource: locator(),
+    ),
   );
 
   // data sources
@@ -124,7 +127,7 @@ Future<void> init() async {
           () => MovieLocalDataSourceImpl(databaseHelper: locator()));
 
   // database helper
-  locator.registerLazySingleton<DatabaseHelper>(() => DatabaseHelper());
+  locator.registerLazySingleton<MovieDatabaseHelper>(() => MovieDatabaseHelper());
 
   // => TV Series
   // BLoC
@@ -170,8 +173,8 @@ Future<void> init() async {
   );
 
   // Helper
-  locator.registerLazySingleton<DatabaseHelperTVSeries>(
-        () => DatabaseHelperTVSeries(),
+  locator.registerLazySingleton<TVSeriesDatabaseHelper>(
+        () => TVSeriesDatabaseHelper(),
   );
 }
 

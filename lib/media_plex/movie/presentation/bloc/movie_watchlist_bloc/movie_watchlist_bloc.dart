@@ -20,16 +20,16 @@ class MovieWatchlistBloc
   MovieWatchlistBloc(this._getMovieWatchlist, this._getWatchListMovieStatus,
       this._saveWatchlist, this._removeWatchlist)
       : super(MovieWatchlistEmpty()) {
-    on<FetchMovieWatchlist>(
-      (event, emit) async {
-        emit(MovieWatchlistLoading());
-        final watchlistResult = await _getMovieWatchlist.execute();
 
-        watchlistResult.fold(
+
+    on<FetchMovieWatchlist>((event, emit) async {
+      emit(MovieWatchlistLoading());
+      final watchlistResult = await _getMovieWatchlist.execute();
+
+      watchlistResult.fold(
             (failure) => emit(MovieWatchlistError(failure.message)),
-            (data) => emit(MovieWatchlistHasData(data)));
-      },
-    );
+            (data) => emit(MovieWatchlistHasData(data)),
+      );});
 
     on<LoadWatchlistStatus>(((event, emit) async {
       final id = event.id;
@@ -40,7 +40,6 @@ class MovieWatchlistBloc
 
     on<AddMovieWatchlist>((event, emit) async {
       final movie = event.movie;
-
       final result = await _saveWatchlist.execute(movie);
 
       result.fold(
@@ -53,8 +52,8 @@ class MovieWatchlistBloc
 
     on<DeleteMovieWatchlist>((event, emit) async {
       final movie = event.movie;
-
       final result = await _removeWatchlist.execute(movie);
+
       result.fold(
         (failure) => emit(WatchlistFailure(failure.message)),
         (successMessage) =>

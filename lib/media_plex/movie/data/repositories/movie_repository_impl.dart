@@ -27,11 +27,12 @@ class MovieRepositoryImpl implements MovieRepository {
       return const Left(ServerFailure(''));
     } on SocketException {
       return const Left(ConnectionFailure('Failed to connect to the network'));
-    }  on TlsException catch (e) {
-      return Left(SSLFailure('CERTIFICATE_VERIFY_FAILED\n${e.message}'));
-    } catch (e) {
-      return Left(SSLFailure(e.toString()));
     }
+    // on TlsException catch (e) {
+    //   return Left(SSLFailure('CERTIFICATE_VERIFY_FAILED\n${e.message}'));
+    // } catch (e) {
+    //   return Left(SSLFailure(e.toString()));
+    // }
   }
 
   @override
@@ -43,11 +44,12 @@ class MovieRepositoryImpl implements MovieRepository {
       return const Left(ServerFailure(''));
     } on SocketException {
       return const Left(ConnectionFailure('Failed to connect to the network'));
-    } on TlsException catch (e) {
-      return Left(SSLFailure('CERTIFICATE_VERIFY_FAILED\n${e.message}'));
-    } catch (e) {
-      return Left(SSLFailure(e.toString()));
     }
+    // on TlsException catch (e) {
+    //   return Left(SSLFailure('CERTIFICATE_VERIFY_FAILED\n${e.message}'));
+    // } catch (e) {
+    //   return Left(SSLFailure(e.toString()));
+    // }
   }
 
   @override
@@ -59,11 +61,12 @@ class MovieRepositoryImpl implements MovieRepository {
       return const Left(ServerFailure(''));
     } on SocketException {
       return const Left(ConnectionFailure('Failed to connect to the network'));
-    } on TlsException catch (e) {
-      return Left(SSLFailure('CERTIFICATE_VERIFY_FAILED\n${e.message}'));
-    } catch (e) {
-      return Left(SSLFailure(e.toString()));
     }
+    // on TlsException catch (e) {
+    //   return Left(SSLFailure('CERTIFICATE_VERIFY_FAILED\n${e.message}'));
+    // } catch (e) {
+    //   return Left(SSLFailure(e.toString()));
+    // }
   }
 
   @override
@@ -75,11 +78,12 @@ class MovieRepositoryImpl implements MovieRepository {
       return const Left(ServerFailure(''));
     } on SocketException {
       return const Left(ConnectionFailure('Failed to connect to the network'));
-    } on TlsException catch (e) {
-      return Left(SSLFailure('CERTIFICATE_VERIFY_FAILED\n${e.message}'));
-    } catch (e) {
-      return Left(SSLFailure(e.toString()));
     }
+    // on TlsException catch (e) {
+    //   return Left(SSLFailure('CERTIFICATE_VERIFY_FAILED\n${e.message}'));
+    // } catch (e) {
+    //   return Left(SSLFailure(e.toString()));
+    // }
   }
 
   @override
@@ -91,11 +95,12 @@ class MovieRepositoryImpl implements MovieRepository {
       return const Left(ServerFailure(''));
     } on SocketException {
       return const Left(ConnectionFailure('Failed to connect to the network'));
-    } on TlsException catch (e) {
-      return Left(SSLFailure('CERTIFICATE_VERIFY_FAILED\n${e.message}'));
-    } catch (e) {
-      return Left(SSLFailure(e.toString()));
     }
+    // on TlsException catch (e) {
+    //   return Left(SSLFailure('CERTIFICATE_VERIFY_FAILED\n${e.message}'));
+    // } catch (e) {
+    //   return Left(SSLFailure(e.toString()));
+    // }
   }
 
   @override
@@ -107,11 +112,12 @@ class MovieRepositoryImpl implements MovieRepository {
       return const Left(ServerFailure(''));
     } on SocketException {
       return const Left(ConnectionFailure('Failed to connect to the network'));
-    } on TlsException catch (e) {
-      return Left(SSLFailure('CERTIFICATE_VERIFY_FAILED\n${e.message}'));
-    } catch (e) {
-      return Left(SSLFailure(e.toString()));
     }
+    // on TlsException catch (e) {
+    //   return Left(SSLFailure('CERTIFICATE_VERIFY_FAILED\n${e.message}'));
+    // } catch (e) {
+    //   return Left(SSLFailure(e.toString()));
+    // }
   }
 
   @override

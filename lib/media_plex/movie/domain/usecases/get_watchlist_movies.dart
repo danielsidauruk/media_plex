@@ -4,11 +4,11 @@ import 'package:media_plex/media_plex/movie/domain/entities/movie.dart';
 import 'package:media_plex/media_plex/movie/domain/repositories/movie_repository.dart';
 
 class GetWatchlistMovies {
-  final MovieRepository _repository;
+  final MovieRepository repository;
 
-  GetWatchlistMovies(this._repository);
+  GetWatchlistMovies(this.repository);
 
   Future<Either<Failure, List<Movie>>> execute() {
-    return _repository.getWatchlistMovies();
+    return repository.getWatchlistMovies();
   }
 }

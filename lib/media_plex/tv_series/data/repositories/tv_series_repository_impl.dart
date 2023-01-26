@@ -9,7 +9,6 @@ import 'package:media_plex/media_plex/tv_series/domain/entities/tv_series_detail
 import 'package:media_plex/media_plex/tv_series/domain/repositories/tv_series_repository.dart';
 import 'dart:io';
 
-
 class TVSeriesRepositoryImpl implements TVSeriesRepository {
   final TVSeriesRemoteDataSource tvSeriesRemoteDataSource;
   final TVSeriesLocalDataSource tvSeriesLocalDataSource;

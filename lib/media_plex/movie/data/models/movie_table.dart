@@ -16,11 +16,11 @@ class MovieTable extends Equatable {
   });
 
   factory MovieTable.fromEntity(MovieDetail movie) => MovieTable(
-        id: movie.id,
-        title: movie.title,
-        posterPath: movie.posterPath,
-        overview: movie.overview,
-      );
+    id: movie.id,
+    title: movie.title,
+    posterPath: movie.posterPath,
+    overview: movie.overview,
+  );
 
   factory MovieTable.fromMap(Map<String, dynamic> map) => MovieTable(
         id: map['id'],

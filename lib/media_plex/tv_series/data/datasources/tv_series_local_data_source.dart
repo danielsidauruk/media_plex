@@ -1,6 +1,6 @@
 
 import 'package:media_plex/core/utils/exception.dart';
-import 'package:media_plex/media_plex/tv_series/data/datasources/database/database_helper_tv_series.dart';
+import 'package:media_plex/media_plex/tv_series/data/datasources/database/tv_series_database_helper.dart';
 import 'package:media_plex/media_plex/tv_series/data/models/tv_series_table.dart';
 
 abstract class TVSeriesLocalDataSource {
@@ -14,7 +14,7 @@ abstract class TVSeriesLocalDataSource {
 }
 
 class TVSeriesLocalDataSourceImpl implements TVSeriesLocalDataSource {
-  final DatabaseHelperTVSeries databaseHelper;
+  final TVSeriesDatabaseHelper databaseHelper;
 
   TVSeriesLocalDataSourceImpl({required this.databaseHelper});
 

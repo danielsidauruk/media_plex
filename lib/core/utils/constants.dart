@@ -26,3 +26,5 @@ String baseImageURL(String path) => 'https://image.tmdb.org/t/p/w500$path';
 
 const String serverFailureMessage = 'Server Failure';
 
+const String tblWatchlist = 'watchlist';
+

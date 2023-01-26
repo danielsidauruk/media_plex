@@ -6,7 +6,7 @@ import 'package:media_plex/media_plex/books/domain/repositories/books_repository
 import 'package:media_plex/shared/domain/use_cases/use_case.dart';
 
 class SearchBook extends UseCase<Search, Params> {
-  LibraryBookRepository repository;
+  BookRepository repository;
 
   SearchBook({required this.repository});
 

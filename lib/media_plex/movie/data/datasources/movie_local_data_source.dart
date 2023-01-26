@@ -1,5 +1,5 @@
 import 'package:media_plex/core/utils/exception.dart';
-import 'package:media_plex/media_plex/movie/data/datasources/database/database_helper.dart';
+import 'package:media_plex/media_plex/movie/data/datasources/database/movie_database_helper.dart';
 import 'package:media_plex/media_plex/movie/data/models/movie_table.dart';
 
 abstract class MovieLocalDataSource {
@@ -10,7 +10,7 @@ abstract class MovieLocalDataSource {
 }
 
 class MovieLocalDataSourceImpl implements MovieLocalDataSource {
-  final DatabaseHelper databaseHelper;
+  final MovieDatabaseHelper databaseHelper;
 
   MovieLocalDataSourceImpl({required this.databaseHelper});
 
