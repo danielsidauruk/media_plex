@@ -2,13 +2,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:media_plex/core/domain/entities/genre.dart';
+import 'package:media_plex/core/utils/constants.dart';
 import 'package:media_plex/core/utils/routes.dart';
-import 'package:media_plex/media_plex/books/presentation/widgets/horizontal_loading_animation.dart';
 import 'package:media_plex/media_plex/movie/domain/entities/movie_detail.dart';
 import 'package:media_plex/media_plex/movie/presentation/bloc/movie_detail_bloc/movie_detail_bloc.dart';
 import 'package:media_plex/media_plex/movie/presentation/bloc/movie_recommendations_bloc/movie_recommendations_bloc.dart';
 import 'package:media_plex/media_plex/movie/presentation/bloc/movie_watchlist_bloc/movie_watchlist_bloc.dart';
+import 'package:media_plex/shared/domain/entities/genre.dart';
+import 'package:media_plex/shared/presentation/widget/horizontal_loading_animation.dart';
 
 class MovieDetailPage extends StatefulWidget {
   const MovieDetailPage({super.key, required this.id});
@@ -58,7 +59,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
       child: Stack(
         children: [
           CachedNetworkImage(
-            imageUrl: 'https://image.tmdb.org/t/p/w500${detail.posterPath}',
+            imageUrl: baseImageURL(detail.posterPath),
             width: double.infinity,
             placeholder: (context, url) => Container(
               width: double.infinity,

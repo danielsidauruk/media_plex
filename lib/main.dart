@@ -41,6 +41,7 @@ import 'media_plex/movie/presentation/pages/movie_popular_page.dart';
 import 'media_plex/movie/presentation/pages/movie_search_page.dart';
 import 'media_plex/movie/presentation/pages/movie_top_rated_page.dart';
 import 'media_plex/movie/presentation/pages/movie_watchlist_page.dart';
+import 'shared/presentation/page/repository_page.dart';
 
 void main() async {
   await di.init();
@@ -114,6 +115,10 @@ class MyApp extends StatelessWidget {
         navigatorObservers: [routeObserver],
         onGenerateRoute: (RouteSettings settings) {
           switch (settings.name) {
+
+            // repository
+            case RepositoryPage.routeName:
+              return MaterialPageRoute(builder: (_) => const RepositoryPage());
 
             // books
             case HomePage.routeName:

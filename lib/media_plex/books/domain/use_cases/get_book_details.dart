@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:media_plex/core/use_case.dart';
+import 'package:media_plex/core/utils/failure.dart';
 import 'package:media_plex/media_plex/books/domain/entities/book_detail.dart';
 import 'package:media_plex/media_plex/books/domain/repositories/books_repository.dart';
-import '../../../../core/utils/failure.dart';
+import 'package:media_plex/shared/domain/use_cases/use_case.dart';
 
 class GetBookDetails extends UseCase<BookDetail, Params> {
   LibraryBookRepository repository;

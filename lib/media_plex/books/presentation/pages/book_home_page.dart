@@ -2,15 +2,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_plex/core/utils/constants.dart';
-import 'package:media_plex/core/widget/sub_heading_tile.dart';
 import 'package:media_plex/media_plex/books/domain/entities/book_popular.dart';
 import 'package:media_plex/media_plex/books/presentation/bloc/popular_bloc/book_popular_bloc.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_detail_page.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_popular_page.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_search_page.dart';
-import 'package:media_plex/media_plex/books/presentation/widgets/horizontal_loading_animation.dart';
-
-import '../../../../core/widget/search_tile.dart';
+import 'package:media_plex/shared/presentation/widget/horizontal_loading_animation.dart';
+import 'package:media_plex/shared/presentation/widget/search_tile.dart';
+import 'package:media_plex/shared/presentation/widget/sub_heading_tile.dart';
 
 class BookHomePage extends StatefulWidget {
   static const routeName = '/bookHomePageRoute';

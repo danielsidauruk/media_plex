@@ -2,14 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:media_plex/core/utils/routes.dart';
 import 'package:media_plex/media_plex/movie/presentation/pages/movie_detail_page.dart';
 import 'package:media_plex/media_plex/tv_series/presentation/bloc/tv_series_detail_bloc/tv_series_detail_bloc.dart';
 import 'package:media_plex/media_plex/tv_series/presentation/bloc/tv_series_recommendation_bloc/tv_series_recommendation_bloc.dart';
 import 'package:media_plex/media_plex/tv_series/presentation/bloc/tv_series_watchlist_bloc/tv_series_watchlist_bloc.dart';
-
-import '../../../../core/domain/entities/genre.dart';
-import '../widgets/season_card_list.dart';
-import '../../../../core/utils/routes.dart';
+import 'package:media_plex/media_plex/tv_series/presentation/widgets/season_card_list.dart';
+import 'package:media_plex/shared/domain/entities/genre.dart';
 
 class TVSeriesDetailPage extends StatefulWidget {
   const TVSeriesDetailPage({super.key, required this.id});
@@ -253,7 +252,7 @@ class _TVSeriesDetailPageState extends State<TVSeriesDetailPage> {
                                       ListView.builder(
                                         itemBuilder: (context, index) {
                                           final season = tvSeriesDetail.seasons[index];
-                                          return SeasonCard(item: season);
+                                          return SeasonTile(item: season);
                                         },
                                         shrinkWrap: true,
                                         itemCount: tvSeriesDetail.seasons.length,

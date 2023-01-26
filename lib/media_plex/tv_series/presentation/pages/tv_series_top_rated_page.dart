@@ -1,14 +1,12 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:media_plex/core/utils/routes.dart';
-import 'package:media_plex/media_plex/books/presentation/widgets/loading_animation.dart';
 import 'package:media_plex/media_plex/tv_series/presentation/bloc/tv_series_top_rated_bloc/tv_series_top_rated_bloc.dart';
-import 'package:media_plex/media_plex/tv_series/presentation/widgets/tv_series_card_list.dart';
 import 'package:media_plex/media_plex/tv_series/presentation/widgets/tv_series_list.dart';
+import 'package:media_plex/shared/presentation/widget/loading_animation.dart';
 
 class TVSeriesTopRatedPage extends StatefulWidget {
   const TVSeriesTopRatedPage({super.key});
-
 
   @override
   State<TVSeriesTopRatedPage> createState() => _TVSeriesTopRatedPageState();
@@ -48,7 +46,7 @@ class _TVSeriesTopRatedPageState extends State<TVSeriesTopRatedPage> {
       child: BlocBuilder<TVSeriesTopRatedBloc, TVSeriesTopRatedState>(
         builder: (context, state) {
           if (state is TVSeriesTopRatedLoading) {
-            return const LoadingAnimation(tileHeight: 100, totalTile: 6);
+            return const LoadingAnimation();
           } else if (state is TVSeriesTopRatedHasData) {
             final tvSeriesResult = state.result;
             return TVSeriesList(

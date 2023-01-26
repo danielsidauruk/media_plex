@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:media_plex/core/utils/routes.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_home_page.dart';
 import 'package:media_plex/media_plex/movie/presentation/pages/movie_home_page.dart';
+import 'shared/presentation/page/repository_page.dart';
 
 class HomePage extends StatelessWidget {
   static const routeName = '/homePageRoute';
@@ -46,7 +47,7 @@ class HomePage extends StatelessWidget {
 
             homeTile(
               context,
-                  () {},
+                  () => Navigator.pushNamed(context, RepositoryPage.routeName),
               'Repository',
               const Icon(Icons.bookmark_border),
               'assets/images/repository.png',

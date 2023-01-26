@@ -2,17 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:media_plex/core/utils/constants.dart';
+import 'package:media_plex/core/utils/routes.dart';
 import 'package:media_plex/media_plex/movie/domain/entities/movie.dart';
 
 class MovieList extends StatelessWidget {
   final List<Movie> list;
-  final String route;
 
-  const MovieList({
-    super.key,
-    required this.list,
-    required this.route,
-  });
+  const MovieList({super.key, required this.list});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +20,7 @@ class MovieList extends StatelessWidget {
               return InkWell(
                 onTap: () => Navigator.pushNamed(
                   context,
-                  route,
+                  detailMovieRoute,
                   arguments: list[index].id,
                 ),
                 child: Container(
@@ -38,18 +34,20 @@ class MovieList extends StatelessWidget {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+
+                      list[index].posterPath != null ?
                       CachedNetworkImage(
                         width: 60,
                         fit: BoxFit.fill,
-                        imageUrl: '$baseImageURL${list[index].posterPath}',
+                        imageUrl: baseImageURL(list[index].posterPath!),
                         placeholder: (context, url) => const Center(),
                         errorWidget: (context, url, error) => Image.asset(
                           'assets/images/not_applicable_icon.png',
                         ),
-                      ),
-                      const SizedBox(
-                        width: 8.0,
-                      ),
+                      ) : const Center(),
+
+                      const SizedBox(width: 8.0),
+
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,7 +64,7 @@ class MovieList extends StatelessWidget {
                                       ?.copyWith(fontWeight: FontWeight.bold),
                                 ),
 
-                                list[index].releaseDate != "" ?
+                                list[index].releaseDate != "" || list[index].releaseDate != null ?
                                 Text(
                                   'Release in ${DateFormat("MMM d, yyyy").format(DateTime.parse(list[index].releaseDate!))}',
                                   style: Theme.of(context).textTheme.subtitle2?.
@@ -98,7 +96,7 @@ class MovieList extends StatelessWidget {
         Align(
           alignment: Alignment.centerRight,
           child: Text(
-            'Total result : ${list.length.toString()}',
+            'Total result : ${list.length}',
             style: Theme.of(context).textTheme.subtitle1?.
             copyWith(fontWeight: FontWeight.bold),
           ),

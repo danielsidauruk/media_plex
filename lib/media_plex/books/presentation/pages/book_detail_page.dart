@@ -21,10 +21,8 @@ class _DetailPageState extends State<DetailPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() {
-      BlocProvider.of<BookDetailBloc>(context, listen: false)
-          .add(GetForBookDetail(widget.bookKey));
-    });
+    BlocProvider.of<BookDetailBloc>(context, listen: false)
+        .add(GetForBookDetail(widget.bookKey));
   }
 
   @override
@@ -115,7 +113,7 @@ class _DetailPageState extends State<DetailPage> {
 
                                   InkWell(
                                     onTap: (){},
-                                    child: Icon(Icons.bookmark_border),
+                                    child: const Icon(Icons.bookmark_border),
                                   )
                                 ],
                               ),

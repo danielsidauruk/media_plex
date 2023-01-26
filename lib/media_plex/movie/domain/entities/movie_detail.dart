@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:media_plex/core/domain/entities/genre.dart';
+import 'package:media_plex/shared/domain/entities/genre.dart';
 
 class MovieDetail extends Equatable {
   const MovieDetail({

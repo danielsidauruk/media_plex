@@ -34,12 +34,11 @@ import 'package:media_plex/media_plex/tv_series/presentation/bloc/tv_series_reco
 import 'package:media_plex/media_plex/tv_series/presentation/bloc/tv_series_search_bloc/tv_series_search_bloc.dart';
 import 'package:media_plex/media_plex/tv_series/presentation/bloc/tv_series_top_rated_bloc/tv_series_top_rated_bloc.dart';
 import 'package:media_plex/media_plex/tv_series/presentation/bloc/tv_series_watchlist_bloc/tv_series_watchlist_bloc.dart';
-
+import 'package:media_plex/media_plex/movie/data/repositories/movie_repository_impl.dart';
 import 'core/utils/ssl_pinning.dart';
 import 'media_plex/movie/data/datasources/database/database_helper.dart';
 import 'media_plex/movie/data/datasources/movie_local_data_source.dart';
 import 'media_plex/movie/data/datasources/movie_remote_data_source.dart';
-import 'media_plex/movie/data/repositories/movie_repository_impl.dart';
 import 'media_plex/movie/domain/repositories/movie_repository.dart';
 import 'media_plex/movie/domain/usecases/get_movie_detail.dart';
 import 'media_plex/movie/domain/usecases/get_movie_recommendations.dart';

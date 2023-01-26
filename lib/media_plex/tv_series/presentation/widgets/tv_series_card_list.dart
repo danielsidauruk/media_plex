@@ -57,17 +57,18 @@ class TVSeriesCard extends StatelessWidget {
                 left: 16,
                 bottom: 16,
               ),
-              child: ClipRRect(
+              child: item.posterPath != null ?
+              ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
                 child: CachedNetworkImage(
-                  imageUrl: '$baseImageURL${item.posterPath}',
+                  imageUrl: baseImageURL(item.posterPath!),
                   width: 80,
                   placeholder: (context, url) => const Center(
                     child: CircularProgressIndicator(),
                   ),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
-              ),
+              ) : const Center(),
             ),
           ],
         ),

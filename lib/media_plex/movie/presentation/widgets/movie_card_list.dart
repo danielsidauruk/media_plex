@@ -52,6 +52,8 @@ class MovieCard extends StatelessWidget {
                 ),
               ),
             ),
+
+            item.posterPath != null ?
             Container(
               margin: const EdgeInsets.only(
                 left: 16,
@@ -60,15 +62,15 @@ class MovieCard extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
                 child: CachedNetworkImage(
-                  imageUrl: '$baseImageURL${item.posterPath}',
                   width: 80,
+                  imageUrl: baseImageURL(item.posterPath!),
                   placeholder: (context, url) => const Center(
                     child: CircularProgressIndicator(),
                   ),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
               ),
-            ),
+            ) : const Center(),
           ],
         ),
       ),

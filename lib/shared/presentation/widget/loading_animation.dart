@@ -1,25 +1,19 @@
 import 'package:flutter/material.dart';
 
 class LoadingAnimation extends StatelessWidget {
-  const LoadingAnimation({
-    super.key,
-    required this.tileHeight,
-    required this.totalTile,
-  });
-
-  final double tileHeight;
-  final int totalTile;
+  const LoadingAnimation({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 4.0),
       child: ListView.builder(
-        itemCount: totalTile,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: 6,
         itemBuilder: (context, index) =>
             Column(
               children: [
-                verticalLoadingTile(tileHeight),
+                verticalLoadingTile(100),
                 const SizedBox(height: 8.0),
               ],
             ),

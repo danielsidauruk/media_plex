@@ -4,7 +4,6 @@ import 'package:media_plex/core/common/utils.dart';
 import 'package:media_plex/media_plex/movie/presentation/bloc/movie_watchlist_bloc/movie_watchlist_bloc.dart';
 import 'package:media_plex/media_plex/movie/presentation/widgets/movie_card_list.dart';
 
-
 class WatchlistMoviesPage extends StatefulWidget {
   static const routeName = 'watchlistMoviePageRoute';
   const WatchlistMoviesPage({super.key});

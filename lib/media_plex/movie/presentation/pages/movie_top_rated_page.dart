@@ -1,9 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:media_plex/core/utils/routes.dart';
-import 'package:media_plex/media_plex/books/presentation/widgets/loading_animation.dart';
 import 'package:media_plex/media_plex/movie/presentation/bloc/movie_top_rated_bloc/movie_top_rated_bloc.dart';
 import 'package:media_plex/media_plex/movie/presentation/widgets/movie_list.dart';
+import 'package:media_plex/shared/presentation/widget/loading_animation.dart';
 
 class MovieTopRatedPage extends StatefulWidget {
   const MovieTopRatedPage({super.key});
@@ -46,13 +45,10 @@ class _MovieTopRatedPageState extends State<MovieTopRatedPage> {
       child: BlocBuilder<MovieTopRatedBloc, MovieTopRatedState>(
         builder: (context, state) {
           if (state is MovieTopRatedLoading) {
-            return const LoadingAnimation(tileHeight: 100, totalTile: 5);
+            return const LoadingAnimation();
           } else if (state is MovieTopRatedHasData) {
             final movieResult = state.result;
-            return MovieList(
-              list: movieResult,
-              route: detailMovieRoute,
-            );
+            return MovieList(list: movieResult);
           } else if (state is MovieTopRatedError) {
             return Center(
               key: const Key('error_message'),

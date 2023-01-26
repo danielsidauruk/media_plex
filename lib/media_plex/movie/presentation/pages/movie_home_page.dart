@@ -3,14 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:media_plex/core/utils/constants.dart';
 import 'package:media_plex/core/utils/routes.dart';
-import 'package:media_plex/core/widget/search_tile.dart';
-import 'package:media_plex/core/widget/sub_heading_tile.dart';
-import 'package:media_plex/media_plex/books/presentation/widgets/horizontal_loading_animation.dart';
 import 'package:media_plex/media_plex/movie/domain/entities/movie.dart';
 import 'package:media_plex/media_plex/movie/presentation/bloc/movie_now_playing_bloc/movie_now_playing_bloc.dart';
 import 'package:media_plex/media_plex/movie/presentation/bloc/movie_popular_bloc/movie_popular_bloc.dart';
 import 'package:media_plex/media_plex/movie/presentation/bloc/movie_top_rated_bloc/movie_top_rated_bloc.dart';
 import 'package:media_plex/media_plex/movie/presentation/pages/movie_now_playing_page.dart';
+import 'package:media_plex/shared/presentation/widget/horizontal_loading_animation.dart';
+import 'package:media_plex/shared/presentation/widget/search_tile.dart';
+import 'package:media_plex/shared/presentation/widget/sub_heading_tile.dart';
 
 class MovieHomePage extends StatefulWidget {
   static const routeName = '/movieHomePageRoute';
@@ -188,11 +188,12 @@ class _MovieHomePageState extends State<MovieHomePage> {
               detailMovieRoute,
               arguments: movieResult[index].id,
             ),
-            child: Padding(
+            child: movieResult[index].posterPath != null ?
+            Padding(
               padding: const EdgeInsets.all(8.0),
               child: CachedNetworkImage(
                 width: 80,
-                imageUrl: '$baseImageURL${movieResult[index].posterPath}',
+                imageUrl: baseImageURL(movieResult[index].posterPath!),
                 placeholder: (context, url) => Container(
                   width: 80,
                   height: 126,
@@ -202,7 +203,7 @@ class _MovieHomePageState extends State<MovieHomePage> {
                   'assets/images/not_applicable_icon.png',
                 ),
               ),
-            ),
+            ) : const Center(),
           );
         },
       ),

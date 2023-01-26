@@ -1,16 +1,10 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
+import 'package:media_plex/core/utils/constants.dart';
 import 'package:media_plex/core/utils/exception.dart';
 import 'package:media_plex/media_plex/books/data/models/book_detail_model.dart';
 import 'package:media_plex/media_plex/books/data/models/book_popular_model.dart';
 import 'package:media_plex/media_plex/books/data/models/search_model.dart';
-
-const String apiUrl = 'https://openlibrary.org/';
-// const String detailBookUrl = apiUrl;
-const String searchUrl = '${apiUrl}search.json?title=';
-String detailBook(String key) => 'https://openlibrary.org/$key.json';
-String popularBook(String dataSortQuery) => '${apiUrl}trending/$dataSortQuery.json';
 
 abstract class BookRemoteDataSource {
   Future<SearchModel> searchBook(String query);
@@ -40,7 +34,7 @@ class BookRemoteDataSourceImpl implements BookRemoteDataSource {
   @override
   Future<SearchModel> searchBook(String query) async {
     final response = await client.get(
-      Uri.parse('$searchUrl$query'),
+      Uri.parse(search(query)),
       headers: {'Content-Type': 'application/json'},
     );
 

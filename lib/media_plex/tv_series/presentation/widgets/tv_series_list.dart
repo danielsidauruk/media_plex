@@ -18,6 +18,7 @@ class TVSeriesList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+
         Expanded(
           child: ListView.builder(
             itemBuilder: (context, index) {
@@ -38,18 +39,19 @@ class TVSeriesList extends StatelessWidget {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      list[index].posterPath != null ?
                       CachedNetworkImage(
                         width: 60,
                         fit: BoxFit.fill,
-                        imageUrl: '$baseImageURL${list[index].posterPath}',
+                        imageUrl: baseImageURL(list[index].posterPath!),
                         placeholder: (context, url) => const Center(),
                         errorWidget: (context, url, error) => Image.asset(
                           'assets/images/not_applicable_icon.png',
                         ),
-                      ),
-                      const SizedBox(
-                        width: 8.0,
-                      ),
+                      ) : const Center(),
+
+                      const SizedBox(width: 8.0),
+
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,

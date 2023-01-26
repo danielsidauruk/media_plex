@@ -1,15 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:media_plex/core/styles/text_styles.dart';
+import 'package:media_plex/core/utils/constants.dart';
 import 'package:media_plex/media_plex/tv_series/domain/entities/season.dart';
 
-class SeasonCard extends StatelessWidget {
+class SeasonTile extends StatelessWidget {
   final Season item;
-
-  const SeasonCard({
-    Key? key,
-    required this.item
-  }) : super(key: key);
+  const SeasonTile({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {
@@ -18,38 +14,46 @@ class SeasonCard extends StatelessWidget {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(4.0),
-        child: Row(children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(5.0),
-            child: CachedNetworkImage(
-              imageUrl: 'https://image.tmdb.org/t/p/w500${item.posterPath}',
-              placeholder: (context, url) => const Center(
-                child: CircularProgressIndicator(),
+        child: Row(
+          children: [
+
+            item.posterPath != null ?
+            ClipRRect(
+              borderRadius: BorderRadius.circular(5.0),
+              child: CachedNetworkImage(
+                imageUrl: baseImageURL(item.posterPath!),
+                placeholder: (context, url) => Container(
+                  width: 100.0,
+                  height: 70.0,
+                  color: Colors.grey,
+                ),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
+                width: 100.0,
+                height: 70.0,
+                fit: BoxFit.cover,
               ),
-              errorWidget: (context, url, error) => const Icon(Icons.error),
-              width: 100.0,
-              height: 70.0,
-              fit: BoxFit.cover,
-            ),
-          ),
+            ) : const Center(),
 
-          const SizedBox(width: 12.0),
+            const SizedBox(width: 12.0),
 
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                item.name,
-                style: Theme.of(context).textTheme.subtitle1?.
-                copyWith(fontWeight: FontWeight.bold),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    item.name,
+                    style: Theme.of(context).textTheme.subtitle1?.
+                    copyWith(fontWeight: FontWeight.bold),
+                  ),
+
+                  Text('${item.episodeCount} episodes'),
+
+                  Text(year),
+                ],
               ),
-
-              Text('${item.episodeCount} episodes'),
-
-              Text(year),
-            ],
-          )
-        ]),
+            )
+          ],
+        ),
       ),
     );
   }

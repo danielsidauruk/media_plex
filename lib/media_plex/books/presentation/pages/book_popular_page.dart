@@ -5,7 +5,8 @@ import 'package:media_plex/core/utils/constants.dart';
 import 'package:media_plex/media_plex/books/domain/entities/book_popular.dart';
 import 'package:media_plex/media_plex/books/presentation/bloc/popular_bloc/book_popular_bloc.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_detail_page.dart';
-import 'package:media_plex/media_plex/books/presentation/widgets/loading_animation.dart';
+import 'package:media_plex/shared/presentation/widget/loading_animation.dart';
+import 'package:media_plex/shared/presentation/widget/total_text.dart';
 
 class BookPopularPage extends StatefulWidget {
   static const routeName = 'bookPopularPageRoute';
@@ -40,32 +41,36 @@ class _BookPopularPageState extends State<BookPopularPage> {
             ),
           ),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text(
-                    'Trending on : ',
-                    style: Theme.of(context)
-                        .textTheme
-                        .subtitle1
-                        ?.copyWith(fontWeight: FontWeight.bold),
-                  ),
+        body: buildBody(context));
+  }
 
-                  dropDownButton(context),
-                ],
-              ),
+  Padding buildBody(BuildContext context) {
+    return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text(
+                  'Trending on : ',
+                  style: Theme.of(context)
+                      .textTheme
+                      .subtitle1
+                      ?.copyWith(fontWeight: FontWeight.bold),
+                ),
 
-              const SizedBox(height: 8),
+                dropDownButton(context),
+              ],
+            ),
 
-              buildPopularBloc(),
-            ],
-          ),
-        ));
+            const SizedBox(height: 8),
+
+            buildPopularBloc(),
+          ],
+        ),
+      );
   }
 
   Expanded buildPopularBloc() {
@@ -77,7 +82,7 @@ class _BookPopularPageState extends State<BookPopularPage> {
             if (state is PopularEmpty) {
               return const Center();
             } else if (state is PopularLoading) {
-              return const LoadingAnimation(tileHeight: 100, totalTile: 5);
+              return const LoadingAnimation();
             } else if (state is PopularLoaded) {
               final books = state.popular.works;
               return Column(
@@ -93,14 +98,8 @@ class _BookPopularPageState extends State<BookPopularPage> {
 
                   const SizedBox(height: 8),
 
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      'Total result : ${books.length}',
-                      style: Theme.of(context).textTheme.subtitle1?.
-                      copyWith(fontWeight: FontWeight.bold),
-                    ),
-                  ),
+                  TotalText(total: books.length, context: context),
+
                 ],
               );
             } else if (state is PopularError) {
@@ -148,7 +147,6 @@ class _BookPopularPageState extends State<BookPopularPage> {
       ),
     );
   }
-
 
   InkWell bookTile(List<Work> books, int index, BuildContext context) {
     return InkWell(
@@ -209,7 +207,7 @@ class _BookPopularPageState extends State<BookPopularPage> {
                           ],
                         ),
 
-                        const SizedBox(height: 2.0,),
+                        const SizedBox(height: 2.0),
 
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -219,7 +217,7 @@ class _BookPopularPageState extends State<BookPopularPage> {
                                 ? wrapText(books[index].language, context)
                                 : const Center(),
                           ],
-                        )
+                        ),
                       ],
                     ),
                   ],

@@ -1,9 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:media_plex/core/utils/routes.dart';
-import 'package:media_plex/media_plex/books/presentation/widgets/loading_animation.dart';
 import 'package:media_plex/media_plex/tv_series/presentation/bloc/tv_series_popular_bloc/tv_series_popular_bloc.dart';
 import 'package:media_plex/media_plex/tv_series/presentation/widgets/tv_series_list.dart';
+import 'package:media_plex/shared/presentation/widget/loading_animation.dart';
 
 class TVSeriesPopularPage extends StatefulWidget {
   const TVSeriesPopularPage({super.key});
@@ -45,7 +45,7 @@ class _TVSeriesPopularPageState extends State<TVSeriesPopularPage> {
       child: BlocBuilder<TVSeriesPopularBloc, TVSeriesPopularState>(
         builder: (context, state) {
           if (state is TVSeriesPopularLoading) {
-            return const LoadingAnimation(tileHeight: 100, totalTile: 6);
+            return const LoadingAnimation();
           } else if (state is TVSeriesPopularHasData) {
             final tvSeriesResult = state.result;
             return TVSeriesList(

@@ -3,16 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:media_plex/core/utils/constants.dart';
 import 'package:media_plex/core/utils/routes.dart';
-import 'package:media_plex/core/widget/sub_heading_tile.dart';
-import 'package:media_plex/media_plex/books/presentation/widgets/horizontal_loading_animation.dart';
 import 'package:media_plex/media_plex/tv_series/domain/entities/tv_series.dart';
 import 'package:media_plex/media_plex/tv_series/presentation/bloc/tv_series_on_air_bloc/tv_series_on_air_bloc.dart';
 import 'package:media_plex/media_plex/tv_series/presentation/bloc/tv_series_popular_bloc/tv_series_popular_bloc.dart';
 import 'package:media_plex/media_plex/tv_series/presentation/bloc/tv_series_top_rated_bloc/tv_series_top_rated_bloc.dart';
-
-import '../../../../core/widget/search_tile.dart';
-
-
+import 'package:media_plex/shared/presentation/widget/horizontal_loading_animation.dart';
+import 'package:media_plex/shared/presentation/widget/search_tile.dart';
+import 'package:media_plex/shared/presentation/widget/sub_heading_tile.dart';
 
 class TVSeriesHomePage extends StatefulWidget {
   const TVSeriesHomePage({super.key});
@@ -191,9 +188,10 @@ class _TVSeriesHomePageState extends State<TVSeriesHomePage> {
             ),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: CachedNetworkImage(
+              child: tvSeriesResult[index].posterPath != null ?
+              CachedNetworkImage(
                 width: 80,
-                imageUrl: '$baseImageURL${tvSeriesResult[index].posterPath}',
+                imageUrl: baseImageURL(tvSeriesResult[index].posterPath!),
                 placeholder: (context, url) => Container(
                   width: 80,
                   height: 126,
@@ -202,7 +200,7 @@ class _TVSeriesHomePageState extends State<TVSeriesHomePage> {
                 errorWidget: (context, url, error) => Image.asset(
                   'assets/images/not_applicable_icon.png',
                 ),
-              ),
+              ) : const Center(),
             ),
           );
         },

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:media_plex/core/utils/routes.dart';
-import 'package:media_plex/media_plex/books/presentation/widgets/loading_animation.dart';
 import 'package:media_plex/media_plex/movie/presentation/bloc/movie_popular_bloc/movie_popular_bloc.dart';
 import 'package:media_plex/media_plex/movie/presentation/widgets/movie_list.dart';
+import 'package:media_plex/shared/presentation/widget/loading_animation.dart';
 
 class PopularMoviesPage extends StatefulWidget {
   const PopularMoviesPage({super.key});
@@ -23,20 +22,24 @@ class _PopularMoviesPageState extends State<PopularMoviesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-        title: Text(
-          'Popular',
-          style: Theme.of(context).textTheme.bodyText1
-              ?.copyWith(
-            fontWeight: FontWeight.bold,
-            fontSize: 22,
-          ),
-        ),
-      ),
+      appBar: buildAppBar(context, 'Popular'),
 
       body: buildBody(),
+    );
+  }
+
+  AppBar buildAppBar(BuildContext context, String title) {
+    return AppBar(
+      backgroundColor: Colors.transparent,
+      elevation: 0.0,
+      title: Text(
+        title,
+        style: Theme.of(context).textTheme.bodyText1
+            ?.copyWith(
+          fontWeight: FontWeight.bold,
+          fontSize: 22,
+        ),
+      ),
     );
   }
 
@@ -46,13 +49,10 @@ class _PopularMoviesPageState extends State<PopularMoviesPage> {
       child: BlocBuilder<MoviePopularBloc, MoviePopularState>(
         builder: (context, state) {
           if (state is MoviePopularLoading) {
-            return const LoadingAnimation(tileHeight: 100, totalTile: 5);
+            return const LoadingAnimation();
           } else if (state is MoviePopularHasData) {
             final movieResult = state.result;
-            return MovieList(
-              list: movieResult,
-              route: detailMovieRoute,
-            );
+            return MovieList(list: movieResult);
           } else if (state is MoviePopularError) {
             return Center(
               key: const Key('error_message'),

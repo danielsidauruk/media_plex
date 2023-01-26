@@ -18,7 +18,7 @@ class HorizontalLoadingAnimation extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Container(
               width: 80,
-              height: 126,
+              height: 120,
               color: Colors.grey,
             ),
           );
