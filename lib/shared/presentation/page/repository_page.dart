@@ -4,6 +4,8 @@ import 'package:media_plex/core/common/utils.dart';
 import 'package:media_plex/core/utils/constants.dart';
 import 'package:media_plex/core/utils/routes.dart';
 import 'package:media_plex/media_plex/movie/presentation/bloc/movie_watchlist_bloc/movie_watchlist_bloc.dart';
+import 'package:media_plex/media_plex/tv_series/presentation/bloc/tv_series_watchlist_bloc/tv_series_watchlist_bloc.dart';
+import 'package:media_plex/shared/presentation/widget/loading_animation.dart';
 import 'package:media_plex/shared/presentation/widget/total_text.dart';
 
 class RepositoryPage extends StatefulWidget {
@@ -23,6 +25,8 @@ class _RepositoryPageState extends State<RepositoryPage> with RouteAware {
     Future.microtask(() {
       BlocProvider.of<MovieWatchlistBloc>(context, listen: false)
           .add(FetchMovieWatchlist());
+      BlocProvider.of<TVSeriesWatchlistBloc>(context, listen: false)
+          .add(FetchWatchlistTVSeries());
     });
   }
 
@@ -34,8 +38,12 @@ class _RepositoryPageState extends State<RepositoryPage> with RouteAware {
 
   @override
   void didPopNext() {
-    BlocProvider.of<MovieWatchlistBloc>(context, listen: false)
-        .add(FetchMovieWatchlist());
+    Future.microtask(() {
+      BlocProvider.of<MovieWatchlistBloc>(context, listen: false)
+          .add(FetchMovieWatchlist());
+      BlocProvider.of<TVSeriesWatchlistBloc>(context, listen: false)
+          .add(FetchWatchlistTVSeries());
+    });
   }
 
   @override
@@ -71,55 +79,7 @@ class _RepositoryPageState extends State<RepositoryPage> with RouteAware {
                       ?.copyWith(fontWeight: FontWeight.bold),
                 ),
 
-                Container(
-                  height: 40,
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 4.0, horizontal: 8.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.0),
-                    border: Border.all(color: Colors.white),
-                  ),
-                  child: DropdownButton(
-                    value: menu,
-                    icon: const Icon(
-                      Icons.arrow_drop_down,
-                      color: Colors.white,
-                    ),
-                    underline: const Center(),
-                    onChanged: (String? value) {
-                      setState(() {
-                        menu = value!;
-                      });
-                    },
-                    items: media
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Row(
-                          children: [
-
-                            Image.asset(
-                              value == media[0] ?
-                              'assets/images/book_icon.png' :
-                              value == media[1] ?
-                              'assets/images/movie_icon.png' :
-                              'assets/images/tv_icon.png',
-                            ),
-
-                            const SizedBox(width: 8.0),
-
-                            Text(
-                              value,
-                              style: Theme.of(context).textTheme.subtitle1
-                                  ?.copyWith(fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
-                      );
-                    }).toList(),
-                  ),
-                ),
+                dropDownTile(context),
               ],
             ),
 
@@ -129,10 +89,62 @@ class _RepositoryPageState extends State<RepositoryPage> with RouteAware {
             const Center() :
             menu == media[1] ?
             buildMoviesRepository() :
-            const Center(),
+            buildTVSeriesRepository(),
 
           ],
         ),
+      ),
+    );
+  }
+
+  Container dropDownTile(BuildContext context) {
+    return Container(
+      height: 40,
+      alignment: Alignment.center,
+      padding: const EdgeInsets.symmetric(
+          vertical: 4.0, horizontal: 8.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8.0),
+        border: Border.all(color: Colors.white),
+      ),
+      child: DropdownButton(
+        value: menu,
+        icon: const Icon(
+          Icons.arrow_drop_down,
+          color: Colors.white,
+        ),
+        underline: const Center(),
+        onChanged: (String? value) {
+          setState(() {
+            menu = value!;
+          });
+        },
+        items: media
+            .map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Row(
+              children: [
+
+                Image.asset(
+                  value == media[0] ?
+                  'assets/images/book_icon.png' :
+                  value == media[1] ?
+                  'assets/images/movie_icon.png' :
+                  'assets/images/tv_icon.png',
+                ),
+
+                const SizedBox(width: 8.0),
+
+                Text(
+                  value,
+                  style: Theme.of(context).textTheme.subtitle1
+                      ?.copyWith(fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+          );
+        }).toList(),
       ),
     );
   }
@@ -142,9 +154,7 @@ class _RepositoryPageState extends State<RepositoryPage> with RouteAware {
       child: BlocBuilder<MovieWatchlistBloc, MovieWatchlistState>(
         builder: (context, state) {
           if (state is MovieWatchlistLoading) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return const LoadingAnimation();
           } else if (state is MovieWatchlistHasData) {
             final movie = state.result;
             return movie.isNotEmpty ?
@@ -168,15 +178,13 @@ class _RepositoryPageState extends State<RepositoryPage> with RouteAware {
                             borderRadius: BorderRadius.circular(8.0),
                             border: Border.all(color: Colors.white),
                           ),
-                          child: Expanded(
-                            child: Text(
-                              textAlign: TextAlign.start,
-                              '${movie[index].title}',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .subtitle1
-                                  ?.copyWith(fontWeight: FontWeight.bold),
-                            ),
+                          child: Text(
+                            textAlign: TextAlign.start,
+                            '${movie[index].title}',
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle1
+                                ?.copyWith(fontWeight: FontWeight.bold),
                           ),
                         ),
                       );
@@ -191,6 +199,68 @@ class _RepositoryPageState extends State<RepositoryPage> with RouteAware {
             ) :
             const Center();
           } else if (state is MovieWatchlistError) {
+            return Center(
+              key: const Key('error_message'),
+              child: Text(state.message),
+            );
+          } else {
+            return Container();
+          }
+        },
+      ),
+    );
+  }
+
+  Expanded buildTVSeriesRepository() {
+    return Expanded(
+      child: BlocBuilder<TVSeriesWatchlistBloc, TVSeriesWatchlistState>(
+        builder: (context, state) {
+          if (state is TVSeriesWatchlistLoading) {
+            return const LoadingAnimation();
+          } else if (state is TVSeriesWatchlistHasData) {
+            final movie = state.result;
+            return movie.isNotEmpty ?
+            Column(
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: movie.length,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () => Navigator.pushNamed(
+                          context,
+                          detailTVSeriesRoute,
+                          arguments: movie[index].id,
+                        ),
+                        child: Container(
+                          padding: const EdgeInsets.all(8.0),
+                          margin: const EdgeInsets.symmetric(vertical: 4.0),
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8.0),
+                            border: Border.all(color: Colors.white),
+                          ),
+                          child: Text(
+                            textAlign: TextAlign.start,
+                            '${movie[index].name}',
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle1
+                                ?.copyWith(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+
+                const SizedBox(height: 8),
+
+                TotalText(total: movie.length, context: context),
+              ],
+            ) :
+            const Center();
+          } else if (state is TVSeriesWatchlistError) {
             return Center(
               key: const Key('error_message'),
               child: Text(state.message),

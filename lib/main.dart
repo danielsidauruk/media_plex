@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:media_plex/core/presentation/pages/watchlist_page.dart';
 import 'package:media_plex/media_plex/books/presentation/bloc/popular_bloc/book_popular_bloc.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_popular_page.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_search_page.dart';
@@ -40,7 +39,6 @@ import 'media_plex/movie/presentation/pages/movie_detail_page.dart';
 import 'media_plex/movie/presentation/pages/movie_popular_page.dart';
 import 'media_plex/movie/presentation/pages/movie_search_page.dart';
 import 'media_plex/movie/presentation/pages/movie_top_rated_page.dart';
-import 'media_plex/movie/presentation/pages/movie_watchlist_page.dart';
 import 'shared/presentation/page/repository_page.dart';
 
 void main() async {
@@ -152,8 +150,6 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(builder: (_) => const MovieSearchPage());
             case topRatedMovieRoute:
               return MaterialPageRoute(builder: (_) => const MovieTopRatedPage());
-            case WatchlistMoviesPage.routeName:
-              return MaterialPageRoute(builder: (_) => const WatchlistMoviesPage());
             case MovieNowPlayingPage.routeName:
               return MaterialPageRoute(builder: (_) => const MovieNowPlayingPage());
 
@@ -175,11 +171,6 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(builder: (_) => const TVSeriesTopRatedPage());
             case watchlistTVSeriesRoute:
               return MaterialPageRoute(builder: (_) => const TVSeriesWatchlistPage());
-
-            case watchlistRoute:
-              return MaterialPageRoute(builder: (_) => const WatchlistPage());
-
-
 
             default:
               return MaterialPageRoute(

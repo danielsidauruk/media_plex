@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:media_plex/core/utils/constants.dart';
 import 'package:media_plex/media_plex/tv_series/domain/entities/tv_series.dart';
+import 'package:media_plex/shared/presentation/widget/total_text.dart';
 
 class TVSeriesList extends StatelessWidget {
   final List<TVSeries> list;
@@ -68,7 +69,7 @@ class TVSeriesList extends StatelessWidget {
                                       ?.copyWith(fontWeight: FontWeight.bold),
                                 ),
 
-                                list[index].firstAirDate != "" ?
+                                list[index].firstAirDate != ""  || list[index].firstAirDate != null ?
                                 Text(
                                   'Release in ${DateFormat("MMM d, yyyy").format(DateTime.parse(list[index].firstAirDate!))}',
                                   style: Theme.of(context).textTheme.subtitle2?.
@@ -97,14 +98,8 @@ class TVSeriesList extends StatelessWidget {
 
         const SizedBox(height: 8),
 
-        Align(
-          alignment: Alignment.centerRight,
-          child: Text(
-            'Total result : ${list.length.toString()}',
-            style: Theme.of(context).textTheme.subtitle1?.
-            copyWith(fontWeight: FontWeight.bold),
-          ),
-        ),
+        TotalText(total: list.length, context: context),
+
       ],
     );
   }
