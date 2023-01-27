@@ -103,63 +103,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
 
                               const SizedBox(height: 8.0),
 
-                              BlocConsumer<MovieWatchlistBloc, MovieWatchlistState>(
-                                listener: (context, state) {
-                                  if (state is WatchlistSuccess) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(content: Text(state.message)));
-                                  } else if (state is WatchlistFailure) {
-                                    showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                          content: Text(state.message),
-                                        );
-                                      },
-                                    );
-                                  }
-                                },
-                                builder: (context, state) {
-                                  return InkWell(
-                                    onTap: () async {
-                                      if (state is WatchlistHasData) {
-                                        if (state.isAdded == false) {
-                                          context
-                                              .read<MovieWatchlistBloc>()
-                                              .add(AddMovieWatchlist(detail));
-                                        } else if (state.isAdded == true) {
-                                          context
-                                              .read<MovieWatchlistBloc>()
-                                              .add(DeleteMovieWatchlist(detail));
-                                        }
-                                      }
-                                    },
-                                    child: Container(
-                                      width: 110,
-                                      alignment: Alignment.center,
-                                      padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 8.0),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(8.0),
-                                        border: Border.all(color: Colors.white),
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          if (state is WatchlistHasData)
-                                            if (state.isAdded == false)
-                                              const Icon(Icons.add)
-                                            else if (state.isAdded == true)
-                                              const Icon(Icons.check),
-                                          const Text(
-                                            'Watchlist',
-                                            style: TextStyle(fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
+                              buildWatchlistBloc(detail),
 
                               const SizedBox(height: 8.0),
 
@@ -241,6 +185,66 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
           ),
         ],
       ),
+    );
+  }
+
+  BlocConsumer<MovieWatchlistBloc, MovieWatchlistState> buildWatchlistBloc(MovieDetail detail) {
+    return BlocConsumer<MovieWatchlistBloc, MovieWatchlistState>(
+      listener: (context, state) {
+        if (state is WatchlistSuccess) {
+          ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(state.message)));
+        } else if (state is WatchlistFailure) {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                content: Text(state.message),
+              );
+            },
+          );
+        }
+      },
+      builder: (context, state) {
+        return InkWell(
+          onTap: () async {
+            if (state is WatchlistHasData) {
+              if (state.isAdded == false) {
+                context
+                    .read<MovieWatchlistBloc>()
+                    .add(AddMovieWatchlist(detail));
+              } else if (state.isAdded == true) {
+                context
+                    .read<MovieWatchlistBloc>()
+                    .add(DeleteMovieWatchlist(detail));
+              }
+            }
+          },
+          child: Container(
+            width: 110,
+            alignment: Alignment.center,
+            padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 8.0),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8.0),
+              border: Border.all(color: Colors.white),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                if (state is WatchlistHasData)
+                  if (state.isAdded == false)
+                    const Icon(Icons.add)
+                  else if (state.isAdded == true)
+                    const Icon(Icons.check),
+                const Text(
+                  'Watchlist',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 

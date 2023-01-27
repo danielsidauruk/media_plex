@@ -28,3 +28,5 @@ const String serverFailureMessage = 'Server Failure';
 
 const String tblWatchlist = 'watchlist';
 
+const String tblBookmark = 'bookmark';
+

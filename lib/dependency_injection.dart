@@ -1,11 +1,18 @@
 import 'package:get_it/get_it.dart';
+import 'package:media_plex/media_plex/books/data/data_sources/book_local_data_sources.dart';
 import 'package:media_plex/media_plex/books/data/data_sources/book_remote_data_sources.dart';
+import 'package:media_plex/media_plex/books/data/data_sources/database/book_database_helper.dart';
 import 'package:media_plex/media_plex/books/data/repositories/library_book_repository_impl.dart';
 import 'package:media_plex/media_plex/books/domain/repositories/books_repository.dart';
 import 'package:media_plex/media_plex/books/domain/use_cases/get_book_details.dart';
+import 'package:media_plex/media_plex/books/domain/use_cases/get_bookmark_status.dart';
+import 'package:media_plex/media_plex/books/domain/use_cases/get_bookmarked_book.dart';
 import 'package:media_plex/media_plex/books/domain/use_cases/get_popular_book.dart';
+import 'package:media_plex/media_plex/books/domain/use_cases/remove_bookmark.dart';
+import 'package:media_plex/media_plex/books/domain/use_cases/save_bookmark.dart';
 import 'package:media_plex/media_plex/books/domain/use_cases/search_book.dart';
 import 'package:media_plex/media_plex/books/presentation/bloc/book_detail_bloc/book_detail_bloc.dart';
+import 'package:media_plex/media_plex/books/presentation/bloc/bookmark/bookmark_bloc.dart';
 import 'package:media_plex/media_plex/books/presentation/bloc/popular_bloc/book_popular_bloc.dart';
 import 'package:media_plex/media_plex/books/presentation/bloc/search_bloc/book_search_bloc.dart';
 import 'package:media_plex/media_plex/movie/domain/usecases/get_now_playing_movies.dart';
@@ -66,11 +73,21 @@ Future<void> init() async {
   locator.registerFactory(() => BookDetailBloc(locator()));
   locator.registerFactory(() => BookSearchBloc(locator()));
   locator.registerFactory(() => PopularBloc(locator()));
+  locator.registerFactory(() => BookmarkBloc(
+    locator(),
+    locator(),
+    locator(),
+    locator(),
+  ));
 
   // use cases
   locator.registerLazySingleton(() => GetBookDetails(repository: locator()));
   locator.registerLazySingleton(() => SearchBook(repository: locator()));
   locator.registerLazySingleton(() => GetPopularBook(repository: locator()));
+  locator.registerLazySingleton(() => SaveBookmark(locator()));
+  locator.registerLazySingleton(() => RemoveBookmark(locator()));
+  locator.registerLazySingleton(() => GetBookMarkedBook(locator()));
+  locator.registerLazySingleton(() => GetBookmarkStatus(locator()));
 
   // repository
   locator.registerLazySingleton<BookRepository>(
@@ -81,8 +98,13 @@ Future<void> init() async {
   );
 
   // data sources
-  locator.registerLazySingleton<BookRemoteDataSource>(
-      () => BookRemoteDataSourceImpl(client: locator()));
+  locator.registerLazySingleton<BookRemoteDataSource>(() =>
+      BookRemoteDataSourceImpl(client: locator()));
+  locator.registerLazySingleton<BookLocalDataSource>(() =>
+      BookLocalDataSourceImpl(databaseHelper: locator()));
+
+  // database helper
+  locator.registerLazySingleton<BookDatabaseHelper>(() => BookDatabaseHelper());
 
   // => MOVIE
   // bloc

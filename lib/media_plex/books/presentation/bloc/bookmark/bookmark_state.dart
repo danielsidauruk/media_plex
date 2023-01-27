@@ -43,8 +43,8 @@ class BookmarkSuccess extends BookmarkState {
   List<Object> get props => [message];
 }
 
-class BookMarkStatusHasData extends BookmarkState {
-  const BookMarkStatusHasData(this.isAdded);
+class BookmarkStatusHasData extends BookmarkState {
+  const BookmarkStatusHasData(this.isAdded);
   final bool isAdded;
 
   @override

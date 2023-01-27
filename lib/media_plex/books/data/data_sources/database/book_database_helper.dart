@@ -30,22 +30,22 @@ class BookDatabaseHelper {
 
   void _onCreate(Database db, int version) async {
     await db.execute('''
-      CREATE TABLE  $tblWatchlist (
+      CREATE TABLE $tblBookmark (
         key TEXT PRIMARY KEY,
-        name TEXT,
+        title TEXT
       );
     ''');
   }
 
   Future<int> insertBookmark(BookTable bookTable) async {
     final db = await database;
-    return await db!.insert(tblWatchlist, bookTable.toJson());
+    return await db!.insert(tblBookmark, bookTable.toJson());
   }
 
   Future<int> removeBookmark(BookTable bookTable) async {
     final db = await database;
     return await db!.delete(
-      tblWatchlist,
+      tblBookmark,
       where: 'key = ?',
       whereArgs: [bookTable.key],
     );
@@ -54,7 +54,7 @@ class BookDatabaseHelper {
   Future<Map<String, dynamic>?> getBookByKey(String key) async {
     final db = await database;
     final results = await db!.query(
-      tblWatchlist,
+      tblBookmark,
       where: 'key = ?',
       whereArgs: [key],
     );
@@ -68,7 +68,7 @@ class BookDatabaseHelper {
 
   Future<List<Map<String, dynamic>>> getBookmarkedBook() async {
     final db = await database;
-    final List<Map<String, dynamic>> results = await db!.query(tblWatchlist);
+    final List<Map<String, dynamic>> results = await db!.query(tblBookmark);
 
     return results;
   }

@@ -4,25 +4,31 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:media_plex/core/utils/constants.dart';
 import 'package:media_plex/media_plex/books/domain/entities/book_detail.dart';
+import 'package:media_plex/media_plex/books/domain/use_cases/get_bookmark_status.dart';
 import 'package:media_plex/media_plex/books/presentation/bloc/book_detail_bloc/book_detail_bloc.dart';
+import 'package:media_plex/media_plex/books/presentation/bloc/bookmark/bookmark_bloc.dart';
 import 'package:media_plex/media_plex/movie/presentation/pages/movie_detail_page.dart';
 
-class DetailPage extends StatefulWidget {
+class BookDetailPage extends StatefulWidget {
+  const BookDetailPage({super.key, required this.bookKey});
   final String bookKey;
-  const DetailPage({super.key, required this.bookKey});
 
   static const routeName = '/detailPageRoute';
 
   @override
-  State<DetailPage> createState() => _DetailPageState();
+  State<BookDetailPage> createState() => _BookDetailPageState();
 }
 
-class _DetailPageState extends State<DetailPage> {
+class _BookDetailPageState extends State<BookDetailPage> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<BookDetailBloc>(context, listen: false)
-        .add(GetForBookDetail(widget.bookKey));
+    Future.microtask(() {
+      BlocProvider.of<BookDetailBloc>(context, listen: false)
+          .add(GetForBookDetail(widget.bookKey));
+      BlocProvider.of<BookmarkBloc>(context, listen: false)
+          .add(LoadBookmarkStatus(widget.bookKey));
+    });
   }
 
   @override
@@ -45,13 +51,13 @@ class _DetailPageState extends State<DetailPage> {
     );
   }
 
-  SafeArea buildDetailBook(BookDetail bookDetail, context) {
+  SafeArea buildDetailBook(BookDetail book, context) {
     return SafeArea(
       child: Stack(
         children: [
           CachedNetworkImage(
             width: double.infinity,
-            imageUrl: largeImage(bookDetail.covers[0].toString()),
+            imageUrl: largeImage(book.covers[0].toString()),
             placeholder: (context, url) => Container(
               width: double.infinity,
               height: double.infinity,
@@ -97,13 +103,13 @@ class _DetailPageState extends State<DetailPage> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          bookDetail.title,
+                                          book.title,
                                           style: Theme.of(context).textTheme.bodyLarge
                                               ?.copyWith(fontWeight: FontWeight.bold),
                                         ),
 
                                         Text(
-                                          'First published in ${DateFormat.yMMMd().format(bookDetail.created.value)}',
+                                          'First published in ${DateFormat.yMMMd().format(book.created.value)}',
                                           style: Theme.of(context).textTheme.bodyMedium
                                               ?.copyWith(color: Colors.grey, fontWeight: FontWeight.bold),
                                         ),
@@ -111,10 +117,51 @@ class _DetailPageState extends State<DetailPage> {
                                     ),
                                   ),
 
-                                  InkWell(
-                                    onTap: (){},
-                                    child: const Icon(Icons.bookmark_border),
-                                  )
+                                  BlocConsumer<BookmarkBloc, BookmarkState>(
+                                    listener: (context, state) {
+                                      if (state is BookmarkSuccess) {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(content: Text(state.message)),
+                                        );
+                                      } else if (state is BookmarkFailure) {
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return AlertDialog(
+                                              content: Text(state.message),
+                                            );
+                                          },
+                                        );
+                                      }
+                                    },
+                                    builder: (context, state) {
+                                      return InkWell(
+                                        onTap: () async {
+                                          if (state is BookmarkStatusHasData) {
+                                            if (state.isAdded == false) {
+                                              context.read<BookmarkBloc>()
+                                                  .add(AddBookmark(book));
+                                            } else if (state.isAdded == true) {
+                                              context.read<BookmarkBloc>()
+                                                  .add(DeleteBookmark(book));
+                                            }
+                                          }
+                                        },
+                                        // child: state is BookmarkStatusHasData ?
+                                        // const Icon(Icons.bookmark) :
+                                        // const Icon(Icons.bookmark_border),
+                                        child: Column(
+                                          children: [
+                                            if (state is BookmarkStatusHasData)
+                                              if (state.isAdded == true)
+                                                const Icon(Icons.bookmark)
+                                              else
+                                                const Icon(Icons.bookmark_border),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  ),
                                 ],
                               ),
 
@@ -126,14 +173,14 @@ class _DetailPageState extends State<DetailPage> {
                                 copyWith(fontWeight: FontWeight.bold),
                               ),
 
-                              bookDetail.subjects.isNotEmpty ?
+                              book.subjects.isNotEmpty ?
                               Wrap(
                                 direction: Axis.horizontal,
                                 children: [
-                                  ...bookDetail.subjects.map((item) => Text('$item, '))
-                                      .toList().sublist(0, bookDetail.subjects.length - 1),
+                                  ...book.subjects.map((item) => Text('$item, '))
+                                      .toList().sublist(0, book.subjects.length - 1),
 
-                                  Text(bookDetail.subjects.last),
+                                  Text(book.subjects.last),
                                 ],
                               ) :
                               const Center(),
@@ -146,11 +193,11 @@ class _DetailPageState extends State<DetailPage> {
                                 copyWith(fontWeight: FontWeight.bold),
                               ),
 
-                              Text(bookDetail.description.value),
+                              Text(book.description.value),
 
                               const SizedBox(height: 8),
 
-                              bookDetail.covers.isNotEmpty ?
+                              book.covers.isNotEmpty ?
                               Column(
                                 children: [
                                   Align(
@@ -168,14 +215,14 @@ class _DetailPageState extends State<DetailPage> {
                                     height: 150,
                                     child: ListView.builder(
                                       scrollDirection: Axis.horizontal,
-                                      itemCount: bookDetail.covers.length - 1,
+                                      itemCount: book.covers.length - 1,
                                       itemBuilder: (context, index) {
                                         return Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: CachedNetworkImage(
                                             width: 80,
                                             fit: BoxFit.fill,
-                                            imageUrl: largeImage(bookDetail.covers[index].toString()),
+                                            imageUrl: largeImage(book.covers[index].toString()),
                                             placeholder: (context, url) => Container(
                                               width: 80,
                                               height: 126,

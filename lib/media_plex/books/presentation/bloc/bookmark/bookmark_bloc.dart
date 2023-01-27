@@ -10,14 +10,14 @@ import 'package:media_plex/media_plex/books/domain/use_cases/save_bookmark.dart'
 part 'bookmark_event.dart';
 part 'bookmark_state.dart';
 
-class BookBookmarkBloc extends Bloc<BookmarkEvent, BookmarkState> {
+class BookmarkBloc extends Bloc<BookmarkEvent, BookmarkState> {
 
   final GetBookMarkedBook getBookMarkedBook;
   final GetBookmarkStatus getBookmarkStatus;
   final SaveBookmark saveBookmark;
   final RemoveBookmark removeBookmark;
 
-  BookBookmarkBloc(this.getBookMarkedBook,
+  BookmarkBloc(this.getBookMarkedBook,
       this.getBookmarkStatus,
       this.saveBookmark,
       this.removeBookmark,) : super(BookmarkEmpty()) {
@@ -36,7 +36,7 @@ class BookBookmarkBloc extends Bloc<BookmarkEvent, BookmarkState> {
       final key = event.key;
       final result = await getBookmarkStatus.execute(key);
 
-      emit(BookMarkStatusHasData(result));
+      emit(BookmarkStatusHasData(result));
     });
 
     on<AddBookmark>((event, emit) async {

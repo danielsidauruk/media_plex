@@ -145,7 +145,7 @@ class _BookHomePageState extends State<BookHomePage> {
           return InkWell(
             onTap: () => Navigator.pushNamed(
               context,
-              DetailPage.routeName,
+              BookDetailPage.routeName,
               arguments: books[index].key,
             ),
             child: Padding(

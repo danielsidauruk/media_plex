@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:media_plex/media_plex/books/presentation/bloc/bookmark/bookmark_bloc.dart';
 import 'package:media_plex/media_plex/books/presentation/bloc/popular_bloc/book_popular_bloc.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_popular_page.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_search_page.dart';
@@ -23,7 +24,6 @@ import 'package:media_plex/media_plex/tv_series/presentation/pages/tv_series_on_
 import 'package:media_plex/media_plex/tv_series/presentation/pages/tv_series_popular_page.dart';
 import 'package:media_plex/media_plex/tv_series/presentation/pages/tv_series_search_page.dart';
 import 'package:media_plex/media_plex/tv_series/presentation/pages/tv_series_top_rated_page.dart';
-import 'package:media_plex/media_plex/tv_series/presentation/pages/watchlist_tv_series_page.dart';
 
 import 'core/common/utils.dart';
 import 'core/utils/routes.dart';
@@ -57,6 +57,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => di.locator<BookDetailBloc>()),
         BlocProvider(create: (_) => di.locator<BookSearchBloc>()),
         BlocProvider(create: (_) => di.locator<PopularBloc>()),
+        BlocProvider(create: (_) => di.locator<BookmarkBloc>()),
 
         // movie
         BlocProvider(create: (_) => di.locator<MovieDetailBloc>()),
@@ -65,7 +66,6 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => di.locator<MoviePopularBloc>()),
         BlocProvider(create: (_) => di.locator<MovieTopRatedBloc>()),
         BlocProvider(create: (_) => di.locator<MovieRecommendationBloc>()),
-
         BlocProvider(create: (_) => di.locator<MovieWatchlistBloc>()),
 
         // tv series
@@ -75,7 +75,6 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => di.locator<TVSeriesPopularBloc>()),
         BlocProvider(create: (_) => di.locator<TVSeriesTopRatedBloc>()),
         BlocProvider(create: (_) => di.locator<TVSeriesRecommendationBloc>()),
-
         BlocProvider(create: (_) => di.locator<TVSeriesWatchlistBloc>()),
       ],
       child: MaterialApp(
@@ -127,10 +126,10 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(builder: (_) => const BookSearchPage());
             case BookPopularPage.routeName:
               return MaterialPageRoute(builder: (_) => const BookPopularPage());
-            case DetailPage.routeName:
+            case BookDetailPage.routeName:
               final key = settings.arguments as String;
               return MaterialPageRoute(
-                builder: (_) => DetailPage(bookKey: key),
+                builder: (_) => BookDetailPage(bookKey: key),
                 settings: settings,
               );
 
@@ -169,8 +168,6 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(builder: (_) => const TVSeriesSearchPage());
             case topRatedTVSeriesRoute:
               return MaterialPageRoute(builder: (_) => const TVSeriesTopRatedPage());
-            case watchlistTVSeriesRoute:
-              return MaterialPageRoute(builder: (_) => const TVSeriesWatchlistPage());
 
             default:
               return MaterialPageRoute(

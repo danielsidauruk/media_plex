@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_plex/core/common/utils.dart';
 import 'package:media_plex/core/utils/constants.dart';
 import 'package:media_plex/core/utils/routes.dart';
+import 'package:media_plex/media_plex/books/presentation/bloc/bookmark/bookmark_bloc.dart';
+import 'package:media_plex/media_plex/books/presentation/pages/book_detail_page.dart';
 import 'package:media_plex/media_plex/movie/presentation/bloc/movie_watchlist_bloc/movie_watchlist_bloc.dart';
 import 'package:media_plex/media_plex/tv_series/presentation/bloc/tv_series_watchlist_bloc/tv_series_watchlist_bloc.dart';
 import 'package:media_plex/shared/presentation/widget/loading_animation.dart';
@@ -27,6 +29,8 @@ class _RepositoryPageState extends State<RepositoryPage> with RouteAware {
           .add(FetchMovieWatchlist());
       BlocProvider.of<TVSeriesWatchlistBloc>(context, listen: false)
           .add(FetchWatchlistTVSeries());
+      BlocProvider.of<BookmarkBloc>(context, listen: false)
+          .add(FetchBookmark());
     });
   }
 
@@ -86,7 +90,65 @@ class _RepositoryPageState extends State<RepositoryPage> with RouteAware {
             const SizedBox(height: 8),
 
             menu == media[0] ?
-            const Center() :
+            Expanded(
+              child: BlocBuilder<BookmarkBloc, BookmarkState>(
+                builder: (context, state) {
+                  if (state is BookmarkLoading) {
+                    return const LoadingAnimation();
+                  } else if (state is BookmarkHasData) {
+                    final books = state.result;
+                    return books.isNotEmpty ?
+                    Column(
+                      children: [
+                        Expanded(
+                          child: ListView.builder(
+                            itemCount: books.length,
+                            itemBuilder: (context, index) {
+                              return InkWell(
+                                onTap: () => Navigator.pushNamed(
+                                  context,
+                                  BookDetailPage.routeName,
+                                  arguments: books[index].key,
+                                ),
+                                child: Container(
+                                  padding: const EdgeInsets.all(8.0),
+                                  margin: const EdgeInsets.symmetric(vertical: 4.0),
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    border: Border.all(color: Colors.white),
+                                  ),
+                                  child: Text(
+                                    textAlign: TextAlign.start,
+                                    books[index].title,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .subtitle1
+                                        ?.copyWith(fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+
+                        const SizedBox(height: 8),
+
+                        TotalText(total: books.length, context: context),
+                      ],
+                    ) :
+                    const Center();
+                  } else if (state is BookmarkError) {
+                    return Center(
+                      key: const Key('error_message'),
+                      child: Text(state.message),
+                    );
+                  } else {
+                    return Container();
+                  }
+                },
+              ),
+            ) :
             menu == media[1] ?
             buildMoviesRepository() :
             buildTVSeriesRepository(),

@@ -152,7 +152,7 @@ class _BookPopularPageState extends State<BookPopularPage> {
     return InkWell(
       onTap: () => Navigator.pushNamed(
         context,
-        DetailPage.routeName,
+        BookDetailPage.routeName,
         arguments: books[index].key,
       ),
       child: Container(
