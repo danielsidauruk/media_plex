@@ -14,6 +14,6 @@ abstract class BookRepository {
   Future<Either<Failure, String>> saveBookmark(BookDetail book);
   Future<Either<Failure, String>> removeBookmark(BookDetail book);
   Future<Either<Failure, List<BookTable>>> getBookmarkedBook();
-  Future<Either<Failure, Subject>> getSubjectBooks(String subjectName);
+  Future<Either<Failure, BookSubject>> getSubjectBooks(String subjectName);
   Future<bool> isBookmarked(String key);
 }

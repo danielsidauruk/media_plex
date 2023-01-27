@@ -1,16 +1,15 @@
 // => Books
 // API Link
-const String apiUrl = 'https://openlibrary.org/';
-String search(String query) => '${apiUrl}search.json?title=$query';
-String detailBook(String key) => '$apiUrl$key.json';
-String popularBook(String dataSortQuery) => '${apiUrl}trending/$dataSortQuery.json';
+const String apiUrl = 'https://openlibrary.org';
+String search(String query) => '$apiUrl/search.json?title=$query';
+String detailBook(String key) => '$apiUrl/$key.json';
+String popularBook(String dataSortQuery) => '$apiUrl/trending/$dataSortQuery.json';
+String subjectBook(String subject) => 'https://openlibrary.org/subjects/$subject.json';
 
 const String apiCoversUrl = 'https://covers.openlibrary.org/b';
 String mediumImage(String isbn) => '$apiCoversUrl/isbn/$isbn-M.jpg';
 String mediumImageByCoverI(String coverI) => '$apiCoversUrl/id/$coverI-M.jpg';
-                        // https://covers.openlibrary.org/b/id/13131616-M.jpg
 String largeImage(String cover) => '$apiCoversUrl/id/$cover-L.jpg';
-// String largeImage(String cover) => 'https://covers.openlibrary.org/b/id/8243960-L.jpg';
 
 
 const List<String> queryList = ['now', 'daily', 'weekly', 'monthly', 'yearly'];
@@ -26,10 +25,12 @@ String baseImageURL(String path) => 'https://image.tmdb.org/t/p/w500$path';
 
 const String serverFailureMessage = 'Server Failure';
 
+// Local Database Table name
 const String tblWatchlist = 'watchlist';
-
 const String tblBookmark = 'bookmark';
 
+
+// subject name
 const List<String> artsSubjects = ['Architecture', 'Art Instruction', 'Art History', 'Dance', 'Design',
   'Fashion', 'Film', 'Graphic Design', 'Music', 'Music Theory', 'Painting', 'Photography'];
 const List<String> animalSubjects = ['Bears', 'Cats', 'Kittens', 'Dogs', 'Puppies'];

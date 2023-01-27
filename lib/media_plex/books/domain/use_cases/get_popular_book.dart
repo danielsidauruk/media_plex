@@ -6,9 +6,8 @@ import 'package:media_plex/media_plex/books/domain/repositories/books_repository
 import 'package:media_plex/shared/domain/use_cases/use_case.dart';
 
 class GetPopularBook extends UseCase<Popular, Params> {
-  BookRepository repository;
-
   GetPopularBook({required this.repository});
+  BookRepository repository;
 
   @override
   Future<Either<Failure, Popular>> call(Params params) async {

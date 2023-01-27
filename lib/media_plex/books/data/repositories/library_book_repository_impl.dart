@@ -48,9 +48,12 @@ class BookRepositoryImpl implements BookRepository {
   }
 
   @override
-  Future<Either<Failure, Subject>> getSubjectBooks(String subjectName) {
-    // TODO: implement getSubjectBooks
-    throw UnimplementedError();
+  Future<Either<Failure, BookSubject>> getSubjectBooks(String subjectName) async {
+    try {
+      return Right(await remoteDataSource.getSubjectBook(subjectName));
+    } on ServerException {
+      return const Left(ServerFailure(''));
+    }
   }
 
   @override
