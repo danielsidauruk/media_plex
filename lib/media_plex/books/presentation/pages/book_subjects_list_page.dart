@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:media_plex/core/utils/constants.dart';
+import 'package:media_plex/media_plex/books/presentation/pages/book_subject_page.dart';
 import 'package:media_plex/shared/presentation/widget/total_text.dart';
 
-class BookBySubjectsPage extends StatelessWidget {
-  const BookBySubjectsPage({
+class BookSubjectsListPage extends StatelessWidget {
+  const BookSubjectsListPage({
     super.key,
     required this.subject,
     required this.icon,
@@ -55,7 +55,11 @@ class BookBySubjectsPage extends StatelessWidget {
                 itemCount: list.length,
                 itemBuilder: (context, index) {
                   return InkWell(
-                    onTap: () {},
+                    onTap: () => Navigator.pushNamed(
+                      context,
+                      BookSubjectPage.routeName,
+                      arguments: list[index],
+                    ),
                     child: Container(
                       padding: const EdgeInsets.all(8.0),
                       margin: const EdgeInsets.symmetric(vertical: 4.0),

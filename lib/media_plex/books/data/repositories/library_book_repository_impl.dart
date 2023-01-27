@@ -6,7 +6,7 @@ import 'package:media_plex/media_plex/books/data/data_sources/book_remote_data_s
 import 'package:media_plex/media_plex/books/data/models/book_table.dart';
 import 'package:media_plex/media_plex/books/domain/entities/book_popular.dart';
 import 'package:media_plex/media_plex/books/domain/entities/book_detail.dart';
-import 'package:media_plex/media_plex/books/domain/entities/search.dart';
+import 'package:media_plex/media_plex/books/domain/entities/book_search.dart';
 import 'package:media_plex/media_plex/books/domain/repositories/books_repository.dart';
 
 class BookRepositoryImpl implements BookRepository {

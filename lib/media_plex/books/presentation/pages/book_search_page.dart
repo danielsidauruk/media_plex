@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_plex/core/utils/constants.dart';
-import 'package:media_plex/media_plex/books/domain/entities/search.dart';
+import 'package:media_plex/media_plex/books/domain/entities/book_search.dart';
 import 'package:media_plex/media_plex/books/presentation/bloc/search_bloc/book_search_bloc.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_detail_page.dart';
 import 'package:media_plex/shared/presentation/widget/loading_animation.dart';

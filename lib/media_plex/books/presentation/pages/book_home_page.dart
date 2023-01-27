@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_plex/core/utils/constants.dart';
 import 'package:media_plex/media_plex/books/domain/entities/book_popular.dart';
 import 'package:media_plex/media_plex/books/presentation/bloc/popular_bloc/book_popular_bloc.dart';
-import 'package:media_plex/media_plex/books/presentation/pages/book_by_subjects.dart';
+import 'package:media_plex/media_plex/books/presentation/pages/book_subjects_list_page.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_detail_page.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_popular_page.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_search_page.dart';
@@ -240,7 +240,7 @@ class _BookHomePageState extends State<BookHomePage> {
         context,
         MaterialPageRoute(
           builder: (context) =>
-              BookBySubjectsPage(
+              BookSubjectsListPage(
                 subject: subjectName,
                 icon: iconAssets,
                 list: menu,

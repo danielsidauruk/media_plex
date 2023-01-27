@@ -1,4 +1,4 @@
-import 'package:media_plex/media_plex/books/domain/entities/search.dart';
+import 'package:media_plex/media_plex/books/domain/entities/book_search.dart';
 
 class SearchModel extends Search {
   SearchModel({

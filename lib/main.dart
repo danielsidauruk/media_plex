@@ -9,6 +9,7 @@ import 'package:media_plex/dependency_injection.dart' as di;
 import 'package:media_plex/media_plex/books/presentation/bloc/book_detail_bloc/book_detail_bloc.dart';
 import 'package:media_plex/media_plex/books/presentation/bloc/search_bloc/book_search_bloc.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_home_page.dart';
+import 'package:media_plex/media_plex/books/presentation/pages/book_subject_page.dart';
 import 'package:media_plex/media_plex/movie/presentation/pages/movie_home_page.dart';
 import 'package:media_plex/media_plex/movie/presentation/pages/movie_now_playing_page.dart';
 import 'package:media_plex/media_plex/tv_series/presentation/bloc/tv_series_detail_bloc/tv_series_detail_bloc.dart';
@@ -28,7 +29,7 @@ import 'package:media_plex/media_plex/tv_series/presentation/pages/tv_series_top
 import 'core/common/utils.dart';
 import 'core/utils/routes.dart';
 import 'home_page.dart';
-import 'media_plex/books/presentation/pages/book_by_subjects.dart';
+import 'media_plex/books/presentation/pages/book_subjects_list_page.dart';
 import 'media_plex/movie/presentation/bloc/movie_detail_bloc/movie_detail_bloc.dart';
 import 'media_plex/movie/presentation/bloc/movie_now_playing_bloc/movie_now_playing_bloc.dart';
 import 'media_plex/movie/presentation/bloc/movie_popular_bloc/movie_popular_bloc.dart';
@@ -127,16 +128,12 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(builder: (_) => const BookSearchPage());
             case BookPopularPage.routeName:
               return MaterialPageRoute(builder: (_) => const BookPopularPage());
-
-              // case BookBySubjectsPage.routeName:
-            //   final bookSubject = settings.arguments as String;
-            //   final iconSubject = settings.arguments as String;
-            //   return MaterialPageRoute(
-            //     builder: (_) => BookBySubjectsPage(
-            //       subject: bookSubject,
-            //       icon: iconSubject,),
-            //     settings: settings,
-            //   );
+            case BookSubjectPage.routeName:
+              final title = settings.arguments as String;
+              return MaterialPageRoute(
+                builder: (_) => BookSubjectPage(title: title),
+                settings: settings,
+              );
 
             case BookDetailPage.routeName:
               final key = settings.arguments as String;
