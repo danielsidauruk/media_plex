@@ -36,9 +36,6 @@ class _TVSeriesHomePageState extends State<TVSeriesHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // drawer: const AppDrawer(
-      //   route: homeTVSeriesRoute,
-      // ),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0.0,
@@ -49,6 +46,14 @@ class _TVSeriesHomePageState extends State<TVSeriesHomePage> {
             fontSize: 22,
           ),
         ),
+
+        actions: [
+          IconButton(
+            onPressed: () => Navigator.pushNamed(context, repositoryRoute),
+            icon: const Icon(Icons.bookmark_border),
+          ),
+        ],
+
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -60,7 +65,7 @@ class _TVSeriesHomePageState extends State<TVSeriesHomePage> {
               SearchTile(
                 context: context,
                 title: 'Search your TV Series',
-                routeName: searchTVSeriesRoute,
+                routeName: tvSeriesSearchRoute,
               ),
 
               onAirTile(context),
@@ -87,7 +92,7 @@ class _TVSeriesHomePageState extends State<TVSeriesHomePage> {
       child: Column(
         children: [
 
-          SubHeadingTile(context: context, title: 'On Air TV Series', routeName: onAirTVSeriesRoute),
+          SubHeadingTile(context: context, title: 'On Air TV Series', routeName: tvSeriesOnAirRoute),
 
           BlocBuilder<TVSeriesOnAirBloc, TVSeriesOnAirState>(
             builder: (context, state) {
@@ -120,7 +125,7 @@ class _TVSeriesHomePageState extends State<TVSeriesHomePage> {
       child: Column(
         children: [
 
-          SubHeadingTile(context: context, title: 'Popular TV Series', routeName: popularTVSeriesRoute),
+          SubHeadingTile(context: context, title: 'Popular TV Series', routeName: tvSeriesPopularRoute),
 
           BlocBuilder<TVSeriesPopularBloc, TVSeriesPopularState>(
             builder: (context, state) {
@@ -152,7 +157,7 @@ class _TVSeriesHomePageState extends State<TVSeriesHomePage> {
       ),
       child: Column(
         children: [
-          SubHeadingTile(context: context, title: 'Top Rated TV Series', routeName: topRatedTVSeriesRoute),
+          SubHeadingTile(context: context, title: 'Top Rated TV Series', routeName: tvSeriesTopRatedRoute),
 
           BlocBuilder<TVSeriesTopRatedBloc, TVSeriesTopRatedState>(
             builder: (context, state) {
@@ -183,7 +188,7 @@ class _TVSeriesHomePageState extends State<TVSeriesHomePage> {
           return InkWell(
             onTap: () => Navigator.pushNamed(
               context,
-              detailTVSeriesRoute,
+              tvSeriesDetailRoute,
               arguments: tvSeriesResult[index].id,
             ),
             child: Padding(

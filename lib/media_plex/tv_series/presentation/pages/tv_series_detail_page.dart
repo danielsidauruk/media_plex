@@ -12,7 +12,6 @@ import 'package:media_plex/shared/domain/entities/genre.dart';
 
 class TVSeriesDetailPage extends StatefulWidget {
   const TVSeriesDetailPage({super.key, required this.id});
-
   final int id;
 
   @override
@@ -292,7 +291,7 @@ class _TVSeriesDetailPageState extends State<TVSeriesDetailPage> {
                                                       onTap: () {
                                                         Navigator.pushReplacementNamed(
                                                           context,
-                                                          detailTVSeriesRoute,
+                                                          tvSeriesDetailRoute,
                                                           arguments: recommendations.id,
                                                         );
                                                       },

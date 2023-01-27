@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:media_plex/core/utils/routes.dart';
-import 'package:media_plex/media_plex/books/presentation/pages/book_home_page.dart';
-import 'package:media_plex/media_plex/movie/presentation/pages/movie_home_page.dart';
-import 'shared/presentation/page/repository_page.dart';
 
 class HomePage extends StatelessWidget {
-  static const routeName = '/homePageRoute';
   const HomePage({super.key});
 
   @override
@@ -47,7 +43,7 @@ class HomePage extends StatelessWidget {
 
             homeTile(
               context,
-                  () => Navigator.pushNamed(context, RepositoryPage.routeName),
+                  () => Navigator.pushNamed(context, repositoryRoute),
               'Repository',
               const Icon(Icons.bookmark_border),
               'assets/images/repository.png',
@@ -58,7 +54,7 @@ class HomePage extends StatelessWidget {
 
             homeTile(
               context,
-                  () => Navigator.pushNamed(context, BookHomePage.routeName),
+                  () => Navigator.pushNamed(context, bookHomeRoute),
               'Books',
               const Icon(Icons.arrow_forward),
               'assets/images/book_icon.png',
@@ -67,7 +63,7 @@ class HomePage extends StatelessWidget {
 
             homeTile(
               context,
-                  () => Navigator.pushNamed(context, MovieHomePage.routeName),
+                  () => Navigator.pushNamed(context, movieHomeRoute),
               'Movies',
               const Icon(Icons.arrow_forward),
               'assets/images/movie_icon.png',
@@ -76,7 +72,7 @@ class HomePage extends StatelessWidget {
 
             homeTile(
               context,
-                  () => Navigator.pushNamed(context, homeTVSeriesRoute),
+                  () => Navigator.pushNamed(context, tvSeriesHomeRoute),
               'Series',
               const Icon(Icons.arrow_forward),
               'assets/images/tv_icon.png',

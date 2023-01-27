@@ -1,22 +1,32 @@
 // about Route
 const aboutRoute = 'about-page';
 
-// core Route
-const watchlistRoute = 'watchlist-page';
+// home page
+const homeRoute = '/homeRoute';
 
-// movie Route
-const detailMovieRoute = '/detail-movie';
-const homeMovieRoute = '/home-movie';
-const popularMovieRoute = '/popular-movie';
-const searchMovieRoute = '/search-movie';
-const topRatedMovieRoute = '/top-rated-movie';
-const watchlistMovieRoute = '/watchlist-movie';
+// book route
+const bookHomeRoute = '/bookHomeRoute';
+const bookDetailRoute = '/bookDetailRoute';
+const bookPopularRoute = '/bookPopularRoute';
+const bookSearchRoute = '/bookSearchRoute';
+const bookSubjectRoute = '/bookSubjectRoute';
+const bookSubjectsListRoute = 'bookSubjectsListRoute';
 
-// tv Series Route
-const detailTVSeriesRoute = 'detail-tv-series';
-const homeTVSeriesRoute = 'home-tv-series';
-const onAirTVSeriesRoute = 'on-air-tv-series';
-const popularTVSeriesRoute = 'popular-tv-series';
-const searchTVSeriesRoute = 'search-tv-series';
-const topRatedTVSeriesRoute = 'top-rated-tv-series';
-const watchlistTVSeriesRoute = 'watchlist-tv-series';
+// movie route
+const movieHomeRoute = '/movieHomeRoute';
+const movieDetailRoute = '/movieDetailRoute';
+const movieNowPlayingRoute = 'movieNowPlayingRoute';
+const moviePopularRoute = '/moviePopularRoute';
+const movieTopRatedRoute = '/movieTopRatedRoute';
+const movieSearchRoute = '/movieSearchRoute';
+
+// tv Series route
+const tvSeriesHomeRoute = 'tvSeriesHomeRoute';
+const tvSeriesDetailRoute = 'tvSeriesDetailRoute';
+const tvSeriesOnAirRoute = 'tvSeriesOnAirRoute';
+const tvSeriesPopularRoute = 'tvSeriesPopularRoute';
+const tvSeriesTopRatedRoute = 'tvSeriesTopRatedRoute';
+const tvSeriesSearchRoute = 'tvSeriesSearchRoute';
+
+// repository
+const repositoryRoute = 'repositoryRoute';

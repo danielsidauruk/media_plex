@@ -2,18 +2,15 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_plex/core/utils/constants.dart';
+import 'package:media_plex/core/utils/routes.dart';
 import 'package:media_plex/media_plex/books/domain/entities/book_popular.dart';
 import 'package:media_plex/media_plex/books/presentation/bloc/popular_bloc/book_popular_bloc.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_subjects_list_page.dart';
-import 'package:media_plex/media_plex/books/presentation/pages/book_detail_page.dart';
-import 'package:media_plex/media_plex/books/presentation/pages/book_popular_page.dart';
-import 'package:media_plex/media_plex/books/presentation/pages/book_search_page.dart';
 import 'package:media_plex/shared/presentation/widget/horizontal_loading_animation.dart';
 import 'package:media_plex/shared/presentation/widget/search_tile.dart';
 import 'package:media_plex/shared/presentation/widget/sub_heading_tile.dart';
 
 class BookHomePage extends StatefulWidget {
-  static const routeName = '/bookHomePageRoute';
   const BookHomePage({super.key});
 
   @override
@@ -38,11 +35,19 @@ class _BookHomePageState extends State<BookHomePage> {
         title: Text(
           'Books',
           style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                fontWeight: FontWeight.bold,
-                fontSize: 22,
-              ),
+            fontWeight: FontWeight.bold,
+            fontSize: 22,
+          ),
         ),
+
+        actions: [
+          IconButton(
+            onPressed: () => Navigator.pushNamed(context, repositoryRoute),
+            icon: const Icon(Icons.bookmark_border),
+          ),
+        ],
       ),
+
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -53,7 +58,7 @@ class _BookHomePageState extends State<BookHomePage> {
               SearchTile(
                 context: context,
                 title: 'Search your Book',
-                routeName: BookSearchPage.routeName,
+                routeName: bookSearchRoute,
               ),
 
               popularTile(context),
@@ -89,7 +94,7 @@ class _BookHomePageState extends State<BookHomePage> {
               ),
               InkWell(
                 onTap: () =>
-                    Navigator.pushNamed(context, BookSearchPage.routeName),
+                    Navigator.pushNamed(context, bookSearchRoute),
                 child: const Icon(
                   Icons.search,
                   color: Colors.white,
@@ -114,7 +119,7 @@ class _BookHomePageState extends State<BookHomePage> {
       child: Column(
         children: [
 
-          SubHeadingTile(context: context, title: 'Popular Books - Daily', routeName: BookPopularPage.routeName),
+          SubHeadingTile(context: context, title: 'Popular Books - Daily', routeName: bookPopularRoute),
 
           BlocBuilder<PopularBloc, PopularState>(
             builder: (context, state) {
@@ -146,7 +151,7 @@ class _BookHomePageState extends State<BookHomePage> {
           return InkWell(
             onTap: () => Navigator.pushNamed(
               context,
-              BookDetailPage.routeName,
+              bookDetailRoute,
               arguments: books[index].key,
             ),
             child: Padding(
@@ -214,7 +219,6 @@ class _BookHomePageState extends State<BookHomePage> {
             children: [
               subjectIcon(context, 'Biography', 'biography_icon.png', biography),
               subjectIcon(context, 'Places', 'Places_icon.png', places),
-              subjectIcon(context, 'Textbooks', 'text_book_icon.png', textbooks)
             ],
           ),
           const SizedBox(height: 14),

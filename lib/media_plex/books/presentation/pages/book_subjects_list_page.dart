@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:media_plex/media_plex/books/presentation/pages/book_subject_page.dart';
+import 'package:media_plex/core/utils/routes.dart';
 import 'package:media_plex/shared/presentation/widget/total_text.dart';
 
 class BookSubjectsListPage extends StatelessWidget {
@@ -13,8 +13,6 @@ class BookSubjectsListPage extends StatelessWidget {
   final String subject;
   final String icon;
   final List<String> list;
-
-  static const routeName = '/bookBySubjectsPageRoute';
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +55,7 @@ class BookSubjectsListPage extends StatelessWidget {
                   return InkWell(
                     onTap: () => Navigator.pushNamed(
                       context,
-                      BookSubjectPage.routeName,
+                      bookSubjectRoute,
                       arguments: list[index],
                     ),
                     child: Container(

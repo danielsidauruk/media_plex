@@ -53,20 +53,20 @@ class WorkModel extends Work {
   factory WorkModel.fromJson(Map<String, dynamic> json) => WorkModel(
     key: json["key"],
     title: json["title"],
-    editionCount: json["edition_count"],
-    coverId: json["cover_id"],
-    coverEditionKey: json["cover_edition_key"],
-    subject: List<String>.from(json["subject"].map((x) => x)),
-    iaCollection: List<String>.from(json["ia_collection"].map((x) => x)),
-    lendinglibrary: json["lendinglibrary"],
-    printdisabled: json["printdisabled"],
-    lendingEdition: json["lending_edition"],
-    lendingIdentifier: json["lending_identifier"],
-    authorsModel: List<AuthorModel>.from(json["authors"].map((x) => AuthorModel.fromJson(x))),
-    firstPublishYear: json["first_publish_year"],
-    ia: json["ia"],
-    publicScan: json["public_scan"],
-    hasFulltext: json["has_fulltext"],
+    editionCount: json["edition_count"] ?? 0,
+    coverId: json["cover_id"] ?? 0,
+    coverEditionKey: json["cover_edition_key"] ?? "",
+    subject: List<String>.from(json["subject"]?.map((x) => x) ?? []),
+    iaCollection: List<String>.from(json["ia_collection"]?.map((x) => x) ?? []),
+    lendinglibrary: json["lendinglibrary"] ?? false,
+    printdisabled: json["printdisabled"] ?? false,
+    lendingEdition: json["lending_edition"] ?? "",
+    lendingIdentifier: json["lending_identifier"] ?? "",
+    authorsModel: List<AuthorModel>.from(json["authors"]?.map((x) => AuthorModel.fromJson(x)) ?? []),
+    firstPublishYear: json["first_publish_year"] ?? 0,
+    ia: json["ia"] ?? "",
+    publicScan: json["public_scan"] ?? false,
+    hasFulltext: json["has_fulltext"] ?? false,
   );
 
   Map<String, dynamic> toJson() => {
@@ -96,8 +96,8 @@ class AuthorModel extends Author {
   });
 
   factory AuthorModel.fromJson(Map<String, dynamic> json) => AuthorModel(
-    key: json["key"],
-    name: json["name"],
+    key: json["key"] ?? "",
+    name: json["name"] ?? "",
   );
 
   Map<String, dynamic> toJson() => {

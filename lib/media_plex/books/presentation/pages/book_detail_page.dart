@@ -12,8 +12,6 @@ class BookDetailPage extends StatefulWidget {
   const BookDetailPage({super.key, required this.bookKey});
   final String bookKey;
 
-  static const routeName = '/detailPageRoute';
-
   @override
   State<BookDetailPage> createState() => _BookDetailPageState();
 }

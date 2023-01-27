@@ -6,7 +6,6 @@ import 'package:media_plex/media_plex/movie/presentation/widgets/movie_list.dart
 import 'package:media_plex/shared/presentation/widget/loading_animation.dart';
 
 class MovieNowPlayingPage extends StatefulWidget {
-  static const routeName = '/nowPlayingMovieRoute';
   const MovieNowPlayingPage({super.key});
 
   @override

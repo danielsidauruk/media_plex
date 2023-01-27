@@ -268,7 +268,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                   child: InkWell(
                     onTap: () => Navigator.pushReplacementNamed(
                       context,
-                      detailMovieRoute,
+                      movieDetailRoute,
                       arguments: movie.id,
                     ),
                     child: ClipRRect(

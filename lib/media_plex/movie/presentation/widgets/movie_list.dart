@@ -20,7 +20,7 @@ class MovieList extends StatelessWidget {
               return InkWell(
                 onTap: () => Navigator.pushNamed(
                   context,
-                  detailMovieRoute,
+                  movieDetailRoute,
                   arguments: list[index].id,
                 ),
                 child: Container(

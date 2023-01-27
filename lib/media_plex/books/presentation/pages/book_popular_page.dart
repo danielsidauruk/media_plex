@@ -2,14 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_plex/core/utils/constants.dart';
+import 'package:media_plex/core/utils/routes.dart';
 import 'package:media_plex/media_plex/books/domain/entities/book_popular.dart';
 import 'package:media_plex/media_plex/books/presentation/bloc/popular_bloc/book_popular_bloc.dart';
-import 'package:media_plex/media_plex/books/presentation/pages/book_detail_page.dart';
 import 'package:media_plex/shared/presentation/widget/loading_animation.dart';
 import 'package:media_plex/shared/presentation/widget/total_text.dart';
 
 class BookPopularPage extends StatefulWidget {
-  static const routeName = 'bookPopularPageRoute';
   const BookPopularPage({super.key});
 
   @override
@@ -153,7 +152,7 @@ class _BookPopularPageState extends State<BookPopularPage> {
     return InkWell(
       onTap: () => Navigator.pushNamed(
         context,
-        BookDetailPage.routeName,
+        bookDetailRoute,
         arguments: books[index].key,
       ),
       child: Container(
@@ -198,12 +197,10 @@ class _BookPopularPageState extends State<BookPopularPage> {
                         const SizedBox(height: 8.0,),
 
                         Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            const Text('By '),
-
                             books[index].authorName.isNotEmpty
-                                ? wrapText(books[index].authorName, context)
+                                ? wrapText(books[index].authorName, 'Written by', context)
                                 : const Center(),
                           ],
                         ),
@@ -211,11 +208,11 @@ class _BookPopularPageState extends State<BookPopularPage> {
                         const SizedBox(height: 2.0),
 
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text('Lng : '),
                             books[index].language.isNotEmpty
-                                ? wrapText(books[index].language, context)
+                                ? wrapText(books[index].language, 'Language :', context)
                                 : const Center(),
                           ],
                         ),
@@ -230,23 +227,18 @@ class _BookPopularPageState extends State<BookPopularPage> {
     );
   }
 
-  Expanded wrapText(List<String> bookDetail, context) {
-    return Expanded(
-      child: Wrap(
-        direction: Axis.horizontal,
-        children: [
-          ...bookDetail.map((item) => Text(
-            '$item, ',
-            style: Theme.of(context).textTheme.subtitle2?.
-            copyWith(fontWeight: FontWeight.bold)
-          )).toList().sublist(0, bookDetail.length - 1),
+  Expanded wrapText(List<String> bookDetail, String title,  context) {
+    String text = "$title ${bookDetail.join(', ')}";
 
-          Text(
-            bookDetail.last,
-            style: Theme.of(context).textTheme.subtitle2?.
-            copyWith(fontWeight: FontWeight.bold),
-          ),
-        ],
+    return Expanded(
+      child: RichText(
+        maxLines: 2,
+        overflow: TextOverflow.ellipsis,
+        text: TextSpan(
+          text: text,
+          style: Theme.of(context).textTheme.subtitle2
+              ?.copyWith(fontWeight: FontWeight.bold),
+        ),
       ),
     );
   }

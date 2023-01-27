@@ -50,7 +50,7 @@ class _TVSeriesPopularPageState extends State<TVSeriesPopularPage> {
             final tvSeriesResult = state.result;
             return TVSeriesList(
               list: tvSeriesResult,
-              route: detailTVSeriesRoute,
+              route: tvSeriesDetailRoute,
             );
           } else if (state is TVSeriesPopularError) {
             return Center(

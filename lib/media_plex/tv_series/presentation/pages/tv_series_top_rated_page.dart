@@ -51,7 +51,7 @@ class _TVSeriesTopRatedPageState extends State<TVSeriesTopRatedPage> {
             final tvSeriesResult = state.result;
             return TVSeriesList(
               list: tvSeriesResult,
-              route: detailTVSeriesRoute,
+              route: tvSeriesDetailRoute,
             );
           } else if (state is TVSeriesTopRatedError) {
             return Center(

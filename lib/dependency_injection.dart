@@ -8,10 +8,12 @@ import 'package:media_plex/media_plex/books/domain/use_cases/get_book_details.da
 import 'package:media_plex/media_plex/books/domain/use_cases/get_bookmark_status.dart';
 import 'package:media_plex/media_plex/books/domain/use_cases/get_bookmarked_book.dart';
 import 'package:media_plex/media_plex/books/domain/use_cases/get_popular_book.dart';
+import 'package:media_plex/media_plex/books/domain/use_cases/get_subject_book.dart';
 import 'package:media_plex/media_plex/books/domain/use_cases/remove_bookmark.dart';
 import 'package:media_plex/media_plex/books/domain/use_cases/save_bookmark.dart';
 import 'package:media_plex/media_plex/books/domain/use_cases/search_book.dart';
 import 'package:media_plex/media_plex/books/presentation/bloc/book_detail_bloc/book_detail_bloc.dart';
+import 'package:media_plex/media_plex/books/presentation/bloc/book_subject/book_subject_bloc.dart';
 import 'package:media_plex/media_plex/books/presentation/bloc/bookmark/bookmark_bloc.dart';
 import 'package:media_plex/media_plex/books/presentation/bloc/popular_bloc/book_popular_bloc.dart';
 import 'package:media_plex/media_plex/books/presentation/bloc/search_bloc/book_search_bloc.dart';
@@ -73,6 +75,7 @@ Future<void> init() async {
   locator.registerFactory(() => BookDetailBloc(locator()));
   locator.registerFactory(() => BookSearchBloc(locator()));
   locator.registerFactory(() => PopularBloc(locator()));
+  locator.registerFactory(() => BookSubjectBloc(locator()));
   locator.registerFactory(() => BookmarkBloc(
     locator(),
     locator(),
@@ -84,6 +87,7 @@ Future<void> init() async {
   locator.registerLazySingleton(() => GetBookDetails(repository: locator()));
   locator.registerLazySingleton(() => SearchBook(repository: locator()));
   locator.registerLazySingleton(() => GetPopularBook(repository: locator()));
+  locator.registerLazySingleton(() => GetSubjectBook(repository: locator()));
   locator.registerLazySingleton(() => SaveBookmark(locator()));
   locator.registerLazySingleton(() => RemoveBookmark(locator()));
   locator.registerLazySingleton(() => GetBookMarkedBook(locator()));

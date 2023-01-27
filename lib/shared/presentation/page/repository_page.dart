@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:media_plex/core/common/utils.dart';
+import 'package:media_plex/core/utils/utils.dart';
 import 'package:media_plex/core/utils/constants.dart';
 import 'package:media_plex/core/utils/routes.dart';
 import 'package:media_plex/media_plex/books/presentation/bloc/bookmark/bookmark_bloc.dart';
-import 'package:media_plex/media_plex/books/presentation/pages/book_detail_page.dart';
 import 'package:media_plex/media_plex/movie/presentation/bloc/movie_watchlist_bloc/movie_watchlist_bloc.dart';
 import 'package:media_plex/media_plex/tv_series/presentation/bloc/tv_series_watchlist_bloc/tv_series_watchlist_bloc.dart';
 import 'package:media_plex/shared/presentation/widget/loading_animation.dart';
 import 'package:media_plex/shared/presentation/widget/total_text.dart';
 
 class RepositoryPage extends StatefulWidget {
-  static const routeName = 'repositoryPageRoute';
   const RepositoryPage({super.key});
 
   @override
@@ -121,7 +119,7 @@ class _RepositoryPageState extends State<RepositoryPage> with RouteAware {
                       return InkWell(
                         onTap: () => Navigator.pushNamed(
                           context,
-                          BookDetailPage.routeName,
+                          bookDetailRoute,
                           arguments: books[index].key,
                         ),
                         child: Container(
@@ -234,7 +232,7 @@ class _RepositoryPageState extends State<RepositoryPage> with RouteAware {
                       return InkWell(
                         onTap: () => Navigator.pushNamed(
                           context,
-                          detailMovieRoute,
+                          movieDetailRoute,
                           arguments: movie[index].id,
                         ),
                         child: Container(
@@ -296,7 +294,7 @@ class _RepositoryPageState extends State<RepositoryPage> with RouteAware {
                       return InkWell(
                         onTap: () => Navigator.pushNamed(
                           context,
-                          detailTVSeriesRoute,
+                          tvSeriesDetailRoute,
                           arguments: movie[index].id,
                         ),
                         child: Container(

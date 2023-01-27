@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:media_plex/media_plex/books/presentation/bloc/book_subject/book_subject_bloc.dart';
 import 'package:media_plex/media_plex/books/presentation/bloc/bookmark/bookmark_bloc.dart';
 import 'package:media_plex/media_plex/books/presentation/bloc/popular_bloc/book_popular_bloc.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_popular_page.dart';
@@ -26,10 +27,9 @@ import 'package:media_plex/media_plex/tv_series/presentation/pages/tv_series_pop
 import 'package:media_plex/media_plex/tv_series/presentation/pages/tv_series_search_page.dart';
 import 'package:media_plex/media_plex/tv_series/presentation/pages/tv_series_top_rated_page.dart';
 
-import 'core/common/utils.dart';
+import 'core/utils/utils.dart';
 import 'core/utils/routes.dart';
 import 'home_page.dart';
-import 'media_plex/books/presentation/pages/book_subjects_list_page.dart';
 import 'media_plex/movie/presentation/bloc/movie_detail_bloc/movie_detail_bloc.dart';
 import 'media_plex/movie/presentation/bloc/movie_now_playing_bloc/movie_now_playing_bloc.dart';
 import 'media_plex/movie/presentation/bloc/movie_popular_bloc/movie_popular_bloc.dart';
@@ -60,6 +60,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => di.locator<BookSearchBloc>()),
         BlocProvider(create: (_) => di.locator<PopularBloc>()),
         BlocProvider(create: (_) => di.locator<BookmarkBloc>()),
+        BlocProvider(create: (_) => di.locator<BookSubjectBloc>()),
 
         // movie
         BlocProvider(create: (_) => di.locator<MovieDetailBloc>()),
@@ -115,27 +116,28 @@ class MyApp extends StatelessWidget {
         onGenerateRoute: (RouteSettings settings) {
           switch (settings.name) {
 
+            case homeRoute:
+              return MaterialPageRoute(builder: (_) => const HomePage());
+
             // repository
-            case RepositoryPage.routeName:
+            case repositoryRoute:
               return MaterialPageRoute(builder: (_) => const RepositoryPage());
 
             // books
-            case HomePage.routeName:
-              return MaterialPageRoute(builder: (_) => const HomePage());
-            case BookHomePage.routeName:
+            case bookHomeRoute:
               return MaterialPageRoute(builder: (_) => const BookHomePage());
-            case BookSearchPage.routeName:
+            case bookSearchRoute:
               return MaterialPageRoute(builder: (_) => const BookSearchPage());
-            case BookPopularPage.routeName:
+            case bookPopularRoute:
               return MaterialPageRoute(builder: (_) => const BookPopularPage());
-            case BookSubjectPage.routeName:
+            case bookSubjectRoute:
               final title = settings.arguments as String;
               return MaterialPageRoute(
                 builder: (_) => BookSubjectPage(title: title),
                 settings: settings,
               );
 
-            case BookDetailPage.routeName:
+            case bookDetailRoute:
               final key = settings.arguments as String;
               return MaterialPageRoute(
                 builder: (_) => BookDetailPage(bookKey: key),
@@ -143,40 +145,40 @@ class MyApp extends StatelessWidget {
               );
 
           // movies
-            case MovieHomePage.routeName:
+            case movieHomeRoute:
               return MaterialPageRoute(builder: (_) => const MovieHomePage());
-            case detailMovieRoute:
+            case movieDetailRoute:
               final id = settings.arguments as int;
               return MaterialPageRoute(
                 builder: (_) => MovieDetailPage(id: id),
                 settings: settings,
               );
-            case popularMovieRoute:
+            case moviePopularRoute:
               return MaterialPageRoute(builder: (_) => const PopularMoviesPage());
-            case searchMovieRoute:
+            case movieSearchRoute:
               return MaterialPageRoute(builder: (_) => const MovieSearchPage());
-            case topRatedMovieRoute:
+            case movieTopRatedRoute:
               return MaterialPageRoute(builder: (_) => const MovieTopRatedPage());
-            case MovieNowPlayingPage.routeName:
+            case movieNowPlayingRoute:
               return MaterialPageRoute(builder: (_) => const MovieNowPlayingPage());
 
           // TV Series
-            case homeTVSeriesRoute:
+            case tvSeriesHomeRoute:
               return MaterialPageRoute(builder: (_) => const TVSeriesHomePage());
-            case detailTVSeriesRoute:
+            case tvSeriesDetailRoute:
               final id = settings.arguments as int;
               return MaterialPageRoute(
                 builder: (_) => TVSeriesDetailPage(id: id),
                 settings: settings,
               );
 
-            case onAirTVSeriesRoute:
+            case tvSeriesOnAirRoute:
               return MaterialPageRoute(builder: (_) => const TVSeriesOnAirPage());
-            case popularTVSeriesRoute:
+            case tvSeriesPopularRoute:
               return MaterialPageRoute(builder: (_) => const TVSeriesPopularPage());
-            case searchTVSeriesRoute:
+            case tvSeriesSearchRoute:
               return MaterialPageRoute(builder: (_) => const TVSeriesSearchPage());
-            case topRatedTVSeriesRoute:
+            case tvSeriesTopRatedRoute:
               return MaterialPageRoute(builder: (_) => const TVSeriesTopRatedPage());
 
             default:

@@ -12,5 +12,5 @@ class GetForPopular extends PopularEvent {
   final String dataSortQuery;
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [dataSortQuery];
 }

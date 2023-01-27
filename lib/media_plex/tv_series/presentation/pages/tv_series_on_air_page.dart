@@ -51,7 +51,7 @@ class _TVSeriesOnAirPageState extends State<TVSeriesOnAirPage> {
             final tvSeriesResult = state.result;
             return TVSeriesList(
               list: tvSeriesResult,
-              route: detailTVSeriesRoute,
+              route: tvSeriesDetailRoute,
             );
           } else if (state is TVSeriesOnAirError) {
             return Center(

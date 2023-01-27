@@ -7,13 +7,11 @@ import 'package:media_plex/media_plex/movie/domain/entities/movie.dart';
 import 'package:media_plex/media_plex/movie/presentation/bloc/movie_now_playing_bloc/movie_now_playing_bloc.dart';
 import 'package:media_plex/media_plex/movie/presentation/bloc/movie_popular_bloc/movie_popular_bloc.dart';
 import 'package:media_plex/media_plex/movie/presentation/bloc/movie_top_rated_bloc/movie_top_rated_bloc.dart';
-import 'package:media_plex/media_plex/movie/presentation/pages/movie_now_playing_page.dart';
 import 'package:media_plex/shared/presentation/widget/horizontal_loading_animation.dart';
 import 'package:media_plex/shared/presentation/widget/search_tile.dart';
 import 'package:media_plex/shared/presentation/widget/sub_heading_tile.dart';
 
 class MovieHomePage extends StatefulWidget {
-  static const routeName = '/movieHomePageRoute';
   const MovieHomePage({super.key});
 
   @override
@@ -49,6 +47,12 @@ class _MovieHomePageState extends State<MovieHomePage> {
             fontSize: 22,
           ),
         ),
+        actions: [
+          IconButton(
+            onPressed: () => Navigator.pushNamed(context, repositoryRoute),
+            icon: const Icon(Icons.bookmark_border),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -60,7 +64,7 @@ class _MovieHomePageState extends State<MovieHomePage> {
               SearchTile(
                 context: context,
                 title: 'Search your Movie',
-                routeName: searchMovieRoute,
+                routeName: movieSearchRoute,
               ),
 
               nowPlayingTile(context),
@@ -88,7 +92,7 @@ class _MovieHomePageState extends State<MovieHomePage> {
       child: Column(
         children: [
 
-          SubHeadingTile(context: context, title: 'Now Playing Movies', routeName: MovieNowPlayingPage.routeName),
+          SubHeadingTile(context: context, title: 'Now Playing Movies', routeName: movieNowPlayingRoute),
 
           BlocBuilder<MovieNowPlayingBloc, MovieNowPlayingState>(
             builder: (context, state) {
@@ -121,7 +125,7 @@ class _MovieHomePageState extends State<MovieHomePage> {
       child: Column(
         children: [
 
-          SubHeadingTile(context: context, title: 'Popular Movies', routeName: popularMovieRoute),
+          SubHeadingTile(context: context, title: 'Popular Movies', routeName: moviePopularRoute),
 
           BlocBuilder<MoviePopularBloc, MoviePopularState>(
               builder: (context, state) {
@@ -154,7 +158,7 @@ class _MovieHomePageState extends State<MovieHomePage> {
       child: Column(
         children: [
 
-          SubHeadingTile(context: context, title: 'Top Rated Movies', routeName: topRatedMovieRoute),
+          SubHeadingTile(context: context, title: 'Top Rated Movies', routeName: movieTopRatedRoute),
 
           BlocBuilder<MovieTopRatedBloc, MovieTopRatedState>(
             builder: (context, state) {
@@ -185,7 +189,7 @@ class _MovieHomePageState extends State<MovieHomePage> {
           return InkWell(
             onTap: () => Navigator.pushNamed(
               context,
-              detailMovieRoute,
+              movieDetailRoute,
               arguments: movieResult[index].id,
             ),
             child: movieResult[index].posterPath != null ?
