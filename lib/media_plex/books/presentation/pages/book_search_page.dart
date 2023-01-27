@@ -174,8 +174,6 @@ class BookSearchPage extends StatelessWidget {
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text('By '),
-
                           books[index].authorName.isNotEmpty
                               ? wrapText(books[index].authorName, context)
                               : const Center(),
@@ -192,27 +190,18 @@ class BookSearchPage extends StatelessWidget {
     );
   }
 
+  Expanded wrapText(List<String> bookDetail,  context) {
+    String text = "Written by ${bookDetail.join(', ')}";
 
-  Expanded wrapText(List<String> bookDetail, context) {
     return Expanded(
-      child: Wrap(
-        direction: Axis.horizontal,
-        children: [
-          ...bookDetail.map((item) => Text(
-              '$item, ',
-              style: Theme.of(context).textTheme.subtitle2?.
-              copyWith(fontWeight: FontWeight.bold)
-          )).toList().sublist(0, bookDetail.length - 1),
-
-          Text(
-            bookDetail.last,
-            style: Theme.of(context)
-                .textTheme
-                .subtitle2
-                ?.copyWith(
-                fontWeight: FontWeight.bold),
-          ),
-        ],
+      child: RichText(
+        maxLines: 2,
+        overflow: TextOverflow.ellipsis,
+        text: TextSpan(
+          text: text,
+          style: Theme.of(context).textTheme.subtitle2
+              ?.copyWith(fontWeight: FontWeight.bold),
+        ),
       ),
     );
   }

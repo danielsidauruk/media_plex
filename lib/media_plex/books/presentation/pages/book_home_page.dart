@@ -219,14 +219,14 @@ class _BookHomePageState extends State<BookHomePage> {
             children: [
               subjectIcon(context, 'Biography', 'biography_icon.png', biography),
               subjectIcon(context, 'Places', 'Places_icon.png', places),
+              subjectIcon(context, 'Business & Finance',
+                  'business_n_finance_icon.png', businessAndFinance),
             ],
           ),
           const SizedBox(height: 14),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              subjectIcon(context, 'Business & Finance',
-                  'business_n_finance_icon.png', businessAndFinance),
               subjectIcon(context, 'Health & Wellness',
                   'health_n_wellness_icon.png', healthAndWellness),
               subjectIcon(
