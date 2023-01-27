@@ -47,6 +47,8 @@ class _RepositoryPageState extends State<RepositoryPage> with RouteAware {
           .add(FetchMovieWatchlist());
       BlocProvider.of<TVSeriesWatchlistBloc>(context, listen: false)
           .add(FetchWatchlistTVSeries());
+      BlocProvider.of<BookmarkBloc>(context, listen: false)
+          .add(FetchBookmark());
     });
   }
 
