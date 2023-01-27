@@ -7,6 +7,7 @@ import 'package:media_plex/media_plex/books/data/models/book_table.dart';
 import 'package:media_plex/media_plex/books/domain/entities/book_popular.dart';
 import 'package:media_plex/media_plex/books/domain/entities/book_detail.dart';
 import 'package:media_plex/media_plex/books/domain/entities/book_search.dart';
+import 'package:media_plex/media_plex/books/domain/entities/book_subject.dart';
 import 'package:media_plex/media_plex/books/domain/repositories/books_repository.dart';
 
 class BookRepositoryImpl implements BookRepository {
@@ -44,6 +45,12 @@ class BookRepositoryImpl implements BookRepository {
     } on ServerException {
       return const Left(ServerFailure(''));
     }
+  }
+
+  @override
+  Future<Either<Failure, Subject>> getSubjectBooks(String subjectName) {
+    // TODO: implement getSubjectBooks
+    throw UnimplementedError();
   }
 
   @override

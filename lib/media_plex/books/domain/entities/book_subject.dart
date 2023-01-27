@@ -1,5 +1,7 @@
-class Subject {
-  Subject({
+import 'package:equatable/equatable.dart';
+
+class Subject extends Equatable{
+  const Subject({
     required this.key,
     required this.name,
     required this.subjectType,
@@ -12,10 +14,13 @@ class Subject {
   final String subjectType;
   final int workCount;
   final List<Work> works;
+
+  @override
+  List<Object?> get props => [key, name, subjectType, workCount, works];
 }
 
-class Work {
-  Work({
+class Work extends Equatable {
+  const Work({
     required this.key,
     required this.title,
     required this.editionCount,
@@ -52,20 +57,44 @@ class Work {
   final bool publicScan;
   final bool hasFulltext;
   final Availability availability;
+
+  @override
+  List<Object?> get props => [
+    key,
+    title,
+    editionCount,
+    coverId,
+    coverEditionKey,
+    subject,
+    iaCollection,
+    lendinglibrary,
+    printdisabled,
+    lendingEdition,
+    lendingIdentifier,
+    authors,
+    firstPublishYear,
+    ia,
+    publicScan,
+    hasFulltext,
+    availability,
+  ];
 }
 
-class Author {
-  Author({
+class Author extends Equatable{
+  const Author({
     required this.key,
     required this.name,
   });
 
   final String key;
   final String name;
+
+  @override
+  List<Object?> get props => [key, name];
 }
 
-class Availability {
-  Availability({
+class Availability extends Equatable {
+  const Availability({
     required this.status,
     required this.availableToBrowse,
     required this.availableToBorrow,
@@ -106,6 +135,29 @@ class Availability {
   final bool isRestricted;
   final bool isBrowseable;
   final Src src;
+
+  @override
+  List<Object?> get props => [
+    status,
+    availableToBrowse,
+    availableToBorrow,
+    availableToWaitlist,
+    isPrintdisabled,
+    isReadable,
+    isLendable,
+    isPreviewable,
+    identifier,
+    isbn,
+    oclc,
+    openlibraryWork,
+    openlibraryEdition,
+    lastLoanDate,
+    numWaitlist,
+    lastWaitlistDate,
+    isRestricted,
+    isBrowseable,
+    src,
+  ];
 }
 
 enum Src { CORE_MODELS_LENDING_GET_AVAILABILITY }
