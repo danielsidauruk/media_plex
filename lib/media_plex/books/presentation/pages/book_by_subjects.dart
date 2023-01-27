@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:media_plex/core/utils/constants.dart';
+import 'package:media_plex/shared/presentation/widget/total_text.dart';
 
 class BookBySubjectsPage extends StatelessWidget {
   const BookBySubjectsPage({
@@ -84,6 +85,8 @@ class BookBySubjectsPage extends StatelessWidget {
                 },
               ),
             ),
+
+            TotalText(total: list.length, context: context),
           ],
         ),
       ),

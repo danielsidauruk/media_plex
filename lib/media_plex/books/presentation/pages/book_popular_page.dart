@@ -243,11 +243,8 @@ class _BookPopularPageState extends State<BookPopularPage> {
 
           Text(
             bookDetail.last,
-            style: Theme.of(context)
-                .textTheme
-                .subtitle2
-                ?.copyWith(
-                fontWeight: FontWeight.bold),
+            style: Theme.of(context).textTheme.subtitle2?.
+            copyWith(fontWeight: FontWeight.bold),
           ),
         ],
       ),
