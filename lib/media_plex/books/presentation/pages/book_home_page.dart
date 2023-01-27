@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_plex/core/utils/constants.dart';
 import 'package:media_plex/media_plex/books/domain/entities/book_popular.dart';
 import 'package:media_plex/media_plex/books/presentation/bloc/popular_bloc/book_popular_bloc.dart';
+import 'package:media_plex/media_plex/books/presentation/pages/book_by_subjects.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_detail_page.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_popular_page.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_search_page.dart';
@@ -193,28 +194,27 @@ class _BookHomePageState extends State<BookHomePage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              subjectIcon(context, 'Arts', 'art_icon.png'),
-              subjectIcon(context, 'Animals', 'animals_icon.png'),
-              subjectIcon(context, 'Fiction', 'fiction_icon.png'),
+              subjectIcon(context, 'Arts', 'art_icon.png', artsSubjects),
+              subjectIcon(context, 'Animals', 'animals_icon.png', animalSubjects),
+              subjectIcon(context, 'Fiction', 'fiction_icon.png', fictionSubjects),
             ],
           ),
           const SizedBox(height: 14),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              subjectIcon(
-                  context, "Social", 'social_n_science_icon.png'),
-              subjectIcon(context, "Children's", 'children_icon.png'),
-              subjectIcon(context, 'History', 'history_icon.png'),
+              subjectIcon(context, "Social", 'social_n_science_icon.png', social),
+              subjectIcon(context, "Children's", 'children_icon.png', children),
+              subjectIcon(context, 'History', 'history_icon.png', history),
             ],
           ),
           const SizedBox(height: 14),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              subjectIcon(context, 'Biography', 'biography_icon.png'),
-              subjectIcon(context, 'Places', 'Places_icon.png'),
-              subjectIcon(context, 'Textbooks', 'text_book_icon.png')
+              subjectIcon(context, 'Biography', 'biography_icon.png', biography),
+              subjectIcon(context, 'Places', 'Places_icon.png', places),
+              subjectIcon(context, 'Textbooks', 'text_book_icon.png', textbooks)
             ],
           ),
           const SizedBox(height: 14),
@@ -222,11 +222,11 @@ class _BookHomePageState extends State<BookHomePage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               subjectIcon(context, 'Business & Finance',
-                  'business_n_finance_icon.png'),
+                  'business_n_finance_icon.png', businessAndFinance),
               subjectIcon(context, 'Health & Wellness',
-                  'health_n_wellness_icon.png'),
+                  'health_n_wellness_icon.png', healthAndWellness),
               subjectIcon(
-                  context, 'Science &\nMathematics', 'math_icon.png'),
+                  context, 'Science &\nMathematics', 'math_icon.png', scienceAndMathematics),
             ],
           ),
         ],
@@ -234,9 +234,19 @@ class _BookHomePageState extends State<BookHomePage> {
     );
   }
 
-  InkWell subjectIcon(context, String subjectName, String iconAssets) {
+  InkWell subjectIcon(context, String subjectName, String iconAssets, List<String> menu) {
     return InkWell(
-      onTap: () {},
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) =>
+              BookBySubjectsPage(
+                subject: subjectName,
+                icon: iconAssets,
+                list: menu,
+              ),
+        ),
+      ),
       child: SizedBox(
         width: 85,
         child: Column(

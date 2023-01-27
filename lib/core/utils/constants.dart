@@ -30,3 +30,24 @@ const String tblWatchlist = 'watchlist';
 
 const String tblBookmark = 'bookmark';
 
+const List<String> artsSubjects = ['Architecture', 'Art Instruction', 'Art History', 'Dance', 'Design',
+  'Fashion', 'Film', 'Graphic Design', 'Music', 'Music Theory', 'Painting', 'Photography'];
+const List<String> animalSubjects = ['Bears', 'Cats', 'Kittens', 'Dogs', 'Puppies'];
+const List<String> fictionSubjects = ['Fantasy', 'Historical Fiction', 'Horror', 'Humor', 'Literature',
+  'Magic', 'Mystery and detective stories', 'Plays''Poetry', 'Romance', 'Science Fiction', 'Short Stories',
+  'Thriller', 'Young Adult',];
+const List<String> scienceAndMathematics = ['Biology', 'Chemistry', 'Mathematics', 'Physics', 'Programming'];
+const List<String> businessAndFinance = ['Management', 'Entrepreneurship', 'Business Economics',
+  'Business Success', 'Finance'];
+const List<String> children = ['Kids Books', 'Stories in Rhyme', 'Baby Books', 'Bedtime Books', 'Picture Books'];
+const List<String> history = ['Ancient Civilization', 'Archaeology', 'Anthropology', 'World War II', 'Social Life and Customs'];
+const List<String> healthAndWellness = ['Cooking', 'Cookbooks', 'Mental Health', 'Exercise', 'Nutrition', 'Self-help'];
+const List<String> biography = ['Autobiographies', 'History', 'Politics and Government', 'World War II',
+  'Women', 'Kings and Rulers', 'Composers', 'Artists'];
+const List<String> social = ['Anthropology', 'Religion', 'Political Science', 'Psychology'];
+const List<String> places = ['Brazil', 'India', 'Indonesia', 'United States'];
+const List<String> textbooks = ['History', 'Mathematics', 'Geography', 'Psychology', 'Algebra', 'Education',
+  'Business & Economics', 'Science', 'Chemistry', 'English Language', 'Physics', 'Computer Science'];
+
+
+

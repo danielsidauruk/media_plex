@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:media_plex/core/utils/constants.dart';
 import 'package:media_plex/media_plex/books/domain/entities/book_detail.dart';
-import 'package:media_plex/media_plex/books/domain/use_cases/get_bookmark_status.dart';
 import 'package:media_plex/media_plex/books/presentation/bloc/book_detail_bloc/book_detail_bloc.dart';
 import 'package:media_plex/media_plex/books/presentation/bloc/bookmark/bookmark_bloc.dart';
 import 'package:media_plex/media_plex/movie/presentation/pages/movie_detail_page.dart';
