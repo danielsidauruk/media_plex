@@ -51,8 +51,3 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
-
-  fonts:
-    - family: Fugaz
-      fonts:
-        - asset: assets/fonts/FugazOne-Regular.ttf

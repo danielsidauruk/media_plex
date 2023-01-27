@@ -92,71 +92,74 @@ class _RepositoryPageState extends State<RepositoryPage> with RouteAware {
             const SizedBox(height: 8),
 
             menu == media[0] ?
-            Expanded(
-              child: BlocBuilder<BookmarkBloc, BookmarkState>(
-                builder: (context, state) {
-                  if (state is BookmarkLoading) {
-                    return const LoadingAnimation();
-                  } else if (state is BookmarkHasData) {
-                    final books = state.result;
-                    return books.isNotEmpty ?
-                    Column(
-                      children: [
-                        Expanded(
-                          child: ListView.builder(
-                            itemCount: books.length,
-                            itemBuilder: (context, index) {
-                              return InkWell(
-                                onTap: () => Navigator.pushNamed(
-                                  context,
-                                  BookDetailPage.routeName,
-                                  arguments: books[index].key,
-                                ),
-                                child: Container(
-                                  padding: const EdgeInsets.all(8.0),
-                                  margin: const EdgeInsets.symmetric(vertical: 4.0),
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    border: Border.all(color: Colors.white),
-                                  ),
-                                  child: Text(
-                                    textAlign: TextAlign.start,
-                                    books[index].title,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .subtitle1
-                                        ?.copyWith(fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-
-                        const SizedBox(height: 8),
-
-                        TotalText(total: books.length, context: context),
-                      ],
-                    ) :
-                    const Center();
-                  } else if (state is BookmarkError) {
-                    return Center(
-                      key: const Key('error_message'),
-                      child: Text(state.message),
-                    );
-                  } else {
-                    return Container();
-                  }
-                },
-              ),
-            ) :
+            buildBookRepository() :
             menu == media[1] ?
             buildMoviesRepository() :
             buildTVSeriesRepository(),
 
           ],
         ),
+      ),
+    );
+  }
+
+  Expanded buildBookRepository() {
+    return Expanded(
+      child: BlocBuilder<BookmarkBloc, BookmarkState>(
+        builder: (context, state) {
+          if (state is BookmarkLoading) {
+            return const LoadingAnimation();
+          } else if (state is BookmarkHasData) {
+            final books = state.result;
+            return books.isNotEmpty ?
+            Column(
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: books.length,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () => Navigator.pushNamed(
+                          context,
+                          BookDetailPage.routeName,
+                          arguments: books[index].key,
+                        ),
+                        child: Container(
+                          padding: const EdgeInsets.all(8.0),
+                          margin: const EdgeInsets.symmetric(vertical: 4.0),
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8.0),
+                            border: Border.all(color: Colors.white),
+                          ),
+                          child: Text(
+                            textAlign: TextAlign.start,
+                            books[index].title,
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle1
+                                ?.copyWith(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+
+                const SizedBox(height: 8),
+
+                TotalText(total: books.length, context: context),
+              ],
+            ) : const Center();
+          } else if (state is BookmarkError) {
+            return Center(
+              key: const Key('error_message'),
+              child: Text(state.message),
+            );
+          } else {
+            return Container();
+          }
+        },
       ),
     );
   }
