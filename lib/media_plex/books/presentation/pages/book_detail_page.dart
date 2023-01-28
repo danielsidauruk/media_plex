@@ -31,10 +31,15 @@ class _BookDetailPageState extends State<BookDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+      ),
+
       body: BlocBuilder<BookDetailBloc, BookDetailState>(
         builder: (context, state) {
           if (state is BookDetailLoading) {
-            return const DetailLoadingAnimation();
+            return bookDetailLoadingAnimation();
           } else if (state is BookDetailLoaded) {
             var bookDetail = state.bookDetail;
             return buildDetailBook(bookDetail, context);
@@ -48,224 +53,258 @@ class _BookDetailPageState extends State<BookDetailPage> {
     );
   }
 
-  SafeArea buildDetailBook(BookDetail book, context) {
-    return SafeArea(
-      child: Stack(
+  Padding bookDetailLoadingAnimation() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
         children: [
-          book.covers.isNotEmpty ?
-          CachedNetworkImage(
-            width: double.infinity,
-            imageUrl: largeImage(book.covers[0].toString()),
-            placeholder: (context, url) => Container(
-              width: double.infinity,
-              height: double.infinity,
-              color: Colors.grey,
-            ),
-            errorWidget: (context, url, error) => Image.asset(
-              'assets/images/not_applicable_icon.png',
-            ),
-          ) :
-          Center(
-            child: Image.asset('assets/images/not_applicable_icon.png'),
-          ),
 
           Container(
-            margin: const EdgeInsets.only(top: 48 + 8),
-            child: DraggableScrollableSheet(
-              builder: (context, scrollController) {
-                return Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.vertical(
-                      top: Radius.circular(16),
-                    ),
-                  ),
-                  padding: const EdgeInsets.only(
-                    left: 16,
-                    top: 16,
-                    right: 16,
-                  ),
-                  child: Stack(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.only(top: 16),
-                        child: SingleChildScrollView(
-                          controller: scrollController,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
+            width: 200,
+            height: 305,
+            color: Colors.grey,
+          ),
 
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Expanded(
-                                    flex: 5,
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          book.title,
-                                          style: Theme.of(context).textTheme.bodyLarge
-                                              ?.copyWith(fontWeight: FontWeight.bold),
-                                        ),
+          const SizedBox(height: 8.0),
 
-                                        Text(
-                                          'First published in ${DateFormat.yMMMd().format(book.created.value)}',
-                                          style: Theme.of(context).textTheme.bodyMedium
-                                              ?.copyWith(color: Colors.grey, fontWeight: FontWeight.bold),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+          Container(
+            width: 300,
+            height: 40,
+            color: Colors.grey,
+          ),
 
-                                  BlocConsumer<BookmarkBloc, BookmarkState>(
-                                    listener: (context, state) {
-                                      if (state is BookmarkSuccess) {
-                                        ScaffoldMessenger.of(context).showSnackBar(
-                                          SnackBar(content: Text(state.message)),
-                                        );
-                                      } else if (state is BookmarkFailure) {
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) {
-                                            return AlertDialog(
-                                              content: Text(state.message),
-                                            );
-                                          },
-                                        );
-                                      }
-                                    },
-                                    builder: (context, state) {
-                                      return InkWell(
-                                        onTap: () async {
-                                          if (state is BookmarkStatusHasData) {
-                                            if (state.isAdded == false) {
-                                              context.read<BookmarkBloc>()
-                                                  .add(AddBookmark(book));
-                                            } else if (state.isAdded == true) {
-                                              context.read<BookmarkBloc>()
-                                                  .add(DeleteBookmark(book));
-                                            }
-                                          }
-                                        },
-                                        // child: state is BookmarkStatusHasData ?
-                                        // const Icon(Icons.bookmark) :
-                                        // const Icon(Icons.bookmark_border),
-                                        child: Column(
-                                          children: [
-                                            if (state is BookmarkStatusHasData)
-                                              if (state.isAdded == true)
-                                                const Icon(Icons.bookmark)
-                                              else
-                                                const Icon(Icons.bookmark_border),
-                                          ],
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ],
-                              ),
+          const SizedBox(height: 4.0),
 
-                              const SizedBox(height: 8.0),
+          Container(
+            width: 260,
+            height: 30,
+            color: Colors.grey,
+          ),
 
-                              Text(
-                                'Subjects',
-                                style: Theme.of(context).textTheme.subtitle1?.
-                                copyWith(fontWeight: FontWeight.bold),
-                              ),
+          const SizedBox(height: 8.0),
 
-                              book.subjects.isNotEmpty ?
-                              Wrap(
-                                direction: Axis.horizontal,
-                                children: [
-                                  ...book.subjects.map((item) => Text('$item, '))
-                                      .toList().sublist(0, book.subjects.length - 1),
+          Container(
+            width: 110,
+            height: 40,
+            color: Colors.grey,
+          ),
 
-                                  Text(book.subjects.last),
-                                ],
-                              ) :
-                              const Center(),
+          const SizedBox(height: 8.0),
 
-                              const SizedBox(height: 8),
-
-                              Text(
-                                'Description',
-                                style: Theme.of(context).textTheme.subtitle1?.
-                                copyWith(fontWeight: FontWeight.bold),
-                              ),
-
-                              Text(book.description.value),
-
-                              const SizedBox(height: 8),
-
-                              book.covers.isNotEmpty ?
-                              Column(
-                                children: [
-                                  Align(
-                                    alignment: Alignment.topLeft,
-                                    child: Text(
-                                      'Covers',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .subtitle1
-                                          ?.copyWith(fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-
-                                  SizedBox(
-                                    height: 150,
-                                    child: ListView.builder(
-                                      scrollDirection: Axis.horizontal,
-                                      itemCount: book.covers.length - 1,
-                                      itemBuilder: (context, index) {
-                                        return Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: CachedNetworkImage(
-                                            width: 80,
-                                            fit: BoxFit.fill,
-                                            imageUrl: largeImage(book.covers[index].toString()),
-                                            placeholder: (context, url) => Container(
-                                              width: 80,
-                                              height: 126,
-                                              color: Colors.grey,
-                                            ),
-                                            errorWidget: (context, url, error) => Image.asset(
-                                              'assets/images/not_applicable_icon.png',
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                ],
-                              ) : const Center(),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.topCenter,
-                        child: Container(
-                          color: Colors.white,
-                          height: 4,
-                          width: 48,
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
-              // initialChildSize: 0.5,
-              minChildSize: 0.25,
-              // maxChildSize: 1.0,
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Container(
+              width: 120,
+              height: 30,
+              color: Colors.grey,
             ),
           ),
 
-          IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () => Navigator.pop(context),
+          const SizedBox(height: 4.0),
+
+          Container(
+            width: double.infinity,
+            height: 120,
+            color: Colors.grey,
           ),
         ],
+      ),
+    );
+  }
+
+  SingleChildScrollView buildDetailBook(BookDetail book, context) {
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+
+            book.covers.isNotEmpty ?
+            CachedNetworkImage(
+              width: 200,
+              imageUrl: largeImage(book.covers[0].toString()),
+              placeholder: (context, url) => Container(
+                width: 200,
+                height: 305,
+                color: Colors.grey,
+              ),
+              errorWidget: (context, url, error) => Image.asset(
+                'assets/images/not_applicable_icon.png',
+              ),
+            ) :
+            Center(
+              child: Image.asset('assets/images/not_applicable_icon.png'),
+            ),
+
+            const SizedBox(height: 2.0),
+
+            Text(
+              book.title,
+              style: Theme.of(context).textTheme.bodyLarge
+                  ?.copyWith(fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+
+            const SizedBox(height: 2.0),
+
+            Text(
+              'First published in ${DateFormat.yMMMd().format(book.created.value)}',
+              style: Theme.of(context).textTheme.bodyMedium
+                  ?.copyWith(color: Colors.grey, fontWeight: FontWeight.bold),
+            ),
+
+            const SizedBox(height: 8.0),
+
+            bookmarkBloc(book),
+
+            const SizedBox(height: 8.0),
+
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Subject',
+                style: Theme.of(context).textTheme.subtitle1?.
+                copyWith(fontWeight: FontWeight.bold),
+              ),
+            ),
+
+            Row(
+              children: [
+                book.subjects.isNotEmpty ?
+                wrapText(book.subjects) :
+                const Center(),
+              ],
+            ),
+
+            const SizedBox(height: 8.0),
+
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Book Description',
+                style: Theme.of(context).textTheme.subtitle1?.
+                copyWith(fontWeight: FontWeight.bold),
+              ),
+            ),
+
+            Text(book.description.value),
+
+            const SizedBox(height: 8.0),
+
+            book.covers.isNotEmpty ?
+            Column(
+              children: [
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    'Covers',
+                    style: Theme.of(context)
+                        .textTheme
+                        .subtitle1
+                        ?.copyWith(fontWeight: FontWeight.bold),
+                  ),
+                ),
+
+                SizedBox(
+                  height: 150,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: book.covers.length - 1,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: CachedNetworkImage(
+                          width: 80,
+                          fit: BoxFit.fill,
+                          imageUrl: largeImage(book.covers[index].toString()),
+                          placeholder: (context, url) => Container(
+                            width: 80,
+                            height: 126,
+                            color: Colors.grey,
+                          ),
+                          errorWidget: (context, url, error) => Image.asset(
+                            'assets/images/not_applicable_icon.png',
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ) : const Center(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  BlocConsumer<BookmarkBloc, BookmarkState> bookmarkBloc(BookDetail book) {
+    return BlocConsumer<BookmarkBloc, BookmarkState>(
+      listener: (context, state) {
+        if (state is BookmarkSuccess) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(state.message)),
+          );
+        } else if (state is BookmarkFailure) {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                content: Text(state.message),
+              );
+            },
+          );
+        }
+      },
+      builder: (context, state) {
+        return InkWell(
+          onTap: () async {
+            if (state is BookmarkStatusHasData) {
+              if (state.isAdded == false) {
+                context.read<BookmarkBloc>()
+                    .add(AddBookmark(book));
+              } else if (state.isAdded == true) {
+                context.read<BookmarkBloc>()
+                    .add(DeleteBookmark(book));
+              }
+            }
+          },
+          child: Container(
+            width: 110,
+            alignment: Alignment.center,
+            padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8.0),
+              border: Border.all(color: Colors.white),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                if (state is BookmarkStatusHasData)
+                  if (state.isAdded == false)
+                    const Icon(Icons.bookmark_border)
+                  else if (state.isAdded == true)
+                    const Icon(Icons.bookmark),
+                const Text(
+                  'Bookmark',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Expanded wrapText(List<String> bookDetail) {
+    String text = bookDetail.join(', ');
+
+    return Expanded(
+      child: RichText(
+        text: TextSpan(
+          text: text,
+        ),
       ),
     );
   }

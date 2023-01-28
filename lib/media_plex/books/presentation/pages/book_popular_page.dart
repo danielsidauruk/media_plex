@@ -28,20 +28,21 @@ class _BookPopularPageState extends State<BookPopularPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0.0,
-          title: Text(
-            'Popular Books',
-            style: Theme.of(context).textTheme.bodyText1
-                ?.copyWith(
-              fontWeight: FontWeight.bold,
-              fontSize: 22,
-            ),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+        title: Text(
+          'Popular Books',
+          style: Theme.of(context).textTheme.bodyText1
+              ?.copyWith(
+            fontWeight: FontWeight.bold,
+            fontSize: 22,
           ),
         ),
+      ),
 
-        body: buildBody(context));
+      body: buildBody(context),
+    );
   }
 
   Padding buildBody(BuildContext context) {
