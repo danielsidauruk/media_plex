@@ -1,12 +1,12 @@
 import 'dart:io';
 import 'package:dartz/dartz.dart';
-import 'package:media_plex/core/utils/exception.dart';
 import 'package:media_plex/core/utils/failure.dart';
 import 'package:media_plex/media_plex/movie/data/datasources/movie_local_data_source.dart';
 import 'package:media_plex/media_plex/movie/data/datasources/movie_remote_data_source.dart';
 import 'package:media_plex/media_plex/movie/data/models/movie_table.dart';
 import 'package:media_plex/media_plex/movie/domain/entities/movie.dart';
 import 'package:media_plex/media_plex/movie/domain/entities/movie_detail.dart';
+import 'package:media_plex/core/utils/exception.dart';
 import 'package:media_plex/media_plex/movie/domain/repositories/movie_repository.dart';
 
 class MovieRepositoryImpl implements MovieRepository {

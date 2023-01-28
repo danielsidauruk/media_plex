@@ -1,7 +1,6 @@
-
-import 'package:media_plex/core/utils/exception.dart';
 import 'package:media_plex/media_plex/tv_series/data/datasources/database/tv_series_database_helper.dart';
 import 'package:media_plex/media_plex/tv_series/data/models/tv_series_table.dart';
+import 'package:media_plex/core/utils/exception.dart';
 
 abstract class TVSeriesLocalDataSource {
   Future<String> insertWatchlist(TVSeriesTable tvSeries);

@@ -199,28 +199,28 @@ class _BookHomePageState extends State<BookHomePage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              subjectIcon(context, 'Arts', 'art_icon.png', artsSubjects),
-              subjectIcon(context, 'Animals', 'animals_icon.png', animalSubjects),
-              subjectIcon(context, 'Fiction', 'fiction_icon.png', fictionSubjects),
+              subjectIcon(context, 'Arts', 'art_icon.png', artsSubjects, artsSubjectKey),
+              subjectIcon(context, 'Animals', 'animals_icon.png', animalSubjects, animalSubjectsKey),
+              subjectIcon(context, 'Fiction', 'fiction_icon.png', fictionSubjects, fictionSubjectsKey),
             ],
           ),
           const SizedBox(height: 14),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              subjectIcon(context, "Social", 'social_n_science_icon.png', social),
-              subjectIcon(context, "Children's", 'children_icon.png', children),
-              subjectIcon(context, 'History', 'history_icon.png', history),
+              subjectIcon(context, "Social", 'social_n_science_icon.png', social, socialKey),
+              subjectIcon(context, "Children's", 'children_icon.png', children, childrenKey),
+              subjectIcon(context, 'History', 'history_icon.png', history, historyKey),
             ],
           ),
           const SizedBox(height: 14),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              subjectIcon(context, 'Biography', 'biography_icon.png', biography),
-              subjectIcon(context, 'Places', 'Places_icon.png', places),
+              subjectIcon(context, 'Biography', 'biography_icon.png', biography, biographyKey),
+              subjectIcon(context, 'Places', 'Places_icon.png', places, placesKey),
               subjectIcon(context, 'Business & Finance',
-                  'business_n_finance_icon.png', businessAndFinance),
+                  'business_n_finance_icon.png', businessAndFinance, businessAndFinanceKey),
             ],
           ),
           const SizedBox(height: 14),
@@ -228,9 +228,10 @@ class _BookHomePageState extends State<BookHomePage> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               subjectIcon(context, 'Health & Wellness',
-                  'health_n_wellness_icon.png', healthAndWellness),
+                  'health_n_wellness_icon.png', healthAndWellness, healthAndWellnessKey),
               subjectIcon(
-                  context, 'Science &\nMathematics', 'math_icon.png', scienceAndMathematics),
+                  context, 'Science &\nMathematics', 'math_icon.png', scienceAndMathematics,
+                  scienceAndMathematicsKey),
             ],
           ),
         ],
@@ -238,7 +239,7 @@ class _BookHomePageState extends State<BookHomePage> {
     );
   }
 
-  InkWell subjectIcon(context, String subjectName, String iconAssets, List<String> menu) {
+  InkWell subjectIcon(context, String subjectName, String iconAssets, List<String> menu, List<String> listKey) {
     return InkWell(
       onTap: () => Navigator.push(
         context,
@@ -248,6 +249,7 @@ class _BookHomePageState extends State<BookHomePage> {
                 subject: subjectName,
                 icon: iconAssets,
                 list: menu,
+                listKey: listKey,
               ),
         ),
       ),

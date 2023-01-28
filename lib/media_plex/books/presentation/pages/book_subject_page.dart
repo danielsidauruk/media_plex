@@ -3,26 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_plex/core/utils/constants.dart';
 import 'package:media_plex/core/utils/routes.dart';
+import 'package:media_plex/media_plex/books/domain/entities/book_subject.dart';
 import 'package:media_plex/media_plex/books/presentation/bloc/book_subject/book_subject_bloc.dart';
 import 'package:media_plex/shared/presentation/widget/loading_animation.dart';
 import 'package:media_plex/shared/presentation/widget/total_text.dart';
 
-class BookSubjectPage extends StatefulWidget {
+class BookSubjectPage extends StatelessWidget {
   const BookSubjectPage({super.key, required this.title});
   final String title;
-
-  @override
-  State<BookSubjectPage> createState() => _BookSubjectPageState();
-}
-
-class _BookSubjectPageState extends State<BookSubjectPage> {
-
-  @override
-  void initState() {
-    super.initState();
-    return BlocProvider.of<BookSubjectBloc>(context, listen: false)
-        .add(GetForBookSubject(artsSubjectKey[0]));
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +19,7 @@ class _BookSubjectPageState extends State<BookSubjectPage> {
         backgroundColor: Colors.transparent,
         elevation: 0.0,
         title: Text(
-          widget.title,
+          title,
           style: Theme.of(context).textTheme.bodyText1
               ?.copyWith(
             fontWeight: FontWeight.bold,
@@ -60,87 +48,7 @@ class _BookSubjectPageState extends State<BookSubjectPage> {
                     return const LoadingAnimation();
                   } else if (state is SubjectLoaded) {
                     final books = state.subject.works;
-                    return Column(
-                      children: [
-                        Expanded(
-                          child: ListView.builder(
-                            itemCount: books.length,
-                            itemBuilder: (context, index) {
-                              return InkWell(
-                                onTap: () => Navigator.pushNamed(
-                                  context,
-                                  bookDetailRoute,
-                                  arguments: books[index].key,
-                                ),
-                                child: Container(
-                                  padding: const EdgeInsets.all(8.0),
-                                  margin: const EdgeInsets.symmetric(vertical: 4.0),
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    border: Border.all(color: Colors.white),
-                                  ),
-                                  child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      CachedNetworkImage(
-                                        width: 60,
-                                        fit: BoxFit.fill,
-                                        imageUrl: mediumImageByCoverI('${books[index].coverId}'),
-                                        placeholder: (context, url) => const Center(),
-                                        errorWidget: (context, url, error) => Image.asset(
-                                          'assets/images/not_applicable_icon.png',
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        width: 8.0,
-                                      ),
-                                      Expanded(
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  textAlign: TextAlign.start,
-                                                  '${books[index].title} (${books[index].firstPublishYear})',
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .subtitle1
-                                                      ?.copyWith(fontWeight: FontWeight.bold),
-                                                ),
-
-                                                const SizedBox(height: 4.0,),
-
-                                                Row(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-
-                                                    books[index].subject.isNotEmpty
-                                                        ? wrapText(books[index].subject, context)
-                                                        : const Center(),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-
-                        const SizedBox(height: 8),
-
-                        TotalText(total: books.length, context: context),
-
-                      ],
-                    );
+                    return bookList(books, context);
                   } else if (state is SubjectError) {
                     return Text(state.message);
                   }
@@ -151,6 +59,90 @@ class _BookSubjectPageState extends State<BookSubjectPage> {
           ),
         ],
       ),
+    );
+  }
+
+  Column bookList(List<Work> books, BuildContext context) {
+    return Column(
+      children: [
+        Expanded(
+          child: ListView.builder(
+            itemCount: books.length,
+            itemBuilder: (context, index) {
+              return InkWell(
+                onTap: () => Navigator.pushNamed(
+                  context,
+                  bookDetailRoute,
+                  arguments: books[index].key,
+                ),
+                child: Container(
+                  padding: const EdgeInsets.all(8.0),
+                  margin: const EdgeInsets.symmetric(vertical: 4.0),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8.0),
+                    border: Border.all(color: Colors.white),
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CachedNetworkImage(
+                        width: 60,
+                        fit: BoxFit.fill,
+                        imageUrl: mediumImageByCoverI('${books[index].coverId}'),
+                        placeholder: (context, url) => const Center(),
+                        errorWidget: (context, url, error) => Image.asset(
+                          'assets/images/not_applicable_icon.png',
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 8.0,
+                      ),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  textAlign: TextAlign.start,
+                                  '${books[index].title} (${books[index].firstPublishYear})',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .subtitle1
+                                      ?.copyWith(fontWeight: FontWeight.bold),
+                                ),
+
+                                const SizedBox(height: 4.0,),
+
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+
+                                    books[index].subject.isNotEmpty
+                                        ? wrapText(books[index].subject, context)
+                                        : const Center(),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+
+        const SizedBox(height: 8),
+
+        TotalText(total: books.length, context: context),
+
+      ],
     );
   }
 }

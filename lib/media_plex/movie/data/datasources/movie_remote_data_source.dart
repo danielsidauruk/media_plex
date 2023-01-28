@@ -3,9 +3,8 @@ import 'package:http/http.dart' as http;
 import 'package:media_plex/core/utils/constants.dart';
 import 'package:media_plex/media_plex/movie/data/models/movie_detail_model.dart';
 import 'package:media_plex/media_plex/movie/data/models/movie_model.dart';
-
-import '../../../../core/utils/exception.dart';
-import '../models/movie_response.dart';
+import 'package:media_plex/core/utils/exception.dart';
+import 'package:media_plex/media_plex/movie/data/models/movie_response.dart';
 
 abstract class MovieRemoteDataSource {
   Future<List<MovieModel>> getNowPlayingMovies();
