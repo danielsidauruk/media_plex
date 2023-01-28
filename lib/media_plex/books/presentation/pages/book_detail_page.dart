@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:media_plex/core/utils/constants.dart';
 import 'package:media_plex/media_plex/books/domain/entities/book_detail.dart';
 import 'package:media_plex/media_plex/books/presentation/bloc/book_detail_bloc/book_detail_bloc.dart';
-import 'package:media_plex/media_plex/books/presentation/bloc/bookmark/bookmark_bloc.dart';
+import 'package:media_plex/media_plex/books/presentation/bloc/bookmark_bloc/bookmark_bloc.dart';
 import 'package:media_plex/media_plex/movie/presentation/pages/movie_detail_page.dart';
 
 class BookDetailPage extends StatefulWidget {
@@ -52,6 +52,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
     return SafeArea(
       child: Stack(
         children: [
+          book.covers.isNotEmpty ?
           CachedNetworkImage(
             width: double.infinity,
             imageUrl: largeImage(book.covers[0].toString()),
@@ -63,6 +64,9 @@ class _BookDetailPageState extends State<BookDetailPage> {
             errorWidget: (context, url, error) => Image.asset(
               'assets/images/not_applicable_icon.png',
             ),
+          ) :
+          Center(
+            child: Image.asset('assets/images/not_applicable_icon.png'),
           ),
 
           Container(

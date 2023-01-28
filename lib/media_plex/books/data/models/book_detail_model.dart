@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:media_plex/media_plex/books/domain/entities/book_detail.dart';
 
 class BookDetailModel extends BookDetail {
@@ -35,8 +37,16 @@ class BookDetailModel extends BookDetail {
   final CreatedModel lastModifiedModel;
 
   factory BookDetailModel.fromJson(Map<String, dynamic> json) {
+    var descriptionModel = const DescriptionModel(type: "-", value: "No description available");
+    try {
+      if (json["description"] != null) {
+        descriptionModel = DescriptionModel.fromJson(json['description']);
+      }
+    } catch (e) {
+      print(e);
+    }
     return BookDetailModel(
-      descriptionModel: DescriptionModel.fromJson(json['description'] ?? ""),
+      descriptionModel: descriptionModel,
       linksModel: List<LinkModel>.from(json["links"]?.map((x) => LinkModel.fromJson(x)) ?? []),
       title: json["title"],
       covers: List<int>.from(json["covers"]?.map((x) => x) ?? []),
@@ -75,19 +85,15 @@ class BookDetailModel extends BookDetail {
   };
 }
 
-
 class DescriptionModel extends Description {
   const DescriptionModel({
     required super.type,
     required super.value,
   });
 
-  factory DescriptionModel.fromJson(Map<String, dynamic> json) {
+  factory DescriptionModel.fromJson(dynamic json) {
     if (json is String) {
-      json = {
-        'type': '',
-        'value': json,
-      };
+      json = jsonDecode(json);
     }
     return DescriptionModel(
       type: json["type"] ?? "-",

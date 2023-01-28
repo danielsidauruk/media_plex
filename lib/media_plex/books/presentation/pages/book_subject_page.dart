@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_plex/core/utils/constants.dart';
 import 'package:media_plex/core/utils/routes.dart';
 import 'package:media_plex/media_plex/books/domain/entities/book_subject.dart';
-import 'package:media_plex/media_plex/books/presentation/bloc/book_subject/book_subject_bloc.dart';
+import 'package:media_plex/media_plex/books/presentation/bloc/book_subject_bloc/book_subject_bloc.dart';
 import 'package:media_plex/shared/presentation/widget/loading_animation.dart';
 import 'package:media_plex/shared/presentation/widget/total_text.dart';
 

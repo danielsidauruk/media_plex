@@ -7,10 +7,10 @@ import 'package:media_plex/media_plex/books/domain/use_cases/get_popular_book.da
 part 'book_popular_event.dart';
 part 'book_popular_state.dart';
 
-class PopularBloc extends Bloc<PopularEvent, PopularState> {
+class BookPopularBloc extends Bloc<PopularEvent, PopularState> {
   final GetPopularBook getPopularBook;
 
-  PopularBloc(this.getPopularBook) : super(PopularEmpty()) {
+  BookPopularBloc(this.getPopularBook) : super(PopularEmpty()) {
     on<GetForPopular>((event, emit) async {
       final dataSortQuery = event.dataSortQuery;
 

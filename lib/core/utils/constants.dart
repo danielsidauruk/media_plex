@@ -10,12 +10,12 @@ const String tblBookmark = 'bookmark';
 // => Books
 // API Link
 const String apiUrl = 'https://openlibrary.org';
+const String apiCoversUrl = 'https://covers.openlibrary.org/b';
+
 String search(String query) => '$apiUrl/search.json?title=$query';
 String detailBook(String key) => '$apiUrl/$key.json';
 String popularBook(String dataSortQuery) => '$apiUrl/trending/$dataSortQuery.json';
 String subjectBook(String subject) => 'https://openlibrary.org/subjects/$subject.json';
-
-const String apiCoversUrl = 'https://covers.openlibrary.org/b';
 String mediumImage(String isbn) => '$apiCoversUrl/isbn/$isbn-M.jpg';
 String mediumImageByCoverI(String coverI) => '$apiCoversUrl/id/$coverI-M.jpg';
 String largeImage(String cover) => '$apiCoversUrl/id/$cover-L.jpg';
@@ -27,13 +27,13 @@ const List<String> artsSubjects = ['Architecture', 'Art Instruction', 'Art Histo
   'Fashion', 'Film', 'Graphic Design', 'Music', 'Music Theory', 'Painting', 'Photography'];
 const List<String> artsSubjectKey = ['architecture', 'art__art_instruction',
   'history_of_art__art__design_styles', 'dance', 'design', 'fashion', 'film', 'graphic_design', 'music',
-  'music_theory', 'painting', 'photography'];
+  'music_theory', 'painting__paintings', 'photography'];
 
 const List<String> animalSubjects = ['Bears', 'Cats', 'Kittens', 'Dogs', 'Puppies'];
 const List<String> animalSubjectsKey = ['bears', 'cats', 'kittens', 'dogs', 'puppies'];
 
 const List<String> fictionSubjects = ['Fantasy', 'Historical Fiction', 'Horror', 'Humor', 'Literature',
-  'Magic', 'Mystery and detective stories', 'Plays''Poetry', 'Romance', 'Science Fiction', 'Short Stories',
+  'Magic', 'Mystery and detective stories', 'Plays', 'Poetry', 'Romance', 'Science Fiction', 'Short Stories',
   'Thriller', 'Young Adult',];
 const List<String> fictionSubjectsKey = ['fantasy', 'historical_fiction', 'horror', 'humor', 'literature',
   'magic', 'mystery_and_detective_stories', 'plays', 'poetry', 'romance', 'science_fiction', 'short_stories',
@@ -56,8 +56,8 @@ const List<String> historyKey = ['ancient_civilization', 'archaeology', 'anthrop
 const List<String> healthAndWellness = ['Cooking', 'Cookbooks', 'Mental Health', 'Exercise', 'Nutrition', 'Self-help'];
 const List<String> healthAndWellnessKey = ['cooking', 'cookbooks', 'mental_health', 'exercise', 'nutrition', 'self-help'];
 
-const List<String> biography = ['Autobiographies'];
-const List<String> biographyKey = ['autobiographies'];
+const List<String> biography = ['Autobiographies', 'History'];
+const List<String> biographyKey = ['autobiographies', 'history'];
 
 const List<String> social = ['Anthropology', 'Religion', 'Political Science', 'Psychology'];
 const List<String> socialKey = ['anthropology', 'religion', 'political_science', 'psychology'];

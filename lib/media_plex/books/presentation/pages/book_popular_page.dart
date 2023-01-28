@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_plex/core/utils/constants.dart';
 import 'package:media_plex/core/utils/routes.dart';
 import 'package:media_plex/media_plex/books/domain/entities/book_popular.dart';
-import 'package:media_plex/media_plex/books/presentation/bloc/popular_bloc/book_popular_bloc.dart';
+import 'package:media_plex/media_plex/books/presentation/bloc/book_popular_bloc/book_popular_bloc.dart';
 import 'package:media_plex/shared/presentation/widget/loading_animation.dart';
 import 'package:media_plex/shared/presentation/widget/total_text.dart';
 
@@ -21,7 +21,7 @@ class _BookPopularPageState extends State<BookPopularPage> {
   @override
   void initState() {
     super.initState();
-    return BlocProvider.of<PopularBloc>(context, listen: false)
+    return BlocProvider.of<BookPopularBloc>(context, listen: false)
         .add(GetForPopular(dropdownValue));
   }
 
@@ -77,7 +77,7 @@ class _BookPopularPageState extends State<BookPopularPage> {
     return Expanded(
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 4.0),
-        child: BlocBuilder<PopularBloc, PopularState>(
+        child: BlocBuilder<BookPopularBloc, PopularState>(
           builder: (context, state) {
             if (state is PopularEmpty) {
               return const Center();
@@ -133,7 +133,7 @@ class _BookPopularPageState extends State<BookPopularPage> {
         onChanged: (String? value) {
           setState(() {
             dropdownValue = value!;
-            BlocProvider.of<PopularBloc>(context, listen: false)
+            BlocProvider.of<BookPopularBloc>(context, listen: false)
                 .add(GetForPopular(dropdownValue));
           });
         },

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:media_plex/media_plex/books/presentation/bloc/book_subject/book_subject_bloc.dart';
-import 'package:media_plex/media_plex/books/presentation/bloc/bookmark/bookmark_bloc.dart';
-import 'package:media_plex/media_plex/books/presentation/bloc/popular_bloc/book_popular_bloc.dart';
+import 'package:media_plex/media_plex/books/presentation/bloc/book_popular_bloc/book_popular_bloc.dart';
+import 'package:media_plex/media_plex/books/presentation/bloc/book_search_bloc/book_search_bloc.dart';
+import 'package:media_plex/media_plex/books/presentation/bloc/book_subject_bloc/book_subject_bloc.dart';
+import 'package:media_plex/media_plex/books/presentation/bloc/bookmark_bloc/bookmark_bloc.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_popular_page.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_search_page.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_detail_page.dart';
 import 'package:media_plex/dependency_injection.dart' as di;
 import 'package:media_plex/media_plex/books/presentation/bloc/book_detail_bloc/book_detail_bloc.dart';
-import 'package:media_plex/media_plex/books/presentation/bloc/search_bloc/book_search_bloc.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_home_page.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_subject_page.dart';
 import 'package:media_plex/media_plex/movie/presentation/pages/movie_home_page.dart';
@@ -58,7 +58,7 @@ class MyApp extends StatelessWidget {
         // book
         BlocProvider(create: (_) => di.locator<BookDetailBloc>()),
         BlocProvider(create: (_) => di.locator<BookSearchBloc>()),
-        BlocProvider(create: (_) => di.locator<PopularBloc>()),
+        BlocProvider(create: (_) => di.locator<BookPopularBloc>()),
         BlocProvider(create: (_) => di.locator<BookmarkBloc>()),
         BlocProvider(create: (_) => di.locator<BookSubjectBloc>()),
 

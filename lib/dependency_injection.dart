@@ -13,10 +13,10 @@ import 'package:media_plex/media_plex/books/domain/use_cases/remove_bookmark.dar
 import 'package:media_plex/media_plex/books/domain/use_cases/save_bookmark.dart';
 import 'package:media_plex/media_plex/books/domain/use_cases/search_book.dart';
 import 'package:media_plex/media_plex/books/presentation/bloc/book_detail_bloc/book_detail_bloc.dart';
-import 'package:media_plex/media_plex/books/presentation/bloc/book_subject/book_subject_bloc.dart';
-import 'package:media_plex/media_plex/books/presentation/bloc/bookmark/bookmark_bloc.dart';
-import 'package:media_plex/media_plex/books/presentation/bloc/popular_bloc/book_popular_bloc.dart';
-import 'package:media_plex/media_plex/books/presentation/bloc/search_bloc/book_search_bloc.dart';
+import 'package:media_plex/media_plex/books/presentation/bloc/book_popular_bloc/book_popular_bloc.dart';
+import 'package:media_plex/media_plex/books/presentation/bloc/book_search_bloc/book_search_bloc.dart';
+import 'package:media_plex/media_plex/books/presentation/bloc/book_subject_bloc/book_subject_bloc.dart';
+import 'package:media_plex/media_plex/books/presentation/bloc/bookmark_bloc/bookmark_bloc.dart';
 import 'package:media_plex/media_plex/movie/domain/usecases/get_now_playing_movies.dart';
 import 'package:media_plex/media_plex/movie/presentation/bloc/movie_detail_bloc/movie_detail_bloc.dart';
 import 'package:media_plex/media_plex/movie/presentation/bloc/movie_recommendations_bloc/movie_recommendations_bloc.dart';
@@ -74,7 +74,7 @@ Future<void> init() async {
   // bloc
   locator.registerFactory(() => BookDetailBloc(locator()));
   locator.registerFactory(() => BookSearchBloc(locator()));
-  locator.registerFactory(() => PopularBloc(locator()));
+  locator.registerFactory(() => BookPopularBloc(locator()));
   locator.registerFactory(() => BookSubjectBloc(locator()));
   locator.registerFactory(() => BookmarkBloc(
     locator(),

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_plex/core/utils/utils.dart';
 import 'package:media_plex/core/utils/constants.dart';
 import 'package:media_plex/core/utils/routes.dart';
-import 'package:media_plex/media_plex/books/presentation/bloc/bookmark/bookmark_bloc.dart';
+import 'package:media_plex/media_plex/books/presentation/bloc/bookmark_bloc/bookmark_bloc.dart';
 import 'package:media_plex/media_plex/movie/presentation/bloc/movie_watchlist_bloc/movie_watchlist_bloc.dart';
 import 'package:media_plex/media_plex/tv_series/presentation/bloc/tv_series_watchlist_bloc/tv_series_watchlist_bloc.dart';
 import 'package:media_plex/shared/presentation/widget/loading_animation.dart';
