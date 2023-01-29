@@ -4,8 +4,8 @@ import 'package:media_plex/media_plex/movie/presentation/bloc/search_the_movie_b
 import 'package:media_plex/media_plex/movie/presentation/widgets/movie_list.dart';
 import 'package:media_plex/shared/presentation/widget/loading_animation.dart';
 
-class MovieSearchPage extends StatelessWidget {
-  const MovieSearchPage({super.key});
+class SearchTheMoviePage extends StatelessWidget {
+  const SearchTheMoviePage({super.key});
 
   @override
   Widget build(BuildContext context) {

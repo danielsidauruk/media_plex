@@ -58,7 +58,7 @@ class _BookHomePageState extends State<BookHomePage> {
               SearchTile(
                 context: context,
                 title: 'Search your Book',
-                routeName: bookSearchRoute,
+                routeName: searchTheBookRoute,
               ),
 
               popularTile(context),
@@ -94,7 +94,7 @@ class _BookHomePageState extends State<BookHomePage> {
               ),
               InkWell(
                 onTap: () =>
-                    Navigator.pushNamed(context, bookSearchRoute),
+                    Navigator.pushNamed(context, searchTheBookRoute),
                 child: const Icon(
                   Icons.search,
                   color: Colors.white,
@@ -119,7 +119,7 @@ class _BookHomePageState extends State<BookHomePage> {
       child: Column(
         children: [
 
-          SubHeadingTile(context: context, title: 'Popular Books - Daily', routeName: bookPopularRoute),
+          SubHeadingTile(context: context, title: 'Popular Books - Daily', routeName: popularBooksRoute),
 
           BlocBuilder<PopularBooksBloc, PopularBooksState>(
             builder: (context, state) {

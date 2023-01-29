@@ -7,18 +7,18 @@ const homeRoute = '/homeRoute';
 // book route
 const bookHomeRoute = '/bookHomeRoute';
 const bookDetailRoute = '/bookDetailRoute';
-const bookPopularRoute = '/bookPopularRoute';
-const bookSearchRoute = '/bookSearchRoute';
-const bookSubjectRoute = '/bookSubjectRoute';
-const bookSubjectsListRoute = 'bookSubjectsListRoute';
+const popularBooksRoute = '/bookPopularRoute';
+const searchTheBookRoute = '/bookSearchRoute';
+const bookBySubjectRoute = '/bookSubjectRoute';
+const subjectsListRoute = 'bookSubjectsListRoute';
 
 // movie route
 const movieHomeRoute = '/movieHomeRoute';
 const movieDetailRoute = '/movieDetailRoute';
-const movieNowPlayingRoute = 'movieNowPlayingRoute';
-const moviePopularRoute = '/moviePopularRoute';
-const movieTopRatedRoute = '/movieTopRatedRoute';
-const movieSearchRoute = '/movieSearchRoute';
+const nowPlayingMoviesRoute = 'movieNowPlayingRoute';
+const popularMoviesRoute = '/moviePopularRoute';
+const topRatedMoviesRoute = '/movieTopRatedRoute';
+const searchTheMovieRoute = '/movieSearchRoute';
 
 // tv Series route
 const tvSeriesHomeRoute = 'tvSeriesHomeRoute';

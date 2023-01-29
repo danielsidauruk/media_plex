@@ -5,14 +5,14 @@ import 'package:media_plex/media_plex/movie/presentation/bloc/popular_movies_blo
 import 'package:media_plex/media_plex/movie/presentation/widgets/movie_list.dart';
 import 'package:media_plex/shared/presentation/widget/loading_animation.dart';
 
-class MovieNowPlayingPage extends StatefulWidget {
-  const MovieNowPlayingPage({super.key});
+class NowPlayingMoviesPage extends StatefulWidget {
+  const NowPlayingMoviesPage({super.key});
 
   @override
-  State<MovieNowPlayingPage> createState() => _MovieNowPlayingPageState();
+  State<NowPlayingMoviesPage> createState() => _NowPlayingMoviesPageState();
 }
 
-class _MovieNowPlayingPageState extends State<MovieNowPlayingPage> {
+class _NowPlayingMoviesPageState extends State<NowPlayingMoviesPage> {
 
   @override
   void initState() {

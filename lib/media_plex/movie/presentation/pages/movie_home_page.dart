@@ -64,7 +64,7 @@ class _MovieHomePageState extends State<MovieHomePage> {
               SearchTile(
                 context: context,
                 title: 'Search your Movie',
-                routeName: movieSearchRoute,
+                routeName: searchTheMovieRoute,
               ),
 
               nowPlayingTile(context),
@@ -92,7 +92,7 @@ class _MovieHomePageState extends State<MovieHomePage> {
       child: Column(
         children: [
 
-          SubHeadingTile(context: context, title: 'Now Playing Movies', routeName: movieNowPlayingRoute),
+          SubHeadingTile(context: context, title: 'Now Playing Movies', routeName: nowPlayingMoviesRoute),
 
           BlocBuilder<NowPlayingMoviesBloc, NowPlayingMoviesState>(
             builder: (context, state) {
@@ -125,7 +125,7 @@ class _MovieHomePageState extends State<MovieHomePage> {
       child: Column(
         children: [
 
-          SubHeadingTile(context: context, title: 'Popular Movies', routeName: moviePopularRoute),
+          SubHeadingTile(context: context, title: 'Popular Movies', routeName: popularMoviesRoute),
 
           BlocBuilder<PopularMoviesBloc, PopularMoviesState>(
               builder: (context, state) {
@@ -158,7 +158,7 @@ class _MovieHomePageState extends State<MovieHomePage> {
       child: Column(
         children: [
 
-          SubHeadingTile(context: context, title: 'Top Rated Movies', routeName: movieTopRatedRoute),
+          SubHeadingTile(context: context, title: 'Top Rated Movies', routeName: topRatedMoviesRoute),
 
           BlocBuilder<TopRatedMoviesBloc, TopRatedMoviesState>(
             builder: (context, state) {

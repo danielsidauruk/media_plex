@@ -9,8 +9,8 @@ import 'package:media_plex/media_plex/books/presentation/bloc/book_search_bloc/b
 import 'package:media_plex/shared/presentation/widget/loading_animation.dart';
 import 'package:media_plex/shared/presentation/widget/total_text.dart';
 
-class BookSearchPage extends StatelessWidget {
-  const BookSearchPage({super.key});
+class SearchTheBookPage extends StatelessWidget {
+  const SearchTheBookPage({super.key});
 
   @override
   Widget build(BuildContext context) {

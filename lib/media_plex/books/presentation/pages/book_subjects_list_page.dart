@@ -58,7 +58,7 @@ class SubjectsListPage extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context, bookSubjectRoute, arguments: list[index]);
+                      Navigator.pushNamed(context, bookBySubjectRoute, arguments: list[index]);
                       BlocProvider.of<BookBySubjectBloc>(context, listen: false)
                           .add(FetchBookBySubject(listKey[index]));
                     },

@@ -4,14 +4,14 @@ import 'package:media_plex/media_plex/movie/presentation/bloc/top_rated_movies_b
 import 'package:media_plex/media_plex/movie/presentation/widgets/movie_list.dart';
 import 'package:media_plex/shared/presentation/widget/loading_animation.dart';
 
-class MovieTopRatedPage extends StatefulWidget {
-  const MovieTopRatedPage({super.key});
+class TopRatedMoviesPage extends StatefulWidget {
+  const TopRatedMoviesPage({super.key});
 
   @override
-  State<MovieTopRatedPage> createState() => _MovieTopRatedPageState();
+  State<TopRatedMoviesPage> createState() => _TopRatedMoviesPageState();
 }
 
-class _MovieTopRatedPageState extends State<MovieTopRatedPage> {
+class _TopRatedMoviesPageState extends State<TopRatedMoviesPage> {
   @override
   void initState() {
     super.initState();

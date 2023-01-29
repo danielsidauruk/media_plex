@@ -127,11 +127,11 @@ class MyApp extends StatelessWidget {
             // books
             case bookHomeRoute:
               return MaterialPageRoute(builder: (_) => const BookHomePage());
-            case bookSearchRoute:
-              return MaterialPageRoute(builder: (_) => const BookSearchPage());
-            case bookPopularRoute:
+            case searchTheBookRoute:
+              return MaterialPageRoute(builder: (_) => const SearchTheBookPage());
+            case popularBooksRoute:
               return MaterialPageRoute(builder: (_) => const PopularBooksPage());
-            case bookSubjectRoute:
+            case bookBySubjectRoute:
               final title = settings.arguments as String;
               return MaterialPageRoute(
                 builder: (_) => BookBySubjectPage(title: title),
@@ -154,14 +154,14 @@ class MyApp extends StatelessWidget {
                 builder: (_) => MovieDetailPage(id: id),
                 settings: settings,
               );
-            case moviePopularRoute:
+            case popularMoviesRoute:
               return MaterialPageRoute(builder: (_) => const PopularMoviesPage());
-            case movieSearchRoute:
-              return MaterialPageRoute(builder: (_) => const MovieSearchPage());
-            case movieTopRatedRoute:
-              return MaterialPageRoute(builder: (_) => const MovieTopRatedPage());
-            case movieNowPlayingRoute:
-              return MaterialPageRoute(builder: (_) => const MovieNowPlayingPage());
+            case searchTheMovieRoute:
+              return MaterialPageRoute(builder: (_) => const SearchTheMoviePage());
+            case topRatedMoviesRoute:
+              return MaterialPageRoute(builder: (_) => const TopRatedMoviesPage());
+            case nowPlayingMoviesRoute:
+              return MaterialPageRoute(builder: (_) => const NowPlayingMoviesPage());
 
           // TV Series
             case tvSeriesHomeRoute:
