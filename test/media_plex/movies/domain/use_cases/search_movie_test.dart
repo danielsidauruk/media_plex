@@ -23,7 +23,7 @@ void main() {
     when(mockMovieRepository.searchTheMovie(tQuery))
         .thenAnswer((_) async => Right(tMovies));
     // act
-    final result = await useCase.execute(tQuery);
+    final result = await useCase.call(const Params(query: tQuery));
     // assert
     expect(result, Right(tMovies));
   });

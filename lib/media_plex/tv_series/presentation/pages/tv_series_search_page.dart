@@ -5,8 +5,8 @@ import 'package:media_plex/media_plex/tv_series/presentation/bloc/tv_series_sear
 import 'package:media_plex/media_plex/tv_series/presentation/widgets/tv_series_list.dart';
 import 'package:media_plex/shared/presentation/widget/loading_animation.dart';
 
-class TVSeriesSearchPage extends StatelessWidget {
-  const TVSeriesSearchPage({super.key});
+class SearchTheTVSeriesPage extends StatelessWidget {
+  const SearchTheTVSeriesPage({super.key});
 
   @override
   Widget build(BuildContext context) {

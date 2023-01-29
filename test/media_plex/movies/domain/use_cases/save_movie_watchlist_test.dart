@@ -20,7 +20,7 @@ void main() {
     when(mockMovieRepository.saveToWatchlist(testMovieDetail))
         .thenAnswer((_) async => const Right('Added to watchlist'));
     // act
-    final result = await useCase.execute(testMovieDetail);
+    final result = await useCase.call(const SaveParams(movieDetail: testMovieDetail));
     // assert
     verify(mockMovieRepository.saveToWatchlist(testMovieDetail));
     expect(result, const Right('Added to watchlist'));

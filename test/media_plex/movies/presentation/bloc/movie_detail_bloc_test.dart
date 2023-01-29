@@ -28,7 +28,7 @@ void main() {
   blocTest<MovieDetailBloc, MovieDetailState>(
     'Should emit [MovieDetailLoading, MovieDetailHasData] when detail data is gotten successfully',
     build: () {
-      when(mockGetMovieDetail.execute(tId))
+      when(mockGetMovieDetail.call(const Params(id: tId)))
           .thenAnswer((_) async => const Right(testMovieDetail));
       return movieDetailBloc;
     },
@@ -38,7 +38,7 @@ void main() {
       const MovieDetailHasData(testMovieDetail),
     ],
     verify: (bloc) {
-      verify(mockGetMovieDetail.execute(tId));
+      verify(mockGetMovieDetail.call(const Params(id: tId)));
     }
   );
 }

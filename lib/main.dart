@@ -174,13 +174,13 @@ class MyApp extends StatelessWidget {
               );
 
             case tvSeriesOnAirRoute:
-              return MaterialPageRoute(builder: (_) => const TVSeriesOnAirPage());
+              return MaterialPageRoute(builder: (_) => const OnAirTVSeriesPage());
             case tvSeriesPopularRoute:
-              return MaterialPageRoute(builder: (_) => const TVSeriesPopularPage());
+              return MaterialPageRoute(builder: (_) => const PopularTVSeriesPage());
             case tvSeriesSearchRoute:
-              return MaterialPageRoute(builder: (_) => const TVSeriesSearchPage());
+              return MaterialPageRoute(builder: (_) => const SearchTheTVSeriesPage());
             case tvSeriesTopRatedRoute:
-              return MaterialPageRoute(builder: (_) => const TVSeriesTopRatedPage());
+              return MaterialPageRoute(builder: (_) => const TopRatedTVSeriesPage());
 
             default:
               return MaterialPageRoute(

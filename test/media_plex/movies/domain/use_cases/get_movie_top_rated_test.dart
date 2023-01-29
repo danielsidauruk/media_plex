@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:media_plex/media_plex/movie/domain/entities/movie.dart';
 import 'package:media_plex/media_plex/movie/domain/usecases/get_top_rated_movies.dart';
+import 'package:media_plex/shared/domain/use_cases/use_case.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../../../helpers/test_helper.mocks.dart';
@@ -22,7 +23,7 @@ void main() {
     when(mockMovieRepository.getTopRatedMovies())
         .thenAnswer((_) async => Right(tMovies));
     // act
-    final result = await useCase.execute();
+    final result = await useCase.call(NoParams());
     // assert
     expect(result, Right(tMovies));
   });

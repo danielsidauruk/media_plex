@@ -20,7 +20,7 @@ void main() {
     when(mockMovieRepository.removeFromWatchlist(testMovieDetail))
         .thenAnswer((_) async => const Right('Removed from watchlist'));
     // act
-    final result = await useCase.execute(testMovieDetail);
+    final result = await useCase.call(const RemoveParams(movieDetail: testMovieDetail));
     // assert
     verify(mockMovieRepository.removeFromWatchlist(testMovieDetail));
     expect(result, const Right('Removed from watchlist'));

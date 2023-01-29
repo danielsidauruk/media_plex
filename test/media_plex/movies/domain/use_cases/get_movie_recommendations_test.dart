@@ -23,7 +23,7 @@ void main() {
     when(mockMovieRepository.getMovieRecommendations(tId))
         .thenAnswer((_) async => Right(tMovies));
     // act
-    final result = await useCase.execute(tId);
+    final result = await useCase.call(const Params(id: tId));
     // assert
     expect(result, Right(tMovies));
   });

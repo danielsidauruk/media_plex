@@ -178,14 +178,14 @@ class MockMovieRepository extends _i1.Mock implements _i5.MovieRepository {
           String? query) =>
       (super.noSuchMethod(
         Invocation.method(
-          #searchMovies,
+          #searchTheMovie,
           [query],
         ),
         returnValue: _i6.Future<_i2.Either<_i7.Failure, List<_i8.Movie>>>.value(
             _FakeEither_0<_i7.Failure, List<_i8.Movie>>(
           this,
           Invocation.method(
-            #searchMovies,
+            #searchTheMovie,
             [query],
           ),
         )),
@@ -195,14 +195,14 @@ class MockMovieRepository extends _i1.Mock implements _i5.MovieRepository {
           _i9.MovieDetail? movie) =>
       (super.noSuchMethod(
         Invocation.method(
-          #saveWatchlist,
+          #saveToWatchlist,
           [movie],
         ),
         returnValue: _i6.Future<_i2.Either<_i7.Failure, String>>.value(
             _FakeEither_0<_i7.Failure, String>(
           this,
           Invocation.method(
-            #saveWatchlist,
+            #saveToWatchlist,
             [movie],
           ),
         )),
@@ -212,14 +212,14 @@ class MockMovieRepository extends _i1.Mock implements _i5.MovieRepository {
           _i9.MovieDetail? movie) =>
       (super.noSuchMethod(
         Invocation.method(
-          #removeWatchlist,
+          #removeFromWatchlist,
           [movie],
         ),
         returnValue: _i6.Future<_i2.Either<_i7.Failure, String>>.value(
             _FakeEither_0<_i7.Failure, String>(
           this,
           Invocation.method(
-            #removeWatchlist,
+            #removeFromWatchlist,
             [movie],
           ),
         )),

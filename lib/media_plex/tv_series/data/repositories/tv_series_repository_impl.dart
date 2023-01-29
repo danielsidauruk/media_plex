@@ -101,7 +101,7 @@ class TVSeriesRepositoryImpl implements TVSeriesRepository {
   }
 
   @override
-  Future<Either<Failure, List<TVSeries>>> searchTVSeries(String query) async {
+  Future<Either<Failure, List<TVSeries>>> searchTheTVSeries(String query) async {
     try {
       final result = await tvSeriesRemoteDataSource.searchTVSeries(query);
       return Right(result.map((model) => model.toEntity()).toList());
@@ -117,7 +117,7 @@ class TVSeriesRepositoryImpl implements TVSeriesRepository {
   }
 
   @override
-  Future<Either<Failure, String>> saveWatchlist(TVSeriesDetail tvSeries) async {
+  Future<Either<Failure, String>> saveToWatchlist(TVSeriesDetail tvSeries) async {
     try {
       final result = await tvSeriesLocalDataSource
           .insertWatchlist(TVSeriesTable.fromEntity(tvSeries));
@@ -130,7 +130,7 @@ class TVSeriesRepositoryImpl implements TVSeriesRepository {
   }
 
   @override
-  Future<Either<Failure, String>> removeWatchlist(
+  Future<Either<Failure, String>> removeFromWatchlist(
       TVSeriesDetail tvSeries) async {
     try {
       final result = await tvSeriesLocalDataSource

@@ -5,14 +5,14 @@ import 'package:media_plex/media_plex/tv_series/presentation/bloc/tv_series_on_a
 import 'package:media_plex/media_plex/tv_series/presentation/widgets/tv_series_list.dart';
 import 'package:media_plex/shared/presentation/widget/loading_animation.dart';
 
-class TVSeriesOnAirPage extends StatefulWidget {
-  const TVSeriesOnAirPage({super.key});
+class OnAirTVSeriesPage extends StatefulWidget {
+  const OnAirTVSeriesPage({super.key});
 
   @override
-  State<TVSeriesOnAirPage> createState() => _TVSeriesOnAirPageState();
+  State<OnAirTVSeriesPage> createState() => _OnAirTVSeriesPageState();
 }
 
-class _TVSeriesOnAirPageState extends State<TVSeriesOnAirPage> {
+class _OnAirTVSeriesPageState extends State<OnAirTVSeriesPage> {
   @override
   void initState() {
     super.initState();

@@ -64,18 +64,19 @@ class MockGetMovieDetail extends _i1.Mock implements _i4.GetMovieDetail {
         ),
       ) as _i2.MovieRepository);
   @override
-  _i5.Future<_i3.Either<_i6.Failure, _i7.MovieDetail>> execute(int? id) =>
+  _i5.Future<_i3.Either<_i6.Failure, _i7.MovieDetail>> call(
+          _i4.Params? params) =>
       (super.noSuchMethod(
         Invocation.method(
-          #execute,
-          [id],
+          #call,
+          [params],
         ),
         returnValue: _i5.Future<_i3.Either<_i6.Failure, _i7.MovieDetail>>.value(
             _FakeEither_1<_i6.Failure, _i7.MovieDetail>(
           this,
           Invocation.method(
-            #execute,
-            [id],
+            #call,
+            [params],
           ),
         )),
       ) as _i5.Future<_i3.Either<_i6.Failure, _i7.MovieDetail>>);

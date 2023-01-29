@@ -2,7 +2,8 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:media_plex/media_plex/movie/domain/usecases/get_popular_movies.dart';
-import 'package:media_plex/media_plex/movie/presentation/bloc/movie_popular_bloc/movie_popular_bloc.dart';
+import 'package:media_plex/media_plex/movie/presentation/bloc/popular_movies_bloc/movie_popular_bloc.dart';
+import 'package:media_plex/shared/domain/use_cases/use_case.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
@@ -12,31 +13,31 @@ import 'movie_popular_bloc_test.mocks.dart';
 @GenerateMocks([GetPopularMovies])
 void main() {
   late MockGetPopularMovies mockGetPopularMovies;
-  late MoviePopularBloc moviePopularBloc;
+  late PopularMoviesBloc moviePopularBloc;
 
   setUp(() {
     mockGetPopularMovies = MockGetPopularMovies();
-    moviePopularBloc = MoviePopularBloc(mockGetPopularMovies);
+    moviePopularBloc = PopularMoviesBloc(mockGetPopularMovies);
   });
 
   test('initial state should be Empty', () {
-    expect(moviePopularBloc.state, MoviePopularEmpty());
+    expect(moviePopularBloc.state, PopularMoviesEmpty());
   });
 
-  blocTest<MoviePopularBloc, MoviePopularState>(
+  blocTest<PopularMoviesBloc, PopularMoviesState>(
     'Should emit [MoviePopularLoading, MoviePopularHasData] when popular data list id gotten successfully',
     build: () {
-      when(mockGetPopularMovies.execute())
+      when(mockGetPopularMovies.call(NoParams()))
           .thenAnswer((realInvocation) async => Right(testMovieList));
       return moviePopularBloc;
     },
-    act: (bloc) => bloc.add(FetchMoviePopular()),
+    act: (bloc) => bloc.add(FetchPopularMovies()),
     expect: () => [
-      MoviePopularLoading(),
-      MoviePopularHasData(testMovieList),
+      PopularMoviesLoading(),
+      PopularMoviesHasData(testMovieList),
     ],
     verify: (bloc) {
-      verify(mockGetPopularMovies.execute());
+      verify(mockGetPopularMovies.call(NoParams()));
     }
   );
 }

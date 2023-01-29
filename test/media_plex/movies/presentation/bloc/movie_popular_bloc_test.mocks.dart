@@ -12,6 +12,7 @@ import 'package:media_plex/media_plex/movie/domain/repositories/movie_repository
     as _i2;
 import 'package:media_plex/media_plex/movie/domain/usecases/get_popular_movies.dart'
     as _i4;
+import 'package:media_plex/shared/domain/use_cases/use_case.dart' as _i8;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -63,18 +64,19 @@ class MockGetPopularMovies extends _i1.Mock implements _i4.GetPopularMovies {
         ),
       ) as _i2.MovieRepository);
   @override
-  _i5.Future<_i3.Either<_i6.Failure, List<_i7.Movie>>> execute() =>
+  _i5.Future<_i3.Either<_i6.Failure, List<_i7.Movie>>> call(
+          _i8.NoParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
-          #execute,
-          [],
+          #call,
+          [params],
         ),
         returnValue: _i5.Future<_i3.Either<_i6.Failure, List<_i7.Movie>>>.value(
             _FakeEither_1<_i6.Failure, List<_i7.Movie>>(
           this,
           Invocation.method(
-            #execute,
-            [],
+            #call,
+            [params],
           ),
         )),
       ) as _i5.Future<_i3.Either<_i6.Failure, List<_i7.Movie>>>);
