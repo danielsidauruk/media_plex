@@ -63,7 +63,7 @@ class BookRepositoryImpl implements BookRepository {
   }
 
   @override
-  Future<Either<Failure, String>> removeBookmark(BookDetail book) async {
+  Future<Either<Failure, String>> removeFromBookmark(BookDetail book) async {
     try {
       final result = await localDataSource.removeBookmark(BookTableModel.fromEntity(book));
       return Right(result);
@@ -73,7 +73,7 @@ class BookRepositoryImpl implements BookRepository {
   }
 
   @override
-  Future<Either<Failure, String>> saveBookmark(BookDetail book) async {
+  Future<Either<Failure, String>> saveToBookmark(BookDetail book) async {
     try {
       final result = await localDataSource.insertBookmark(BookTableModel.fromEntity(book));
       return Right(result);

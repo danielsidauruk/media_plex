@@ -104,7 +104,7 @@ class MovieRepositoryImpl implements MovieRepository {
   }
 
   @override
-  Future<Either<Failure, List<Movie>>> searchMovies(String query) async {
+  Future<Either<Failure, List<Movie>>> searchTheMovie(String query) async {
     try {
       final result = await remoteDataSource.searchMovies(query);
       return Right(result.map((model) => model.toEntity()).toList());
@@ -121,7 +121,7 @@ class MovieRepositoryImpl implements MovieRepository {
   }
 
   @override
-  Future<Either<Failure, String>> saveWatchlist(MovieDetail movie) async {
+  Future<Either<Failure, String>> saveToWatchlist(MovieDetail movie) async {
     try {
       final result =
           await localDataSource.insertWatchlist(MovieTable.fromEntity(movie));
@@ -134,7 +134,7 @@ class MovieRepositoryImpl implements MovieRepository {
   }
 
   @override
-  Future<Either<Failure, String>> removeWatchlist(MovieDetail movie) async {
+  Future<Either<Failure, String>> removeFromWatchlist(MovieDetail movie) async {
     try {
       final result =
           await localDataSource.removeWatchlist(MovieTable.fromEntity(movie));

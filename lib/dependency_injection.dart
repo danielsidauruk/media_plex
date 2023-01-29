@@ -20,7 +20,10 @@ import 'package:media_plex/media_plex/books/presentation/bloc/popular_books_bloc
 import 'package:media_plex/media_plex/movie/domain/usecases/get_now_playing_movies.dart';
 import 'package:media_plex/media_plex/movie/presentation/bloc/movie_detail_bloc/movie_detail_bloc.dart';
 import 'package:media_plex/media_plex/movie/presentation/bloc/movie_recommendations_bloc/movie_recommendations_bloc.dart';
-import 'package:media_plex/media_plex/movie/presentation/bloc/movie_search_bloc/search_bloc.dart';
+import 'package:media_plex/media_plex/movie/presentation/bloc/now_playing_movies_bloc/now_playing_movies_bloc.dart';
+import 'package:media_plex/media_plex/movie/presentation/bloc/popular_movies_bloc/movie_popular_bloc.dart';
+import 'package:media_plex/media_plex/movie/presentation/bloc/search_the_movie_bloc/search_the_movie_bloc.dart';
+import 'package:media_plex/media_plex/movie/presentation/bloc/top_rated_movies_bloc/movie_top_rated_bloc.dart';
 import 'package:media_plex/media_plex/tv_series/data/datasources/database/tv_series_database_helper.dart';
 import 'package:media_plex/media_plex/tv_series/data/datasources/tv_series_local_data_source.dart';
 import 'package:media_plex/media_plex/tv_series/data/datasources/tv_series_remote_data_source.dart';
@@ -55,12 +58,9 @@ import 'media_plex/movie/domain/usecases/get_popular_movies.dart';
 import 'media_plex/movie/domain/usecases/get_top_rated_movies.dart';
 import 'media_plex/movie/domain/usecases/get_watchlist_movies.dart';
 import 'media_plex/movie/domain/usecases/get_watchlist_status.dart';
-import 'media_plex/movie/domain/usecases/remove_watchlist.dart';
-import 'media_plex/movie/domain/usecases/save_watchlist.dart';
-import 'media_plex/movie/domain/usecases/search_movies.dart';
-import 'media_plex/movie/presentation/bloc/movie_now_playing_bloc/movie_now_playing_bloc.dart';
-import 'media_plex/movie/presentation/bloc/movie_popular_bloc/movie_popular_bloc.dart';
-import 'media_plex/movie/presentation/bloc/movie_top_rated_bloc/movie_top_rated_bloc.dart';
+import 'media_plex/movie/domain/usecases/remove_from_watchlist.dart';
+import 'media_plex/movie/domain/usecases/save_to_watchlist.dart';
+import 'media_plex/movie/domain/usecases/search_the_movies.dart';
 import 'media_plex/movie/presentation/bloc/movie_watchlist_bloc/movie_watchlist_bloc.dart';
 
 final locator = GetIt.instance;
@@ -112,7 +112,7 @@ Future<void> init() async {
 
   // => MOVIE
   // bloc
-  locator.registerFactory(() => SearchMoviesBloc(locator()));
+  locator.registerFactory(() => SearchTheMovieBloc(locator()));
   locator.registerFactory(() => MovieDetailBloc(locator()));
   locator.registerFactory(() => MovieRecommendationBloc(locator()));
   locator.registerFactory(() => MovieWatchlistBloc(
@@ -121,9 +121,9 @@ Future<void> init() async {
     locator(),
     locator(),
   ));
-  locator.registerFactory(() => MovieNowPlayingBloc(locator()));
-  locator.registerFactory(() => MoviePopularBloc(locator()));
-  locator.registerFactory(() => MovieTopRatedBloc(locator()));
+  locator.registerFactory(() => NowPlayingMoviesBloc(locator()));
+  locator.registerFactory(() => PopularMoviesBloc(locator()));
+  locator.registerFactory(() => TopRatedMoviesBloc(locator()));
 
   // use cases
   locator.registerLazySingleton(() => GetNowPlayingMovies(locator()));
@@ -131,10 +131,10 @@ Future<void> init() async {
   locator.registerLazySingleton(() => GetTopRatedMovies(locator()));
   locator.registerLazySingleton(() => GetMovieDetail(locator()));
   locator.registerLazySingleton(() => GetMovieRecommendations(locator()));
-  locator.registerLazySingleton(() => SearchMovies(locator()));
+  locator.registerLazySingleton(() => SearchTheMovies(locator()));
   locator.registerLazySingleton(() => GetWatchListStatus(locator()));
-  locator.registerLazySingleton(() => SaveWatchlist(locator()));
-  locator.registerLazySingleton(() => RemoveWatchlist(locator()));
+  locator.registerLazySingleton(() => SaveToWatchlist(locator()));
+  locator.registerLazySingleton(() => RemoveFromWatchlist(locator()));
   locator.registerLazySingleton(() => GetWatchlistMovies(locator()));
 
   // repository

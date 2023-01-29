@@ -10,8 +10,8 @@ abstract class BookRepository {
   Future<Either<Failure, BookDetail>> getBookDetail(String key);
   Future<Either<Failure, SearchTheBook>> searchTheBook(String query);
   Future<Either<Failure, PopularBooks>> getPopularBooks(String dataSortQuery);
-  Future<Either<Failure, String>> saveBookmark(BookDetail book);
-  Future<Either<Failure, String>> removeBookmark(BookDetail book);
+  Future<Either<Failure, String>> saveToBookmark(BookDetail book);
+  Future<Either<Failure, String>> removeFromBookmark(BookDetail book);
   Future<Either<Failure, List<BookTableModel>>> getBookmark();
   Future<Either<Failure, BooksBySubject>> getBookBySubject(String subjectName);
   Future<bool> isBookmarked(String key);

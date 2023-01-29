@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:media_plex/media_plex/movie/presentation/bloc/movie_now_playing_bloc/movie_now_playing_bloc.dart';
-import 'package:media_plex/media_plex/movie/presentation/bloc/movie_popular_bloc/movie_popular_bloc.dart';
+import 'package:media_plex/media_plex/movie/presentation/bloc/now_playing_movies_bloc/now_playing_movies_bloc.dart';
+import 'package:media_plex/media_plex/movie/presentation/bloc/popular_movies_bloc/movie_popular_bloc.dart';
 import 'package:media_plex/media_plex/movie/presentation/widgets/movie_list.dart';
 import 'package:media_plex/shared/presentation/widget/loading_animation.dart';
 
@@ -17,8 +17,8 @@ class _MovieNowPlayingPageState extends State<MovieNowPlayingPage> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<MoviePopularBloc>(context, listen: false)
-        .add(FetchMoviePopular());
+    BlocProvider.of<PopularMoviesBloc>(context, listen: false)
+        .add(FetchPopularMovies());
   }
 
   @override
@@ -44,14 +44,14 @@ class _MovieNowPlayingPageState extends State<MovieNowPlayingPage> {
   Padding buildBody() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: BlocBuilder<MovieNowPlayingBloc, MovieNowPlayingState>(
+      child: BlocBuilder<NowPlayingMoviesBloc, NowPlayingMoviesState>(
         builder: (context, state) {
-          if (state is MovieNowPlayingLoading) {
+          if (state is NowPlayingMoviesLoading) {
             return const LoadingAnimation();
-          } else if (state is MovieNowPlayingHasData) {
+          } else if (state is NowPlayingMoviesHasData) {
             final movieResult = state.result;
             return MovieList(list: movieResult);
-          } else if (state is MovieNowPlayingError) {
+          } else if (state is NowPlayingMoviesError) {
             return Center(
               key: const Key('error_message'),
               child: Text(state.message),

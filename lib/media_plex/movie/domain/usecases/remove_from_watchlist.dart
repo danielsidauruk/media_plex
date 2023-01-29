@@ -5,21 +5,21 @@ import 'package:media_plex/media_plex/movie/domain/entities/movie_detail.dart';
 import 'package:media_plex/media_plex/movie/domain/repositories/movie_repository.dart';
 import 'package:media_plex/shared/domain/use_cases/use_case.dart';
 
-class GetMovieDetail extends UseCase<MovieDetail, Params>{
+class RemoveFromWatchlist extends UseCase<String, RemoveParams>{
   final MovieRepository repository;
-  GetMovieDetail(this.repository);
+  RemoveFromWatchlist(this.repository);
 
   @override
-  Future<Either<Failure, MovieDetail>> call(Params params) {
-    return repository.getMovieDetail(params.id);
+  Future<Either<Failure, String>> call(RemoveParams params) {
+    return repository.removeFromWatchlist(params.movieDetail);
   }
 }
 
-class Params extends Equatable {
-  const Params({required this.id});
-  final int id;
+class RemoveParams extends Equatable {
+  const RemoveParams({required this.movieDetail});
+  final MovieDetail movieDetail;
 
   @override
-  List<Object?> get props => [id];
-}
+  List<Object?> get props => [movieDetail];
 
+}

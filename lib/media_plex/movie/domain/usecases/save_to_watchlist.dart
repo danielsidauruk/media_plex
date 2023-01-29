@@ -5,21 +5,20 @@ import 'package:media_plex/media_plex/movie/domain/entities/movie_detail.dart';
 import 'package:media_plex/media_plex/movie/domain/repositories/movie_repository.dart';
 import 'package:media_plex/shared/domain/use_cases/use_case.dart';
 
-class GetMovieDetail extends UseCase<MovieDetail, Params>{
+class SaveToWatchlist extends UseCase<String, SaveParams>{
   final MovieRepository repository;
-  GetMovieDetail(this.repository);
+  SaveToWatchlist(this.repository);
 
   @override
-  Future<Either<Failure, MovieDetail>> call(Params params) {
-    return repository.getMovieDetail(params.id);
+  Future<Either<Failure, String>> call(SaveParams params) {
+    return repository.saveToWatchlist(params.movieDetail);
   }
 }
 
-class Params extends Equatable {
-  const Params({required this.id});
-  final int id;
+class SaveParams extends Equatable {
+  final MovieDetail movieDetail;
+  const SaveParams({required this.movieDetail});
 
   @override
-  List<Object?> get props => [id];
+  List<Object?> get props => [movieDetail];
 }
-

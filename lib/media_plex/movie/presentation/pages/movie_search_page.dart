@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:media_plex/media_plex/movie/presentation/bloc/movie_search_bloc/search_bloc.dart';
+import 'package:media_plex/media_plex/movie/presentation/bloc/search_the_movie_bloc/search_the_movie_bloc.dart';
 import 'package:media_plex/media_plex/movie/presentation/widgets/movie_list.dart';
 import 'package:media_plex/shared/presentation/widget/loading_animation.dart';
 
@@ -48,14 +48,14 @@ class MovieSearchPage extends StatelessWidget {
 
   Expanded buildBloc() {
     return Expanded(
-      child: BlocBuilder<SearchMoviesBloc, SearchState>(
+      child: BlocBuilder<SearchTheMovieBloc, SearchTheMovieState>(
         builder: (context, state) {
-          if (state is SearchLoading) {
+          if (state is SearchTheMovieLoading) {
             return const LoadingAnimation();
-          } else if (state is SearchHasData) {
+          } else if (state is SearchTheMovieHasData) {
             final movieResult = state.result;
             return MovieList(list: movieResult);
-          } else if (state is SearchError) {
+          } else if (state is SearchTheMovieError) {
             return const Center();
           } else {
             return const Center();
@@ -77,7 +77,7 @@ class MovieSearchPage extends StatelessWidget {
       ),
       child: TextField(
         onChanged: (query) =>
-            context.read<SearchMoviesBloc>().add(OnQueryChanged(query)),
+            context.read<SearchTheMovieBloc>().add(OnQueryChanged(query)),
         style: const TextStyle(),
         decoration: null,
       ),

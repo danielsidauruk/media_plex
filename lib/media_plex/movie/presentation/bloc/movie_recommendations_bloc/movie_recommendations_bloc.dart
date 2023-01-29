@@ -8,16 +8,16 @@ part 'movie_recommendations_state.dart';
 
 class MovieRecommendationBloc
     extends Bloc<MovieRecommendationEvent, MovieRecommendationState> {
-  final GetMovieRecommendations _getMovieRecommendations;
+  final GetMovieRecommendations getMovieRecommendations;
 
-  MovieRecommendationBloc(this._getMovieRecommendations)
+  MovieRecommendationBloc(this.getMovieRecommendations)
       : super(MovieRecommendationEmpty()) {
     on<FetchMovieRecommendation>((event, emit) async {
       final id = event.id;
 
       emit(MovieRecommendationLoading());
 
-      final recommendationResult = await _getMovieRecommendations.execute(id);
+      final recommendationResult = await getMovieRecommendations.call(Params(id: id));
 
       recommendationResult.fold(
         (failure) => emit(MovieRecommendationError(failure.message)),

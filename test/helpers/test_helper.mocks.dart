@@ -174,7 +174,7 @@ class MockMovieRepository extends _i1.Mock implements _i5.MovieRepository {
         )),
       ) as _i6.Future<_i2.Either<_i7.Failure, List<_i8.Movie>>>);
   @override
-  _i6.Future<_i2.Either<_i7.Failure, List<_i8.Movie>>> searchMovies(
+  _i6.Future<_i2.Either<_i7.Failure, List<_i8.Movie>>> searchTheMovie(
           String? query) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -191,7 +191,7 @@ class MockMovieRepository extends _i1.Mock implements _i5.MovieRepository {
         )),
       ) as _i6.Future<_i2.Either<_i7.Failure, List<_i8.Movie>>>);
   @override
-  _i6.Future<_i2.Either<_i7.Failure, String>> saveWatchlist(
+  _i6.Future<_i2.Either<_i7.Failure, String>> saveToWatchlist(
           _i9.MovieDetail? movie) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -208,7 +208,7 @@ class MockMovieRepository extends _i1.Mock implements _i5.MovieRepository {
         )),
       ) as _i6.Future<_i2.Either<_i7.Failure, String>>);
   @override
-  _i6.Future<_i2.Either<_i7.Failure, String>> removeWatchlist(
+  _i6.Future<_i2.Either<_i7.Failure, String>> removeFromWatchlist(
           _i9.MovieDetail? movie) =>
       (super.noSuchMethod(
         Invocation.method(

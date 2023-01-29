@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:media_plex/media_plex/movie/presentation/bloc/movie_top_rated_bloc/movie_top_rated_bloc.dart';
+import 'package:media_plex/media_plex/movie/presentation/bloc/top_rated_movies_bloc/movie_top_rated_bloc.dart';
 import 'package:media_plex/media_plex/movie/presentation/widgets/movie_list.dart';
 import 'package:media_plex/shared/presentation/widget/loading_animation.dart';
 
@@ -15,8 +15,8 @@ class _MovieTopRatedPageState extends State<MovieTopRatedPage> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<MovieTopRatedBloc>(context, listen: false)
-        .add(FetchMovieTopRated());
+    BlocProvider.of<TopRatedMoviesBloc>(context, listen: false)
+        .add(FetchTopRatedMovies());
   }
 
   @override
@@ -42,14 +42,14 @@ class _MovieTopRatedPageState extends State<MovieTopRatedPage> {
   Padding buildBody() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: BlocBuilder<MovieTopRatedBloc, MovieTopRatedState>(
+      child: BlocBuilder<TopRatedMoviesBloc, TopRatedMoviesState>(
         builder: (context, state) {
-          if (state is MovieTopRatedLoading) {
+          if (state is TopRatedMoviesLoading) {
             return const LoadingAnimation();
-          } else if (state is MovieTopRatedHasData) {
+          } else if (state is TopRatedMoviesHasData) {
             final movieResult = state.result;
             return MovieList(list: movieResult);
-          } else if (state is MovieTopRatedError) {
+          } else if (state is TopRatedMoviesError) {
             return Center(
               key: const Key('error_message'),
               child: Text(state.message),

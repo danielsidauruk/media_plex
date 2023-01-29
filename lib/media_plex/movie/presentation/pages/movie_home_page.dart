@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:media_plex/core/utils/constants.dart';
 import 'package:media_plex/core/utils/routes.dart';
 import 'package:media_plex/media_plex/movie/domain/entities/movie.dart';
-import 'package:media_plex/media_plex/movie/presentation/bloc/movie_now_playing_bloc/movie_now_playing_bloc.dart';
-import 'package:media_plex/media_plex/movie/presentation/bloc/movie_popular_bloc/movie_popular_bloc.dart';
-import 'package:media_plex/media_plex/movie/presentation/bloc/movie_top_rated_bloc/movie_top_rated_bloc.dart';
+import 'package:media_plex/media_plex/movie/presentation/bloc/now_playing_movies_bloc/now_playing_movies_bloc.dart';
+import 'package:media_plex/media_plex/movie/presentation/bloc/popular_movies_bloc/movie_popular_bloc.dart';
+import 'package:media_plex/media_plex/movie/presentation/bloc/top_rated_movies_bloc/movie_top_rated_bloc.dart';
 import 'package:media_plex/shared/presentation/widget/horizontal_loading_animation.dart';
 import 'package:media_plex/shared/presentation/widget/search_tile.dart';
 import 'package:media_plex/shared/presentation/widget/sub_heading_tile.dart';
@@ -23,12 +23,12 @@ class _MovieHomePageState extends State<MovieHomePage> {
   void initState() {
     super.initState();
     Future.microtask(() {
-      BlocProvider.of<MovieNowPlayingBloc>(context, listen: false)
-          .add(FetchMovieNowPlaying());
-      BlocProvider.of<MovieTopRatedBloc>(context, listen: false)
-          .add(FetchMovieTopRated());
-      BlocProvider.of<MoviePopularBloc>(context, listen: false)
-          .add(FetchMoviePopular());
+      BlocProvider.of<NowPlayingMoviesBloc>(context, listen: false)
+          .add(FetchNowPlayingMovies());
+      BlocProvider.of<TopRatedMoviesBloc>(context, listen: false)
+          .add(FetchTopRatedMovies());
+      BlocProvider.of<PopularMoviesBloc>(context, listen: false)
+          .add(FetchPopularMovies());
       },
     );
   }
@@ -94,14 +94,14 @@ class _MovieHomePageState extends State<MovieHomePage> {
 
           SubHeadingTile(context: context, title: 'Now Playing Movies', routeName: movieNowPlayingRoute),
 
-          BlocBuilder<MovieNowPlayingBloc, MovieNowPlayingState>(
+          BlocBuilder<NowPlayingMoviesBloc, NowPlayingMoviesState>(
             builder: (context, state) {
-              if (state is MovieNowPlayingLoading) {
+              if (state is NowPlayingMoviesLoading) {
                 return const HorizontalLoadingAnimation();
-              } else if (state is MovieNowPlayingHasData) {
+              } else if (state is NowPlayingMoviesHasData) {
                 final movieResult = state.result;
                 return buildMovieResult(movieResult);
-              } else if (state is MovieNowPlayingError) {
+              } else if (state is NowPlayingMoviesError) {
                 return Text(state.message);
               } else {
                 return const Center();
@@ -127,14 +127,14 @@ class _MovieHomePageState extends State<MovieHomePage> {
 
           SubHeadingTile(context: context, title: 'Popular Movies', routeName: moviePopularRoute),
 
-          BlocBuilder<MoviePopularBloc, MoviePopularState>(
+          BlocBuilder<PopularMoviesBloc, PopularMoviesState>(
               builder: (context, state) {
-                if (state is MovieNowPlayingLoading) {
+                if (state is PopularMoviesLoading) {
                   return const HorizontalLoadingAnimation();
-                } else if (state is MoviePopularHasData) {
+                } else if (state is PopularMoviesHasData) {
                   final movieResult = state.result;
                   return buildMovieResult(movieResult);
-                } else if (state is MoviePopularError) {
+                } else if (state is PopularMoviesError) {
                   return Text(state.message);
                 } else {
                   return const Center();
@@ -160,14 +160,14 @@ class _MovieHomePageState extends State<MovieHomePage> {
 
           SubHeadingTile(context: context, title: 'Top Rated Movies', routeName: movieTopRatedRoute),
 
-          BlocBuilder<MovieTopRatedBloc, MovieTopRatedState>(
+          BlocBuilder<TopRatedMoviesBloc, TopRatedMoviesState>(
             builder: (context, state) {
-              if (state is MovieTopRatedLoading) {
+              if (state is TopRatedMoviesLoading) {
                 return const HorizontalLoadingAnimation();
-              } else if (state is MovieTopRatedHasData) {
+              } else if (state is TopRatedMoviesHasData) {
                 final movieResult = state.result;
                 return buildMovieResult(movieResult);
-              } else if (state is MovieTopRatedError) {
+              } else if (state is TopRatedMoviesError) {
                 return Text(state.message);
               } else {
                 return const Center();

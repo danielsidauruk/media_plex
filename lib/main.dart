@@ -11,6 +11,11 @@ import 'package:media_plex/dependency_injection.dart' as di;
 import 'package:media_plex/media_plex/books/presentation/bloc/book_detail_bloc/book_detail_bloc.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_home_page.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_by_subject_page.dart';
+import 'package:media_plex/media_plex/movie/domain/usecases/search_the_movies.dart';
+import 'package:media_plex/media_plex/movie/presentation/bloc/now_playing_movies_bloc/now_playing_movies_bloc.dart';
+import 'package:media_plex/media_plex/movie/presentation/bloc/popular_movies_bloc/movie_popular_bloc.dart';
+import 'package:media_plex/media_plex/movie/presentation/bloc/search_the_movie_bloc/search_the_movie_bloc.dart';
+import 'package:media_plex/media_plex/movie/presentation/bloc/top_rated_movies_bloc/movie_top_rated_bloc.dart';
 import 'package:media_plex/media_plex/movie/presentation/pages/movie_home_page.dart';
 import 'package:media_plex/media_plex/movie/presentation/pages/movie_now_playing_page.dart';
 import 'package:media_plex/media_plex/tv_series/presentation/bloc/tv_series_detail_bloc/tv_series_detail_bloc.dart';
@@ -31,11 +36,7 @@ import 'core/utils/utils.dart';
 import 'core/utils/routes.dart';
 import 'home_page.dart';
 import 'media_plex/movie/presentation/bloc/movie_detail_bloc/movie_detail_bloc.dart';
-import 'media_plex/movie/presentation/bloc/movie_now_playing_bloc/movie_now_playing_bloc.dart';
-import 'media_plex/movie/presentation/bloc/movie_popular_bloc/movie_popular_bloc.dart';
 import 'media_plex/movie/presentation/bloc/movie_recommendations_bloc/movie_recommendations_bloc.dart';
-import 'media_plex/movie/presentation/bloc/movie_search_bloc/search_bloc.dart';
-import 'media_plex/movie/presentation/bloc/movie_top_rated_bloc/movie_top_rated_bloc.dart';
 import 'media_plex/movie/presentation/bloc/movie_watchlist_bloc/movie_watchlist_bloc.dart';
 import 'media_plex/movie/presentation/pages/movie_detail_page.dart';
 import 'media_plex/movie/presentation/pages/movie_popular_page.dart';
@@ -64,10 +65,10 @@ class MyApp extends StatelessWidget {
 
         // movie
         BlocProvider(create: (_) => di.locator<MovieDetailBloc>()),
-        BlocProvider(create: (_) => di.locator<SearchMoviesBloc>()),
-        BlocProvider(create: (_) => di.locator<MovieNowPlayingBloc>()),
-        BlocProvider(create: (_) => di.locator<MoviePopularBloc>()),
-        BlocProvider(create: (_) => di.locator<MovieTopRatedBloc>()),
+        BlocProvider(create: (_) => di.locator<SearchTheMovieBloc>()),
+        BlocProvider(create: (_) => di.locator<NowPlayingMoviesBloc>()),
+        BlocProvider(create: (_) => di.locator<PopularMoviesBloc>()),
+        BlocProvider(create: (_) => di.locator<TopRatedMoviesBloc>()),
         BlocProvider(create: (_) => di.locator<MovieRecommendationBloc>()),
         BlocProvider(create: (_) => di.locator<MovieWatchlistBloc>()),
 

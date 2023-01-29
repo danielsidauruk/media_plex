@@ -2,7 +2,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:media_plex/media_plex/movie/domain/usecases/get_now_playing_movies.dart';
-import 'package:media_plex/media_plex/movie/presentation/bloc/movie_now_playing_bloc/movie_now_playing_bloc.dart';
+import 'package:media_plex/media_plex/movie/presentation/bloc/movie_now_playing_bloc/now_playing_movies_bloc.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 

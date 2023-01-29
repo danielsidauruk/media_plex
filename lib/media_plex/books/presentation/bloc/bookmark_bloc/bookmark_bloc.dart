@@ -6,6 +6,7 @@ import 'package:media_plex/media_plex/books/domain/use_cases/get_bookmark_status
 import 'package:media_plex/media_plex/books/domain/use_cases/get_bookmarked_book.dart';
 import 'package:media_plex/media_plex/books/domain/use_cases/remove_bookmark.dart';
 import 'package:media_plex/media_plex/books/domain/use_cases/save_bookmark.dart';
+import 'package:media_plex/shared/domain/use_cases/use_case.dart';
 
 part 'bookmark_event.dart';
 part 'bookmark_state.dart';
@@ -24,7 +25,7 @@ class BookmarkBloc extends Bloc<BookmarkEvent, BookmarkState> {
     on<FetchBookmark>((event, emit) async {
       emit(BookmarkLoading());
 
-      final bookmarkResult = await getBookMarkedBook.execute();
+      final bookmarkResult = await getBookMarkedBook.call(NoParams());
       bookmarkResult.fold(
             (failure) => emit(BookmarkError(failure.message)),
             (book) => emit(BookmarkHasData(book)),
@@ -41,7 +42,7 @@ class BookmarkBloc extends Bloc<BookmarkEvent, BookmarkState> {
 
     on<AddBookmark>((event, emit) async {
       final book = event.book;
-      final result = await saveBookmark.execute(book);
+      final result = await saveBookmark.call(SaveParams(bookDetail: book));
 
       result.fold(
             (failure) => emit(BookmarkFailure(failure.message)),
@@ -53,7 +54,7 @@ class BookmarkBloc extends Bloc<BookmarkEvent, BookmarkState> {
 
     on<DeleteBookmark>((event, emit) async {
       final book = event.book;
-      final result = await removeBookmark.execute(book);
+      final result = await removeBookmark.call(RemoveParams(bookDetail: book));
 
       result.fold(
             (failure) => emit(BookmarkFailure(failure.message)),
