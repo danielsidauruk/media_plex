@@ -1,4 +1,4 @@
-
+// => main Feature
 const List<String> media = ['Books', 'Movies', 'TV Series'];
 
 const String serverFailureMessage = 'Server Failure';
@@ -12,10 +12,10 @@ const String tblBookmark = 'bookmark';
 const String apiUrl = 'https://openlibrary.org';
 const String apiCoversUrl = 'https://covers.openlibrary.org/b';
 
-String search(String query) => '$apiUrl/search.json?title=$query';
-String detailBook(String key) => '$apiUrl/$key.json';
-String popularBook(String dataSortQuery) => '$apiUrl/trending/$dataSortQuery.json';
-String subjectBook(String subject) => 'https://openlibrary.org/subjects/$subject.json';
+String searchTheBookBy(String query) => '$apiUrl/search.json?title=$query';
+String bookDetail(String key) => '$apiUrl/$key.json';
+String popularBooks(String dataSortQuery) => '$apiUrl/trending/$dataSortQuery.json';
+String bookBySubject(String subject) => 'https://openlibrary.org/subjects/$subject.json';
 String mediumImage(String isbn) => '$apiCoversUrl/isbn/$isbn-M.jpg';
 String mediumImageByCoverI(String coverI) => '$apiCoversUrl/id/$coverI-M.jpg';
 String largeImage(String cover) => '$apiCoversUrl/id/$cover-L.jpg';

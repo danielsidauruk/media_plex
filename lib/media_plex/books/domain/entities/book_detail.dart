@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 
-// ignore: must_be_immutable
 class BookDetail extends Equatable{
   const BookDetail({
     required this.description,

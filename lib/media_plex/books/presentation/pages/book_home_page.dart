@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_plex/core/utils/constants.dart';
 import 'package:media_plex/core/utils/routes.dart';
-import 'package:media_plex/media_plex/books/domain/entities/book_popular.dart';
-import 'package:media_plex/media_plex/books/presentation/bloc/book_popular_bloc/book_popular_bloc.dart';
+import 'package:media_plex/media_plex/books/domain/entities/popular_books.dart';
+import 'package:media_plex/media_plex/books/presentation/bloc/popular_books_bloc/book_popular_bloc.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_subjects_list_page.dart';
 import 'package:media_plex/shared/presentation/widget/horizontal_loading_animation.dart';
 import 'package:media_plex/shared/presentation/widget/search_tile.dart';
@@ -21,8 +21,8 @@ class _BookHomePageState extends State<BookHomePage> {
   @override
   void initState() {
     super.initState();
-    return BlocProvider.of<BookPopularBloc>(context, listen: false)
-        .add(const GetForPopular('daily'));
+    return BlocProvider.of<PopularBooksBloc>(context, listen: false)
+        .add(const FetchPopularBooks('daily'));
   }
 
   @override
@@ -121,16 +121,16 @@ class _BookHomePageState extends State<BookHomePage> {
 
           SubHeadingTile(context: context, title: 'Popular Books - Daily', routeName: bookPopularRoute),
 
-          BlocBuilder<BookPopularBloc, PopularState>(
+          BlocBuilder<PopularBooksBloc, PopularBooksState>(
             builder: (context, state) {
-              if (state is PopularEmpty) {
+              if (state is PopularBooksEmpty) {
                 return const Center();
-              } else if (state is PopularLoading) {
+              } else if (state is PopularBooksLoading) {
                 return const HorizontalLoadingAnimation();
-              } else if (state is PopularLoaded) {
+              } else if (state is PopularBooksLoaded) {
                 final books = state.popular.works;
                 return popularBookResult(books);
-              } else if (state is PopularError) {
+              } else if (state is PopularBooksError) {
                 return Text(state.message);
               }
               return const SizedBox.shrink();
@@ -245,7 +245,7 @@ class _BookHomePageState extends State<BookHomePage> {
         context,
         MaterialPageRoute(
           builder: (context) =>
-              BookSubjectsListPage(
+              SubjectsListPage(
                 subject: subjectName,
                 icon: iconAssets,
                 list: menu,

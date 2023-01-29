@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:media_plex/media_plex/books/presentation/bloc/book_popular_bloc/book_popular_bloc.dart';
+import 'package:media_plex/media_plex/books/presentation/bloc/book_by_subject_bloc/book_subject_bloc.dart';
 import 'package:media_plex/media_plex/books/presentation/bloc/book_search_bloc/book_search_bloc.dart';
-import 'package:media_plex/media_plex/books/presentation/bloc/book_subject_bloc/book_subject_bloc.dart';
 import 'package:media_plex/media_plex/books/presentation/bloc/bookmark_bloc/bookmark_bloc.dart';
-import 'package:media_plex/media_plex/books/presentation/pages/book_popular_page.dart';
+import 'package:media_plex/media_plex/books/presentation/bloc/popular_books_bloc/book_popular_bloc.dart';
+import 'package:media_plex/media_plex/books/presentation/pages/popular_books_page.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_search_page.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_detail_page.dart';
 import 'package:media_plex/dependency_injection.dart' as di;
 import 'package:media_plex/media_plex/books/presentation/bloc/book_detail_bloc/book_detail_bloc.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_home_page.dart';
-import 'package:media_plex/media_plex/books/presentation/pages/book_subject_page.dart';
+import 'package:media_plex/media_plex/books/presentation/pages/book_by_subject_page.dart';
 import 'package:media_plex/media_plex/movie/presentation/pages/movie_home_page.dart';
 import 'package:media_plex/media_plex/movie/presentation/pages/movie_now_playing_page.dart';
 import 'package:media_plex/media_plex/tv_series/presentation/bloc/tv_series_detail_bloc/tv_series_detail_bloc.dart';
@@ -57,10 +57,10 @@ class MyApp extends StatelessWidget {
       providers: [
         // book
         BlocProvider(create: (_) => di.locator<BookDetailBloc>()),
-        BlocProvider(create: (_) => di.locator<BookSearchBloc>()),
-        BlocProvider(create: (_) => di.locator<BookPopularBloc>()),
+        BlocProvider(create: (_) => di.locator<SearchTheBookBloc>()),
+        BlocProvider(create: (_) => di.locator<PopularBooksBloc>()),
         BlocProvider(create: (_) => di.locator<BookmarkBloc>()),
-        BlocProvider(create: (_) => di.locator<BookSubjectBloc>()),
+        BlocProvider(create: (_) => di.locator<BookBySubjectBloc>()),
 
         // movie
         BlocProvider(create: (_) => di.locator<MovieDetailBloc>()),
@@ -129,11 +129,11 @@ class MyApp extends StatelessWidget {
             case bookSearchRoute:
               return MaterialPageRoute(builder: (_) => const BookSearchPage());
             case bookPopularRoute:
-              return MaterialPageRoute(builder: (_) => const BookPopularPage());
+              return MaterialPageRoute(builder: (_) => const PopularBooksPage());
             case bookSubjectRoute:
               final title = settings.arguments as String;
               return MaterialPageRoute(
-                builder: (_) => BookSubjectPage(title: title),
+                builder: (_) => BookBySubjectPage(title: title),
                 settings: settings,
               );
 

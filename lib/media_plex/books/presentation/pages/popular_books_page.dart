@@ -3,26 +3,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_plex/core/utils/constants.dart';
 import 'package:media_plex/core/utils/routes.dart';
-import 'package:media_plex/media_plex/books/domain/entities/book_popular.dart';
-import 'package:media_plex/media_plex/books/presentation/bloc/book_popular_bloc/book_popular_bloc.dart';
+import 'package:media_plex/media_plex/books/domain/entities/popular_books.dart';
+import 'package:media_plex/media_plex/books/presentation/bloc/popular_books_bloc/book_popular_bloc.dart';
 import 'package:media_plex/shared/presentation/widget/loading_animation.dart';
 import 'package:media_plex/shared/presentation/widget/total_text.dart';
 
-class BookPopularPage extends StatefulWidget {
-  const BookPopularPage({super.key});
+class PopularBooksPage extends StatefulWidget {
+  const PopularBooksPage({super.key});
 
   @override
-  State<BookPopularPage> createState() => _BookPopularPageState();
+  State<PopularBooksPage> createState() => _PopularBooksPageState();
 }
 
-class _BookPopularPageState extends State<BookPopularPage> {
+class _PopularBooksPageState extends State<PopularBooksPage> {
   String dropdownValue = queryList[1];
 
   @override
   void initState() {
     super.initState();
-    return BlocProvider.of<BookPopularBloc>(context, listen: false)
-        .add(GetForPopular(dropdownValue));
+    return BlocProvider.of<PopularBooksBloc>(context, listen: false)
+        .add(FetchPopularBooks(dropdownValue));
   }
 
   @override
@@ -78,13 +78,13 @@ class _BookPopularPageState extends State<BookPopularPage> {
     return Expanded(
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 4.0),
-        child: BlocBuilder<BookPopularBloc, PopularState>(
+        child: BlocBuilder<PopularBooksBloc, PopularBooksState>(
           builder: (context, state) {
-            if (state is PopularEmpty) {
+            if (state is PopularBooksEmpty) {
               return const Center();
-            } else if (state is PopularLoading) {
+            } else if (state is PopularBooksLoading) {
               return const LoadingAnimation();
-            } else if (state is PopularLoaded) {
+            } else if (state is PopularBooksLoaded) {
               final books = state.popular.works;
               return Column(
                 children: [
@@ -103,7 +103,7 @@ class _BookPopularPageState extends State<BookPopularPage> {
 
                 ],
               );
-            } else if (state is PopularError) {
+            } else if (state is PopularBooksError) {
               return Text(state.message);
             }
             return const SizedBox.shrink();
@@ -134,8 +134,8 @@ class _BookPopularPageState extends State<BookPopularPage> {
         onChanged: (String? value) {
           setState(() {
             dropdownValue = value!;
-            BlocProvider.of<BookPopularBloc>(context, listen: false)
-                .add(GetForPopular(dropdownValue));
+            BlocProvider.of<PopularBooksBloc>(context, listen: false)
+                .add(FetchPopularBooks(dropdownValue));
           });
         },
         items: queryList

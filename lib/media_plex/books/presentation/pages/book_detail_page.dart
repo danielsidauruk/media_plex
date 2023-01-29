@@ -6,7 +6,6 @@ import 'package:media_plex/core/utils/constants.dart';
 import 'package:media_plex/media_plex/books/domain/entities/book_detail.dart';
 import 'package:media_plex/media_plex/books/presentation/bloc/book_detail_bloc/book_detail_bloc.dart';
 import 'package:media_plex/media_plex/books/presentation/bloc/bookmark_bloc/bookmark_bloc.dart';
-import 'package:media_plex/media_plex/movie/presentation/pages/movie_detail_page.dart';
 
 class BookDetailPage extends StatefulWidget {
   const BookDetailPage({super.key, required this.bookKey});
@@ -22,7 +21,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
     super.initState();
     Future.microtask(() {
       BlocProvider.of<BookDetailBloc>(context, listen: false)
-          .add(GetForBookDetail(widget.bookKey));
+          .add(FetchBookDetail(widget.bookKey));
       BlocProvider.of<BookmarkBloc>(context, listen: false)
           .add(LoadBookmarkStatus(widget.bookKey));
     });

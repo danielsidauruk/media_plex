@@ -37,12 +37,12 @@ class BookDatabaseHelper {
     ''');
   }
 
-  Future<int> insertBookmark(BookTable bookTable) async {
+  Future<int> insertBookmark(BookTableModel bookTable) async {
     final db = await database;
     return await db!.insert(tblBookmark, bookTable.toJson());
   }
 
-  Future<int> removeBookmark(BookTable bookTable) async {
+  Future<int> removeBookmark(BookTableModel bookTable) async {
     final db = await database;
     return await db!.delete(
       tblBookmark,

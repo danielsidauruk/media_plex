@@ -20,7 +20,7 @@ class BookmarkError extends BookmarkState {
 }
 
 class BookmarkHasData extends BookmarkState {
-  final List<BookTable> result;
+  final List<BookTableModel> result;
   const BookmarkHasData(this.result);
 
   @override

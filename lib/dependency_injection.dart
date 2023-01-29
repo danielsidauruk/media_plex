@@ -4,19 +4,19 @@ import 'package:media_plex/media_plex/books/data/data_sources/book_remote_data_s
 import 'package:media_plex/media_plex/books/data/data_sources/database/book_database_helper.dart';
 import 'package:media_plex/media_plex/books/data/repositories/library_book_repository_impl.dart';
 import 'package:media_plex/media_plex/books/domain/repositories/books_repository.dart';
-import 'package:media_plex/media_plex/books/domain/use_cases/get_book_details.dart';
+import 'package:media_plex/media_plex/books/domain/use_cases/get_book_detail.dart';
 import 'package:media_plex/media_plex/books/domain/use_cases/get_bookmark_status.dart';
 import 'package:media_plex/media_plex/books/domain/use_cases/get_bookmarked_book.dart';
-import 'package:media_plex/media_plex/books/domain/use_cases/get_popular_book.dart';
-import 'package:media_plex/media_plex/books/domain/use_cases/get_subject_book.dart';
+import 'package:media_plex/media_plex/books/domain/use_cases/get_book_popular.dart';
+import 'package:media_plex/media_plex/books/domain/use_cases/get_book_by_subject.dart';
 import 'package:media_plex/media_plex/books/domain/use_cases/remove_bookmark.dart';
 import 'package:media_plex/media_plex/books/domain/use_cases/save_bookmark.dart';
 import 'package:media_plex/media_plex/books/domain/use_cases/search_book.dart';
+import 'package:media_plex/media_plex/books/presentation/bloc/book_by_subject_bloc/book_subject_bloc.dart';
 import 'package:media_plex/media_plex/books/presentation/bloc/book_detail_bloc/book_detail_bloc.dart';
-import 'package:media_plex/media_plex/books/presentation/bloc/book_popular_bloc/book_popular_bloc.dart';
 import 'package:media_plex/media_plex/books/presentation/bloc/book_search_bloc/book_search_bloc.dart';
-import 'package:media_plex/media_plex/books/presentation/bloc/book_subject_bloc/book_subject_bloc.dart';
 import 'package:media_plex/media_plex/books/presentation/bloc/bookmark_bloc/bookmark_bloc.dart';
+import 'package:media_plex/media_plex/books/presentation/bloc/popular_books_bloc/book_popular_bloc.dart';
 import 'package:media_plex/media_plex/movie/domain/usecases/get_now_playing_movies.dart';
 import 'package:media_plex/media_plex/movie/presentation/bloc/movie_detail_bloc/movie_detail_bloc.dart';
 import 'package:media_plex/media_plex/movie/presentation/bloc/movie_recommendations_bloc/movie_recommendations_bloc.dart';
@@ -73,9 +73,9 @@ Future<void> init() async {
 
   // bloc
   locator.registerFactory(() => BookDetailBloc(locator()));
-  locator.registerFactory(() => BookSearchBloc(locator()));
-  locator.registerFactory(() => BookPopularBloc(locator()));
-  locator.registerFactory(() => BookSubjectBloc(locator()));
+  locator.registerFactory(() => SearchTheBookBloc(locator()));
+  locator.registerFactory(() => PopularBooksBloc(locator()));
+  locator.registerFactory(() => BookBySubjectBloc(locator()));
   locator.registerFactory(() => BookmarkBloc(
     locator(),
     locator(),
@@ -84,13 +84,13 @@ Future<void> init() async {
   ));
 
   // use cases
-  locator.registerLazySingleton(() => GetBookDetails(repository: locator()));
+  locator.registerLazySingleton(() => GetBookDetail(repository: locator()));
   locator.registerLazySingleton(() => SearchBook(repository: locator()));
-  locator.registerLazySingleton(() => GetPopularBook(repository: locator()));
-  locator.registerLazySingleton(() => GetSubjectBook(repository: locator()));
+  locator.registerLazySingleton(() => GetPopularBooks(repository: locator()));
+  locator.registerLazySingleton(() => GetBookBySubject(repository: locator()));
   locator.registerLazySingleton(() => SaveBookmark(locator()));
   locator.registerLazySingleton(() => RemoveBookmark(locator()));
-  locator.registerLazySingleton(() => GetBookMarkedBook(locator()));
+  locator.registerLazySingleton(() => GetBookMark(locator()));
   locator.registerLazySingleton(() => GetBookmarkStatus(locator()));
 
   // repository

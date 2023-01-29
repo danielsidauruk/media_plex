@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:flutter/foundation.dart';
 import 'package:media_plex/media_plex/books/domain/entities/book_detail.dart';
 
 class BookDetailModel extends BookDetail {
@@ -43,7 +43,9 @@ class BookDetailModel extends BookDetail {
         descriptionModel = DescriptionModel.fromJson(json['description']);
       }
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
     return BookDetailModel(
       descriptionModel: descriptionModel,
@@ -64,25 +66,6 @@ class BookDetailModel extends BookDetail {
       lastModifiedModel: CreatedModel.fromJson(json["last_modified"] ?? ""),
     );
   }
-
-  Map<String, dynamic> toJson() => {
-    "description": descriptionModel.toJson(),
-    "links": List<dynamic>.from(linksModel.map((x) => x.toJson())),
-    "title": title,
-    "covers": List<dynamic>.from(covers.map((x) => x)),
-    "subject_places": List<dynamic>.from(subjectPlaces.map((x) => x)),
-    "first_publish_date": firstPublishDate,
-    "subject_people": List<dynamic>.from(subjectPeople.map((x) => x)),
-    "key": key,
-    "authors": List<dynamic>.from(authorsModel.map((x) => x.toJson())),
-    "subject_times": List<dynamic>.from(subjectTimes.map((x) => x)),
-    "type": typeModel.toJson(),
-    "subjects": List<dynamic>.from(subjects.map((x) => x)),
-    "latest_revision": latestRevision,
-    "revision": revision,
-    "created": createdModel.toJson(),
-    "last_modified": lastModifiedModel.toJson(),
-  };
 }
 
 class DescriptionModel extends Description {
@@ -100,11 +83,6 @@ class DescriptionModel extends Description {
       value: json["value"] ?? "No description available",
     );
   }
-
-  Map<String, dynamic> toJson() => {
-    "type": type,
-    "value": value,
-  };
 }
 
 class AuthorModel extends Author{
@@ -120,11 +98,6 @@ class AuthorModel extends Author{
     authorModel: TypeModel.fromJson(json["author"]),
     typeModel: TypeModel.fromJson(json["type"]),
   );
-
-  Map<String, dynamic> toJson() => {
-    "author": authorModel.toJson(),
-    "type": typeModel.toJson(),
-  };
 }
 
 class TypeModel extends Type{
@@ -133,10 +106,6 @@ class TypeModel extends Type{
   factory TypeModel.fromJson(Map<String, dynamic> json) => TypeModel(
     key: json["key"],
   );
-
-  Map<String, dynamic> toJson() => {
-    "key": key,
-  };
 }
 
 class CreatedModel extends Created {
@@ -170,10 +139,4 @@ class LinkModel extends Link{
     url: json["url"] ?? "",
     typeModel: TypeModel.fromJson(json["type"] ?? ""),
   );
-
-  Map<String, dynamic> toJson() => {
-    "title": title,
-    "url": url,
-    "type": typeModel.toJson(),
-  };
 }

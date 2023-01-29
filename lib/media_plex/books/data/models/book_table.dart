@@ -1,21 +1,21 @@
 import 'package:equatable/equatable.dart';
 import 'package:media_plex/media_plex/books/domain/entities/book_detail.dart';
 
-class BookTable extends Equatable {
+class BookTableModel extends Equatable {
   final String key;
   final String title;
 
-  const BookTable({
+  const BookTableModel({
     required this.key,
     required this.title,
   });
 
-  factory BookTable.fromEntity(BookDetail book) => BookTable(
+  factory BookTableModel.fromEntity(BookDetail book) => BookTableModel(
     key: book.key,
     title: book.title,
   );
 
-  factory BookTable.fromMap(Map<String, dynamic> map) => BookTable(
+  factory BookTableModel.fromMap(Map<String, dynamic> map) => BookTableModel(
     key: map['key'],
     title: map['title'],
   );

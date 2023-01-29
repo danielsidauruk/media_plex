@@ -4,14 +4,14 @@ import 'package:media_plex/core/utils/constants.dart';
 import 'package:media_plex/core/utils/exception.dart';
 import 'package:media_plex/media_plex/books/data/models/book_detail_model.dart';
 import 'package:media_plex/media_plex/books/data/models/book_popular_model.dart';
-import 'package:media_plex/media_plex/books/data/models/book_subject_model.dart';
-import 'package:media_plex/media_plex/books/data/models/search_model.dart';
+import 'package:media_plex/media_plex/books/data/models/book_by_subject_model.dart';
+import 'package:media_plex/media_plex/books/data/models/book_search_model.dart';
 
 abstract class BookRemoteDataSource {
-  Future<SearchModel> searchBook(String query);
+  Future<SearchTheBookModel> searchTheBook(String query);
   Future<BookDetailModel> getBookDetail(String key);
-  Future<PopularModel> getPopularBook(String dataSortQuery);
-  Future<BookSubjectModel> getSubjectBook(String subject);
+  Future<PopularBookModel> getPopularBooks(String dataSortQuery);
+  Future<BookBySubjectModel> getBookBySubject(String subject);
 }
 
 class BookRemoteDataSourceImpl implements BookRemoteDataSource {
@@ -22,7 +22,7 @@ class BookRemoteDataSourceImpl implements BookRemoteDataSource {
   @override
   Future<BookDetailModel> getBookDetail(String key) async {
     final response = await client.get(
-      Uri.parse(detailBook(key)),
+      Uri.parse(bookDetail(key)),
       headers: {'Content-Type': 'application/json'},
     );
 
@@ -34,42 +34,42 @@ class BookRemoteDataSourceImpl implements BookRemoteDataSource {
   }
 
   @override
-  Future<SearchModel> searchBook(String query) async {
+  Future<SearchTheBookModel> searchTheBook(String query) async {
     final response = await client.get(
-      Uri.parse(search(query)),
+      Uri.parse(searchTheBookBy(query)),
       headers: {'Content-Type': 'application/json'},
     );
 
     if (response.statusCode == 200) {
-      return SearchModel.fromJson(json.decode(response.body));
+      return SearchTheBookModel.fromJson(json.decode(response.body));
     } else {
       throw ServerException();
     }
   }
 
   @override
-  Future<PopularModel> getPopularBook(String dataSortQuery) async {
+  Future<PopularBookModel> getPopularBooks(String dataSortQuery) async {
     final response = await client.get(
-      Uri.parse(popularBook(dataSortQuery)),
+      Uri.parse(popularBooks(dataSortQuery)),
       headers: {'Content-Type': 'application/json'},
     );
 
     if (response.statusCode == 200) {
-      return PopularModel.fromJson(json.decode(response.body));
+      return PopularBookModel.fromJson(json.decode(response.body));
     } else {
       throw ServerException();
     }
   }
 
   @override
-  Future<BookSubjectModel> getSubjectBook(String subject) async {
+  Future<BookBySubjectModel> getBookBySubject(String subject) async {
     final response = await client.get(
-      Uri.parse(subjectBook(subject)),
+      Uri.parse(bookBySubject(subject)),
       headers: {'Content-Type': 'application/json'},
     );
 
     if (response.statusCode == 200) {
-      return BookSubjectModel.fromJson(json.decode(response.body));
+      return BookBySubjectModel.fromJson(json.decode(response.body));
     } else {
       throw ServerException();
     }

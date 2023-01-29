@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
-class BookSubject extends Equatable{
-  const BookSubject({
+class BooksBySubject extends Equatable{
+  const BooksBySubject({
     required this.key,
     required this.name,
     required this.subjectType,

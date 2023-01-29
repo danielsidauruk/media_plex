@@ -1,9 +1,7 @@
-import 'package:media_plex/media_plex/books/domain/entities/_book_type.dart';
+import 'package:media_plex/media_plex/books/data/models/book_search_model.dart';
 
-import '../../data/models/search_model.dart';
-
-class Search {
-  Search({
+class SearchTheBook {
+  SearchTheBook({
     required this.numFound,
     required this.start,
     required this.numFoundExact,

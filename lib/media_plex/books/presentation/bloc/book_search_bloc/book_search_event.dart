@@ -1,14 +1,14 @@
 part of 'book_search_bloc.dart';
 
-abstract class BookSearchEvent extends Equatable {
-  const BookSearchEvent();
+abstract class SearchTheBookEvent extends Equatable {
+  const SearchTheBookEvent();
 
   @override
   List<Object?> get props => [];
 }
 
-class SearchForBook extends BookSearchEvent {
-  const SearchForBook(this.query);
+class FetchSearchTheBook extends SearchTheBookEvent {
+  const FetchSearchTheBook(this.query);
   final String query;
 
   @override

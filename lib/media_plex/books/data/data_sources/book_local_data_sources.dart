@@ -3,10 +3,10 @@ import 'package:media_plex/media_plex/books/data/data_sources/database/book_data
 import 'package:media_plex/media_plex/books/data/models/book_table.dart';
 
 abstract class BookLocalDataSource {
-  Future<String> insertBookmark(BookTable book);
-  Future<String> removeBookmark(BookTable book);
-  Future<BookTable?> getBookByKey(String key);
-  Future<List<BookTable>> getBookmarkedBook();
+  Future<String> insertBookmark(BookTableModel book);
+  Future<String> removeBookmark(BookTableModel book);
+  Future<BookTableModel?> getBookByKey(String key);
+  Future<List<BookTableModel>> getBookmark();
 }
 
 class BookLocalDataSourceImpl implements BookLocalDataSource {
@@ -14,7 +14,7 @@ class BookLocalDataSourceImpl implements BookLocalDataSource {
   final BookDatabaseHelper databaseHelper;
 
   @override
-  Future<String> insertBookmark(BookTable book) async {
+  Future<String> insertBookmark(BookTableModel book) async {
     try {
       await databaseHelper.insertBookmark(book);
       return 'Bookmarked';
@@ -24,7 +24,7 @@ class BookLocalDataSourceImpl implements BookLocalDataSource {
   }
 
   @override
-  Future<String> removeBookmark(BookTable book) async {
+  Future<String> removeBookmark(BookTableModel book) async {
     try {
       await databaseHelper.removeBookmark(book);
       return 'unBookmarked';
@@ -34,18 +34,18 @@ class BookLocalDataSourceImpl implements BookLocalDataSource {
   }
 
   @override
-  Future<BookTable?> getBookByKey(String key) async {
+  Future<BookTableModel?> getBookByKey(String key) async {
     final result = await databaseHelper.getBookByKey(key);
     if (result != null) {
-      return BookTable.fromMap(result);
+      return BookTableModel.fromMap(result);
     } else {
       return null;
     }
   }
 
   @override
-  Future<List<BookTable>> getBookmarkedBook() async {
+  Future<List<BookTableModel>> getBookmark() async {
     final result = await databaseHelper.getBookmarkedBook();
-    return result.map((data) => BookTable.fromMap(data)).toList();
+    return result.map((data) => BookTableModel.fromMap(data)).toList();
   }
 }

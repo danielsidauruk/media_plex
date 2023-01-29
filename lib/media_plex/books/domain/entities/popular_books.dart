@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
-class Popular extends Equatable{
-  const Popular({
+class PopularBooks extends Equatable{
+  const PopularBooks({
     required this.query,
     required this.works,
     required this.days,

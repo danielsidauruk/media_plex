@@ -1,7 +1,7 @@
-import 'package:media_plex/media_plex/books/domain/entities/book_subject.dart';
+import 'package:media_plex/media_plex/books/domain/entities/books_by_subject.dart';
 
-class BookSubjectModel extends BookSubject {
-  const BookSubjectModel({
+class BookBySubjectModel extends BooksBySubject {
+  const BookBySubjectModel({
     required super.key,
     required super.name,
     required super.subjectType,
@@ -11,21 +11,13 @@ class BookSubjectModel extends BookSubject {
 
   final List<WorkModel> worksModel;
 
-  factory BookSubjectModel.fromJson(Map<String, dynamic> json) => BookSubjectModel(
+  factory BookBySubjectModel.fromJson(Map<String, dynamic> json) => BookBySubjectModel(
     key: json["key"],
     name: json["name"],
     subjectType: json["subject_type"],
     workCount: json["work_count"],
     worksModel: List<WorkModel>.from(json["works"].map((x) => WorkModel.fromJson(x))),
   );
-
-  Map<String, dynamic> toJson() => {
-    "key": key,
-    "name": name,
-    "subject_type": subjectType,
-    "work_count": workCount,
-    "works": List<dynamic>.from(worksModel.map((x) => x.toJson())),
-  };
 }
 
 class WorkModel extends Work {
@@ -68,25 +60,6 @@ class WorkModel extends Work {
     publicScan: json["public_scan"] ?? false,
     hasFulltext: json["has_fulltext"] ?? false,
   );
-
-  Map<String, dynamic> toJson() => {
-    "key": key,
-    "title": title,
-    "edition_count": editionCount,
-    "cover_id": coverId,
-    "cover_edition_key": coverEditionKey,
-    "subject": List<dynamic>.from(subject.map((x) => x)),
-    "ia_collection": List<dynamic>.from(iaCollection.map((x) => x)),
-    "lendinglibrary": lendinglibrary,
-    "printdisabled": printdisabled,
-    "lending_edition": lendingEdition,
-    "lending_identifier": lendingIdentifier,
-    "authors": List<dynamic>.from(authorsModel.map((x) => x.toJson())),
-    "first_publish_year": firstPublishYear,
-    "ia": ia,
-    "public_scan": publicScan,
-    "has_fulltext": hasFulltext,
-  };
 }
 
 class AuthorModel extends Author {
@@ -99,9 +72,4 @@ class AuthorModel extends Author {
     key: json["key"] ?? "",
     name: json["name"] ?? "",
   );
-
-  Map<String, dynamic> toJson() => {
-    "key": key,
-    "name": name,
-  };
 }

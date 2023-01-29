@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_plex/core/utils/constants.dart';
 import 'package:media_plex/core/utils/routes.dart';
-import 'package:media_plex/media_plex/books/domain/entities/book_subject.dart';
-import 'package:media_plex/media_plex/books/presentation/bloc/book_subject_bloc/book_subject_bloc.dart';
+import 'package:media_plex/media_plex/books/domain/entities/books_by_subject.dart';
+import 'package:media_plex/media_plex/books/presentation/bloc/book_by_subject_bloc/book_subject_bloc.dart';
 import 'package:media_plex/shared/presentation/widget/loading_animation.dart';
 import 'package:media_plex/shared/presentation/widget/total_text.dart';
 
-class BookSubjectPage extends StatelessWidget {
-  const BookSubjectPage({super.key, required this.title});
+class BookBySubjectPage extends StatelessWidget {
+  const BookBySubjectPage({super.key, required this.title});
   final String title;
 
   @override
@@ -40,16 +40,16 @@ class BookSubjectPage extends StatelessWidget {
           Expanded(
             child: Container(
               margin: const EdgeInsets.symmetric(vertical: 4.0),
-              child: BlocBuilder<BookSubjectBloc, BookSubjectState>(
+              child: BlocBuilder<BookBySubjectBloc, BookBySubjectState>(
                 builder: (context, state) {
-                  if (state is SubjectEmpty) {
+                  if (state is BookBySubjectEmpty) {
                     return const Center();
-                  } else if (state is SubjectLoading) {
+                  } else if (state is BookBySubjectLoading) {
                     return const LoadingAnimation();
-                  } else if (state is SubjectLoaded) {
+                  } else if (state is BookBySubjectLoaded) {
                     final books = state.subject.works;
                     return bookList(books, context);
-                  } else if (state is SubjectError) {
+                  } else if (state is BookBySubjectError) {
                     return Text(state.message);
                   }
                   return const SizedBox.shrink();

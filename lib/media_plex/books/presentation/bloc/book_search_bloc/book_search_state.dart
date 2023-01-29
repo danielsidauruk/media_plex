@@ -1,26 +1,26 @@
 part of 'book_search_bloc.dart';
 
-abstract class BookSearchState extends Equatable {
-  const BookSearchState();
+abstract class SearchTheBookState extends Equatable {
+  const SearchTheBookState();
 
   @override
   List<Object> get props => [];
 }
 
-class BookSearchEmpty extends BookSearchState {}
+class SearchTheBookEmpty extends SearchTheBookState {}
 
-class BookSearchLoading extends BookSearchState {}
+class SearchTheBookLoading extends SearchTheBookState {}
 
-class BookSearchLoaded extends BookSearchState {
-  const BookSearchLoaded({required this.result});
-  final Search result;
+class SearchTheBookLoaded extends SearchTheBookState {
+  const SearchTheBookLoaded({required this.result});
+  final SearchTheBook result;
 
   @override
   List<Object> get props => [result];
 }
 
-class BookSearchError extends BookSearchState {
-  const BookSearchError ({required this.message});
+class SearchTheBookError extends SearchTheBookState {
+  const SearchTheBookError ({required this.message});
   final String message;
 
   @override

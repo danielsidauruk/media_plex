@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_plex/core/utils/constants.dart';
 import 'package:media_plex/core/utils/routes.dart';
-import 'package:media_plex/media_plex/books/domain/entities/book_search.dart';
+import 'package:media_plex/media_plex/books/domain/entities/search_the_book.dart';
 import 'package:media_plex/media_plex/books/presentation/bloc/book_search_bloc/book_search_bloc.dart';
 import 'package:media_plex/shared/presentation/widget/loading_animation.dart';
 import 'package:media_plex/shared/presentation/widget/total_text.dart';
@@ -63,10 +63,10 @@ class BookSearchPage extends StatelessWidget {
       child: TextField(
         onChanged: (query) =>
         query != "" ?
-        BlocProvider.of<BookSearchBloc>(context, listen: false)
-            .add(SearchForBook(query)) :
-        BlocProvider.of<BookSearchBloc>(context, listen: false)
-            .add(const SearchForBook("")),
+        BlocProvider.of<SearchTheBookBloc>(context, listen: false)
+            .add(FetchSearchTheBook(query)) :
+        BlocProvider.of<SearchTheBookBloc>(context, listen: false)
+            .add(const FetchSearchTheBook("")),
         style: const TextStyle(),
         decoration: null,
       ),
@@ -75,16 +75,16 @@ class BookSearchPage extends StatelessWidget {
 
   Expanded buildBloc() {
     return Expanded(
-      child: BlocBuilder<BookSearchBloc, BookSearchState>(
+      child: BlocBuilder<SearchTheBookBloc, SearchTheBookState>(
         builder: (context, state) {
-          if (state is BookSearchEmpty) {
+          if (state is SearchTheBookEmpty) {
             return const Center();
-          } else if (state is BookSearchLoading) {
+          } else if (state is SearchTheBookLoading) {
             return const LoadingAnimation();
-          } else if (state is BookSearchLoaded) {
+          } else if (state is SearchTheBookLoaded) {
             final books = state.result.docs;
             return searchResult(books, state, context);
-          } else if (state is BookSearchError) {
+          } else if (state is SearchTheBookError) {
             if (kDebugMode) {
               print(state.message);
             }
@@ -98,7 +98,7 @@ class BookSearchPage extends StatelessWidget {
     );
   }
 
-  Column searchResult(List<Doc> books, BookSearchLoaded state, context) {
+  Column searchResult(List<Doc> books, SearchTheBookLoaded state, context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

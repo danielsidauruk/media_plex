@@ -1,7 +1,7 @@
-import 'package:media_plex/media_plex/books/domain/entities/book_popular.dart';
+import 'package:media_plex/media_plex/books/domain/entities/popular_books.dart';
 
-class PopularModel extends Popular {
-  const PopularModel({
+class PopularBookModel extends PopularBooks {
+  const PopularBookModel({
     required super.query,
     required this.worksModel,
     required super.days,
@@ -10,19 +10,12 @@ class PopularModel extends Popular {
 
   final List<WorkModel> worksModel;
 
-  factory PopularModel.fromJson(Map<String, dynamic> json) => PopularModel(
+  factory PopularBookModel.fromJson(Map<String, dynamic> json) => PopularBookModel(
     query: json["query"],
     worksModel: List<WorkModel>.from(json["works"].map((x) => WorkModel.fromJson(x))),
     days: json["days"],
     hours: json["hours"],
   );
-
-  Map<String, dynamic> toJson() => {
-    "query": query,
-    "works": List<dynamic>.from(worksModel.map((x) => x.toJson())),
-    "days": days,
-    "hours": hours,
-  };
 }
 
 class WorkModel extends Work {
@@ -73,29 +66,6 @@ class WorkModel extends Work {
     idProjectGutenberg: List<String>.from(json["id_project_gutenberg"]?.map((x) => x) ?? []),
     idStandardEbooks: List<String>.from(json["id_standard_ebooks"]?.map((x) => x) ?? []),
   );
-
-  Map<String, dynamic> toJson() => {
-    "key": key,
-    "title": title,
-    "edition_count": editionCount,
-    "first_publish_year": firstPublishYear,
-    "has_fulltext": hasFulltext,
-    "public_scan_b": publicScanB,
-    "cover_edition_key": coverEditionKey,
-    "cover_i": coverI,
-    "language": List<dynamic>.from(language.map((x) => x)),
-    "author_key": List<dynamic>.from(authorKey.map((x) => x)),
-    "author_name": List<dynamic>.from(authorName.map((x) => x)),
-    "ia": List<dynamic>.from(ia.map((x) => x)),
-    "ia_collection_s": iaCollectionS,
-    "lending_edition_s": lendingEditionS,
-    "lending_identifier_s": lendingIdentifierS,
-    "availability": availabilityModel.toJson(),
-    "subtitle": subtitle,
-    "id_librivox": List<dynamic>.from(idLibrivox.map((x) => x)),
-    "id_project_gutenberg": List<dynamic>.from(idProjectGutenberg.map((x) => x)),
-    "id_standard_ebooks": List<dynamic>.from(idStandardEbooks.map((x) => x)),
-  };
 }
 
 class AvailabilityModel extends Availability {
@@ -144,29 +114,6 @@ class AvailabilityModel extends Availability {
     src: srcValues.map[json["__src__"]] ?? Src.CORE_MODELS_LENDING_GET_AVAILABILITY,
     errorMessage: json["error_message"] ?? "",
   );
-
-  Map<String, dynamic> toJson() => {
-    "status": statusValues.reverse[status],
-    "available_to_browse": availableToBrowse,
-    "available_to_borrow": availableToBorrow,
-    "available_to_waitlist": availableToWaitlist,
-    "is_printdisabled": isPrintdisabled,
-    "is_readable": isReadable,
-    "is_lendable": isLendable,
-    "is_previewable": isPreviewable,
-    "identifier": identifier,
-    "isbn": isbn,
-    "oclc": oclc,
-    "openlibrary_work": openlibraryWork,
-    "openlibrary_edition": openlibraryEdition,
-    "last_loan_date": lastLoanDate.toIso8601String(),
-    "num_waitlist": numWaitlist,
-    "last_waitlist_date": lastWaitlistDate.toIso8601String(),
-    "is_restricted": isRestricted,
-    "is_browseable": isBrowseable,
-    "__src__": srcValues.reverse[src],
-    "error_message": errorMessage,
-  };
 }
 
 final srcValues = EnumValues({

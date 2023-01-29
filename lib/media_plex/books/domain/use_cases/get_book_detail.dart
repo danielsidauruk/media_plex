@@ -5,10 +5,10 @@ import 'package:media_plex/media_plex/books/domain/entities/book_detail.dart';
 import 'package:media_plex/media_plex/books/domain/repositories/books_repository.dart';
 import 'package:media_plex/shared/domain/use_cases/use_case.dart';
 
-class GetBookDetails extends UseCase<BookDetail, Params> {
+class GetBookDetail extends UseCase<BookDetail, Params> {
   BookRepository repository;
 
-  GetBookDetails({required this.repository});
+  GetBookDetail({required this.repository});
 
   @override
   Future<Either<Failure, BookDetail>> call(Params params) async {

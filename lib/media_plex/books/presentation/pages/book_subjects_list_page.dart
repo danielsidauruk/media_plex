@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_plex/core/utils/routes.dart';
-import 'package:media_plex/media_plex/books/presentation/bloc/book_subject_bloc/book_subject_bloc.dart';
+import 'package:media_plex/media_plex/books/presentation/bloc/book_by_subject_bloc/book_subject_bloc.dart';
 import 'package:media_plex/shared/presentation/widget/total_text.dart';
 
-class BookSubjectsListPage extends StatelessWidget {
-  const BookSubjectsListPage({
+class SubjectsListPage extends StatelessWidget {
+  const SubjectsListPage({
     super.key,
     required this.subject,
     required this.icon,
@@ -59,8 +59,8 @@ class BookSubjectsListPage extends StatelessWidget {
                   return InkWell(
                     onTap: () {
                       Navigator.pushNamed(context, bookSubjectRoute, arguments: list[index]);
-                      BlocProvider.of<BookSubjectBloc>(context, listen: false)
-                          .add(GetForBookSubject(listKey[index]));
+                      BlocProvider.of<BookBySubjectBloc>(context, listen: false)
+                          .add(FetchBookBySubject(listKey[index]));
                     },
                     child: Container(
                       padding: const EdgeInsets.all(8.0),

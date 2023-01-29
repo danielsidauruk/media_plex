@@ -12,7 +12,7 @@ part 'bookmark_state.dart';
 
 class BookmarkBloc extends Bloc<BookmarkEvent, BookmarkState> {
 
-  final GetBookMarkedBook getBookMarkedBook;
+  final GetBookMark getBookMarkedBook;
   final GetBookmarkStatus getBookmarkStatus;
   final SaveBookmark saveBookmark;
   final RemoveBookmark removeBookmark;
