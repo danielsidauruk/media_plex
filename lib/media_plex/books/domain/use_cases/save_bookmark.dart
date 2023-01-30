@@ -11,7 +11,7 @@ class SaveBookmark extends UseCase<String, SaveParams>{
 
   @override
   Future<Either<Failure, String>> call(SaveParams params) {
-    return repository.removeFromBookmark(params.bookDetail);
+    return repository.saveToBookmark(params.bookDetail);
   }
 }
 
