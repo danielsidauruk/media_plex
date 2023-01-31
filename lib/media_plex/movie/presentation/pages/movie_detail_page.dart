@@ -221,7 +221,6 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
             }
           },
           child: Container(
-            width: 110,
             alignment: Alignment.center,
             padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 8.0),
             decoration: BoxDecoration(

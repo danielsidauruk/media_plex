@@ -8,7 +8,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../../../dummy_object.dart';
-import 'movie_now_playing_bloc_test.mocks.dart';
+import 'now_playing_movies_bloc_test.mocks.dart';
 
 @GenerateMocks([GetNowPlayingMovies])
 void main() {
