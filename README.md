@@ -2,6 +2,9 @@
 
 # MEDIA PLEX
 
+## Quick Start
+This projects is built following the principles of Clean Architecture and utilizing the BLoC pattern for separation of business logic and user interface. It features three main sections: a book list, a movie list, and a TV series list, all under the name "Media Plex".
+
 ## API Doc
 https://openlibrary.org</br>
 https://themoviedb.org
