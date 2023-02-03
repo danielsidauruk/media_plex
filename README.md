@@ -18,17 +18,11 @@ https://themoviedb.org
 
 <p align="left">
 <img src = "https://user-images.githubusercontent.com/64315754/216552506-08286258-6950-46df-bffd-e527dd116cb5.png" width="220" style="padding-right: 100px;">
-
 <img src = "https://user-images.githubusercontent.com/64315754/216553235-d984dcc6-8803-43bf-9ffd-05438dac8b08.png" width="220" style="padding-right: 200px;">
-
 <img src = "https://user-images.githubusercontent.com/64315754/216554919-be44746b-81f2-45c8-a27d-8f5ea24eca36.png" width="220" style="padding-right: 100px;">
-
 <img src = "https://user-images.githubusercontent.com/64315754/216555263-689f014d-8929-456d-ab02-f81b65a63e67.png" width="220" style="padding-right: 100px;">
-
 <img src = "https://user-images.githubusercontent.com/64315754/216555432-8d9fd989-87c6-4a08-93a5-6ffe1cdd0e4f.png" width="220" style="padding-right: 100px;">
-
 <img src = "https://user-images.githubusercontent.com/64315754/216555573-3267b2f5-a7e1-4a60-9f08-bb8af123d3c3.png" width="220" style="padding-right: 100px;">
-
 <img src = "https://user-images.githubusercontent.com/64315754/216555677-6d05c8be-10e7-4f89-9b05-c56a349d43ac.png" width="220" style="padding-right: 100px;">
 </p>
 
