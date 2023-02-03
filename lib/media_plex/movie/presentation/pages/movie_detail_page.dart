@@ -9,6 +9,7 @@ import 'package:media_plex/media_plex/movie/presentation/bloc/movie_detail_bloc/
 import 'package:media_plex/media_plex/movie/presentation/bloc/movie_recommendations_bloc/movie_recommendations_bloc.dart';
 import 'package:media_plex/media_plex/movie/presentation/bloc/movie_watchlist_bloc/movie_watchlist_bloc.dart';
 import 'package:media_plex/shared/domain/entities/genre.dart';
+import 'package:media_plex/shared/presentation/widget/detail_animation.dart';
 import 'package:media_plex/shared/presentation/widget/horizontal_loading_animation.dart';
 
 class MovieDetailPage extends StatefulWidget {
@@ -221,20 +222,22 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
             }
           },
           child: Container(
-            alignment: Alignment.center,
             padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 8.0),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8.0),
               border: Border.all(color: Colors.white),
             ),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 if (state is WatchlistHasData)
                   if (state.isAdded == false)
                     const Icon(Icons.add)
                   else if (state.isAdded == true)
                     const Icon(Icons.check),
+
+                const SizedBox(width: 2),
+
                 const Text(
                   'Watchlist',
                   style: TextStyle(fontWeight: FontWeight.bold),
@@ -323,40 +326,5 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
     } else {
       return '${minutes}m';
     }
-  }
-}
-
-class DetailLoadingAnimation extends StatelessWidget {
-  const DetailLoadingAnimation({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          width: double.infinity,
-          height: double.infinity,
-          color: Colors.grey,
-        ),
-
-        Container(
-          margin: const EdgeInsets.only(top: 48 + 8),
-          child: DraggableScrollableSheet(
-            builder: (context, scrollController) {
-              return Container(
-                decoration: const BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(16),
-                  ),
-                ),
-              );
-            },
-          ),
-        ),
-      ],
-    );
   }
 }

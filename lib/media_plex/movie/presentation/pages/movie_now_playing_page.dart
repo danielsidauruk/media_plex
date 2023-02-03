@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_plex/media_plex/movie/presentation/bloc/now_playing_movies_bloc/now_playing_movies_bloc.dart';
-import 'package:media_plex/media_plex/movie/presentation/bloc/popular_movies_bloc/movie_popular_bloc.dart';
 import 'package:media_plex/media_plex/movie/presentation/widgets/movie_list.dart';
 import 'package:media_plex/shared/presentation/widget/loading_animation.dart';
 
@@ -17,8 +16,8 @@ class _NowPlayingMoviesPageState extends State<NowPlayingMoviesPage> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<PopularMoviesBloc>(context, listen: false)
-        .add(FetchPopularMovies());
+    BlocProvider.of<NowPlayingMoviesBloc>(context, listen: false)
+        .add(FetchNowPlayingMovies());
   }
 
   @override

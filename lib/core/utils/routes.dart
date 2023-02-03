@@ -1,6 +1,3 @@
-// about Route
-const aboutRoute = 'about-page';
-
 // home page
 const homeRoute = '/homeRoute';
 

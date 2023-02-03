@@ -11,7 +11,6 @@ import 'package:media_plex/dependency_injection.dart' as di;
 import 'package:media_plex/media_plex/books/presentation/bloc/book_detail_bloc/book_detail_bloc.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_home_page.dart';
 import 'package:media_plex/media_plex/books/presentation/pages/book_by_subject_page.dart';
-import 'package:media_plex/media_plex/movie/domain/usecases/search_the_movies.dart';
 import 'package:media_plex/media_plex/movie/presentation/bloc/now_playing_movies_bloc/now_playing_movies_bloc.dart';
 import 'package:media_plex/media_plex/movie/presentation/bloc/popular_movies_bloc/movie_popular_bloc.dart';
 import 'package:media_plex/media_plex/movie/presentation/bloc/search_the_movie_bloc/search_the_movie_bloc.dart';

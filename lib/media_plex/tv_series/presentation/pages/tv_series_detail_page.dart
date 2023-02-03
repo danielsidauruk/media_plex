@@ -3,12 +3,12 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:media_plex/core/utils/routes.dart';
-import 'package:media_plex/media_plex/movie/presentation/pages/movie_detail_page.dart';
 import 'package:media_plex/media_plex/tv_series/presentation/bloc/tv_series_detail_bloc/tv_series_detail_bloc.dart';
 import 'package:media_plex/media_plex/tv_series/presentation/bloc/tv_series_recommendation_bloc/tv_series_recommendation_bloc.dart';
 import 'package:media_plex/media_plex/tv_series/presentation/bloc/tv_series_watchlist_bloc/tv_series_watchlist_bloc.dart';
 import 'package:media_plex/media_plex/tv_series/presentation/widgets/season_card_list.dart';
 import 'package:media_plex/shared/domain/entities/genre.dart';
+import 'package:media_plex/shared/presentation/widget/detail_animation.dart';
 
 class TVSeriesDetailPage extends StatefulWidget {
   const TVSeriesDetailPage({super.key, required this.id});
