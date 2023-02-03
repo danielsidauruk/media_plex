@@ -27,7 +27,7 @@ class _TopRatedTVSeriesPageState extends State<TopRatedTVSeriesPage> {
         backgroundColor: Colors.transparent,
         elevation: 0.0,
         title: Text(
-          'On Air TV Series',
+          'Top Rated TV Series',
           style: Theme.of(context).textTheme.bodyText1
               ?.copyWith(
             fontWeight: FontWeight.bold,

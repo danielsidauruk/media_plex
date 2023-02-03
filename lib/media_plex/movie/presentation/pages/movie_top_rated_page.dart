@@ -26,7 +26,7 @@ class _TopRatedMoviesPageState extends State<TopRatedMoviesPage> {
         backgroundColor: Colors.transparent,
         elevation: 0.0,
         title: Text(
-          'Now Playing Movies',
+          'Top Rated Movies',
           style: Theme.of(context).textTheme.bodyText1
               ?.copyWith(
             fontWeight: FontWeight.bold,

@@ -73,7 +73,7 @@ class HomePage extends StatelessWidget {
             homeTile(
               context,
                   () => Navigator.pushNamed(context, tvSeriesHomeRoute),
-              'Series',
+              'TV Series',
               const Icon(Icons.arrow_forward),
               'assets/images/tv_icon.png',
               'Here you can find all the information about your favorite TV shows.',
