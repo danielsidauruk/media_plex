@@ -3,5 +3,5 @@
 # MEDIA PLEX
 
 ## API Doc
-<br>https://openlibrary.org</br>
-<br>https://themoviedb.org</br>
+https://openlibrary.org</br>
+https://themoviedb.org
