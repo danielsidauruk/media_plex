@@ -2,4 +2,5 @@
 
 # MEDIA PLEX
 
-MEDIA PLEX is an entertainment solution, built using Flutter to cater to all your leisure needs. With three key features, displaying a list of books, movies, and TV series, this app boasts an intuitive and user-friendly interface. Effortlessly browse and select your desired content for a delightful and convenient entertainment experience. Choose Media Plex as your one-stop leisure hub.
+## Quick Start
+This application utilizes [https://openlibrary.org & https://themoviedb.org] as its source of media content.
