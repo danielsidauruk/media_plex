@@ -8,3 +8,10 @@ This projects is built following the principles of Clean Architecture and utiliz
 ## API Doc
 https://openlibrary.org</br>
 https://themoviedb.org
+
+## Preview
+### Home Page
+<img src="https://user-images.githubusercontent.com/64315754/216546837-10369deb-623b-4b3a-be2b-4b84d5f1e02f.png" width="250">
+
+
+### Book
