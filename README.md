@@ -2,5 +2,6 @@
 
 # MEDIA PLEX
 
-## Quick Start
-This application utilizes [https://openlibrary.org & https://themoviedb.org] as its source of media content.
+## API Doc
+https://openlibrary.org
+https://themoviedb.org
