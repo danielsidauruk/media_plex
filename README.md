@@ -1,3 +1,3 @@
-# media_plex
-
 [![Codemagic build status](https://api.codemagic.io/apps/63dcb533814c5d9f76fc937c/63dcb533814c5d9f76fc937b/status_badge.svg)](https://codemagic.io/apps/63dcb533814c5d9f76fc937c/63dcb533814c5d9f76fc937b/latest_build)
+
+# media_plex
