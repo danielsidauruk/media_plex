@@ -45,3 +45,5 @@ https://themoviedb.org
 <img src = "https://user-images.githubusercontent.com/64315754/216556201-ca27dc5f-7fd0-4f1f-93f9-f7ada2fd5317.png" width="220" style="padding-right: 100px;">
 <img src = "https://user-images.githubusercontent.com/64315754/216556215-94adee44-1493-4cba-9c25-836a3d23a743.png" width="220" style="padding-right: 100px;">
 </p>
+
+## License
