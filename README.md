@@ -9,6 +9,27 @@ This projects is built following the principles of Clean Architecture and utiliz
 https://openlibrary.org</br>
 https://themoviedb.org
 
+## License
+```
+MIT License
+
+Copyright (c) 2023 Daniel Sidauruk
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
+documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
+the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, 
+and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions 
+of the Software. 
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING 
+BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER 
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE 
+OR OTHER DEALINGS IN THE SOFTWARE.
+```
+
 ## Preview
 ### Home Page
 <img src = "https://user-images.githubusercontent.com/64315754/216556301-695cc372-cc01-40fc-9160-0bbd64174a13.png" width="220" alt="Home Page">
@@ -45,16 +66,3 @@ https://themoviedb.org
 <img src = "https://user-images.githubusercontent.com/64315754/216556201-ca27dc5f-7fd0-4f1f-93f9-f7ada2fd5317.png" width="220" style="padding-right: 100px;">
 <img src = "https://user-images.githubusercontent.com/64315754/216556215-94adee44-1493-4cba-9c25-836a3d23a743.png" width="220" style="padding-right: 100px;">
 </p>
-
-## License
-```
-MIT License
-
-Copyright (c) 2023 Daniel Sidauruk
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-```
